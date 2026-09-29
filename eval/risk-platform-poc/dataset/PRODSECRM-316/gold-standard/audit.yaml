@@ -1,0 +1,10 @@
+audit_generated_at: '2026-09-10T17:53:43Z'
+audit_posted: true
+jira_comment_id: '18395359'
+jira_posted_at: '2026-09-10T17:53:43Z'
+analyst_action: approve
+analyst_name: Aleksandra Haklik
+jira_error: null
+comment_size_chars: 2068
+quality_gate_overrides:
+- 'Conditional Acceptance Prerequisite #1 (ART-14748 target date): overridden 2026-09-10'

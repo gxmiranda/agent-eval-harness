@@ -1,0 +1,11 @@
+audit_generated_at: "2026-09-07T10:16:58Z"
+audit_posted: true
+jira_comment_id: "18328425"
+jira_posted_at: "2026-09-07T10:34:37Z"
+analyst_action: "approve"
+analyst_name: "Aleksandra Haklik"
+jira_error: null
+comment_size_chars: 3711
+quality_gate_overrides: []
+comment_updated_at: "2026-09-07T10:43:11Z"
+comment_update_reason: "Reformatted Jira comment using Jira wiki markup modeled on PRODSECRM-306 and populated key findings, business significance, mitigations, and PSRR assessment."

@@ -1,0 +1,167 @@
+Source: intelligence.json (depth 3/3, 30 issues visited)
+
+=== ROOT ISSUE ===
+
+Key: PRODSECRM-312
+Summary: Add trusted third-party RPM signature verification keys to Conforma's global allowed_list (Mellanox, Habanalabs/Intel, CentOS, Intel OpenVINO, Fedora/EPEL)
+Status: New
+Priority: Undefined
+Issue Type: Risk
+Assignee: Marek Baluch
+Reporter: Florencio Cano Gabarda
+Labels: (none)
+Components: (none)
+Custom Fields: Risk Probability = "Very Likely"
+Created: 2026-09-07
+Comments: 0
+[Description omitted per Safety Rule 11 -- PRODSECRM project]
+
+=== LINKED ISSUES (depth 1) ===
+
+--- PSX-1098 ---
+Link Type: referenced in description
+Summary: [Intel] [Conforma Exception] rpm_signature.allowed:28da432daac8baea - rhoai-2.25 - Long-standing Intel RPM signing key exception - rhoai-2.25/3.3/3.4
+Status: New | Priority: Normal | Type: PSRD Exception | Assignee: (unassigned)
+Labels: conforma-exception-ai-skill, conforma-exception-create-ai-skill, conforma-violation
+Comments (4):
+  [2026-06-03] Waldemar Znoinski: Conforma exception MR created (MR !18628).
+  [2026-06-17] Aleksandra Haklik: PSX register audit -- ticket confirmed still active. Blocked by open RHOAIENG-38388 legal agreement work.
+  [2026-06-17] Aleksandra Haklik: Tagged reporter for review of audit assessment.
+  [2026-06-17] Aleksandra Haklik: Added Austin Kimbrell for visibility on Conforma exception.
+Links: is related to RHAISTRAT-576; is blocked by RHOAIENG-38388 (Intel legals)
+
+--- PSX-1099 ---
+Link Type: referenced in description
+Summary: [Mellanox] [Conforma Exception] rpm_signature.allowed:a024f6f0e6d6a281 - rhoai-2.25, rhoai-3.3, rhoai-3.4, rhoai-3.5-ea.1 - Mellanox RPM signing key exception (consolidated)
+Status: New | Priority: Normal | Type: PSRD Exception | Assignee: (unassigned)
+Labels: conforma-exception-ai-skill, conforma-exception-create-ai-skill, conforma-violation
+Comments (8):
+  [2026-05-26] Waldemar Znoinski: Multiple Conforma exception MRs created (MRs !18281-!18284).
+  [2026-06-03] Waldemar Znoinski: Additional Conforma exception MR created (MR !18639).
+  [2026-06-17] Aleksandra Haklik: PSX register audit -- ticket confirmed still active. Blocked by open RHOAIENG-38398 legal agreement work.
+  [2026-06-17] Aleksandra Haklik: Tagged reporter for review. Added Austin Kimbrell for visibility.
+Links: is related to RHAISTRAT-576; is blocked by RHOAIENG-38398 (Mellanox legals -- Closed/Done)
+
+--- PSX-1101 ---
+Link Type: referenced in description
+Summary: [Fedora/EPEL] [Conforma Exception] rpm_signature.allowed:8a3872bf3228467c - rhoai-2.25,rhoai-3.3,rhoai-3.4,rhoai-3.5-ea.1 - Fedora/EPEL RPM signing key exception
+Status: New | Priority: Normal | Type: PSRD Exception | Assignee: (unassigned)
+Labels: conforma-exception-ai-skill, conforma-exception-create-ai-skill, conforma-violation
+Comments (15):
+  [2026-05-26] Waldemar Znoinski: Multiple Conforma exception MRs created (MRs !18288-!18291, multiple submissions).
+  [2026-06-03] Waldemar Znoinski: Additional Conforma exception MR created (MR !18640).
+  [2026-06-17] Aleksandra Haklik: PSX register audit -- ticket confirmed still active. Blocked by open RHOAIENG-38389 legal agreement work.
+  [2026-06-17] Aleksandra Haklik: Tagged reporter for review. Added Austin Kimbrell for visibility.
+Links: is related to PSX-1042; is blocked by RHOAIENG-38389 (Fedora/EPEL legals)
+
+--- PSX-1106 ---
+Link Type: referenced in description
+Summary: [Habanalabs(Intel)] [Conforma Exception] rpm_signature.allowed:910ea37ba2d18d0c - rhoai-2.25,rhoai-3.3 - Habanalabs/Intel RPM signing key - legal agreements being tracked
+Status: New | Priority: Normal | Type: PSRD Exception | Assignee: (unassigned)
+Labels: conforma-exception-ai-skill, conforma-violation
+Comments (4):
+  [2026-05-27] Waldemar Znoinski: Conforma exception MR created (MR !18328).
+  [2026-06-17] Aleksandra Haklik: PSX register audit -- ticket confirmed still active. RHOAIENG-38427 legal agreement work still open.
+  [2026-06-17] Aleksandra Haklik: Tagged reporter for review. Added Austin Kimbrell for visibility.
+Links: is related to RHOAIENG-38427 (Habanalabs legals)
+
+--- PSX-1110 ---
+Link Type: referenced in description
+Summary: [CentOS] [Conforma Exception] rpm_signature.allowed:05b555b38483c65d - rhoai-2.25,rhoai-3.3,rhoai-3.4,rhoai-3.5-ea.1 - CentOS RPM signing key exception
+Status: New | Priority: Normal | Type: PSRD Exception | Assignee: (unassigned)
+Labels: conforma-exception-ai-skill, conforma-violation
+Comments (4):
+  [2026-06-03] Waldemar Znoinski: Consolidated Conforma exception MR created (MR !18641) covering all 4 RHOAI versions.
+  [2026-06-17] Aleksandra Haklik: PSX register audit -- ticket confirmed still active. RHOAIENG-38387 legal agreement work still open.
+  [2026-06-17] Aleksandra Haklik: Tagged reporter for review. Added Austin Kimbrell for visibility.
+Links: is related to RHOAIENG-38387 (CentOS legals)
+
+=== KEY DEPTH-2 ISSUES (strategic context) ===
+
+--- RHAISTRAT-576 ---
+Summary: AI Platform -- Third-Party Content Compliance & Release Requirements
+Status: Refinement | Priority: Critical | Type: Feature
+Assignee: Waldemar Znoinski
+Labels: aipcc-reviewed | Components: Build and Release, DevOps
+Comments: 7
+Links (19 total): blocks/relates to all PSX exception tickets, all RHOAIENG legal agreement epics, all AIPCC sourcing epics
+
+--- RHOAIENG-38388 (Intel legals) ---
+Summary: (Intel) Legals for Intel RPM packages signed with 28da432daac8baea
+Status: In Progress | Priority: Blocker | Type: Epic
+Assignee: Waldemar Znoinski
+Comments: 2
+
+--- RHOAIENG-38398 (Mellanox legals) ---
+Summary: (Mellanox) Legals for Mellanox RPM packages signed with a024f6f0e6d6a281
+Status: Closed | Resolution: Done | Priority: Blocker | Type: Epic
+Assignee: Waldemar Znoinski
+Comments: 6
+
+--- RHOAIENG-38389 (Fedora/EPEL legals) ---
+Summary: (Fedora/EPEL) Legals for Fedora/EPEL RPM packages signed with 8a3872bf3228467c
+Status: In Progress | Priority: Blocker | Type: Epic
+Assignee: Waldemar Znoinski
+Comments: 12
+
+--- RHOAIENG-38427 (Habanalabs legals) ---
+Summary: (Habanalabs) Legals for Habanalabs RPM packages signed with 910ea37ba2d18d0c
+Status: In Progress | Priority: Blocker | Type: Epic
+Assignee: Waldemar Znoinski
+Comments: 2
+
+--- RHOAIENG-38387 (CentOS legals) ---
+Summary: (CentOS) Legals for CentOS RPM packages signed with 05b555b38483c65d
+Status: In Progress | Priority: Blocker | Type: Epic
+Assignee: Waldemar Znoinski
+Comments: 4
+
+=== KEY DEPTH-3 ISSUES (AIPCC sourcing and legal completion) ===
+
+--- AIPCC-16754 (CentOS sourcing) ---
+Summary: AIPCC to provide 3rd party RPMs - Centos packages RHOAI needs
+Status: Closed | Resolution: Won't Do | Comments: 2
+
+--- AIPCC-16766 (Fedora/EPEL sourcing) ---
+Summary: AIPCC to provide 3rd party RPMs - Fedora/EPEL packages RHOAI needs
+Status: Closed | Resolution: Won't Do | Comments: 11
+
+--- AIPCC-16830 (Mellanox sourcing) ---
+Summary: AIPCC to provide 3rd party RPMs - Mellanox packages RHOAI needs
+Status: Closed | Resolution: Won't Do | Comments: 11
+
+--- AIPCC-16842 (NVIDIA sourcing) ---
+Summary: AIPCC to provide 3rd party RPMs - NVIDIA packages RHOAI needs
+Status: Closed | Resolution: Done | Assignee: Lance Barto | Comments: 7
+
+--- AIPCC-16988 (AMD sourcing) ---
+Summary: AIPCC to provide 3rd party RPMs - AMD packages RHOAI needs
+Status: Closed | Resolution: Done | Assignee: Lance Barto | Comments: 6
+
+--- RHOAIENG-38426 (AMD legals) ---
+Summary: (AMD) Legals for AMD RPM packages signed with 9386b48a1a693c5c
+Status: Resolved | Resolution: Done | Comments: 7
+
+--- RHOAIENG-38414 (NVIDIA legals) ---
+Summary: (NVIDIA) Legals for NVIDIA RPM packages signed with 9cd0a493d42d0685
+Status: In Progress | Priority: Major | Comments: 3
+
+--- RHOAIENG-42317 (3rd party RPM plan) ---
+Summary: 3rd party RPMs - create a plan (delegate to AIPCC, legal agreements etc.)
+Status: Closed | Resolution: Done | Comments: 1
+
+--- RHOAIENG-38497 (RPM usage spike) ---
+Summary: [SPIKE] Identify RPM usage for Build & Release Security & Compliance Review
+Status: Closed | Resolution: Done | Comments: 1
+
+--- PSX-1097 (AMD exception) ---
+Summary: [AMD] [Conforma Exception] rpm_signature.allowed:9386b48a1a693c5c - Long-standing AMD RPM signing key exception
+Status: New | Comments: 8
+
+--- PSX-1035 (Intel extension) ---
+Summary: request to extend exception for 28da432daac8baea intel RPMs for RHOAI-3.3 GA
+Status: Ready For Verification | Comments: 9
+
+--- RHOAIENG-51409 (Habanalabs vllm-gaudi) ---
+Summary: [conforma] 3rd party RPMs 910ea37ba2d18d0c (Habanalabs) used by vllm-gaudi
+Status: Closed | Resolution: Done | Comments: 4

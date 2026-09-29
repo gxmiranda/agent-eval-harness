@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "schema_version": "1.1.0",
+    "root_issue": "PRODSECRM-304",
+    "gathered_at": "2026-09-02T13:02:31Z",
+    "depth_limit": 3,
+    "max_depth_reached": 0,
+    "issues_visited": 1,
+    "issues_skipped": 0,
+    "comments_total": 0,
+    "remote_links_total": 0,
+    "urls_extracted": 0,
+    "elapsed_seconds": 1.3,
+    "api_requests": 4,
+    "redacted_projects": [
+      "PRODSECRM",
+      "PSRR"
+    ]
+  },
+  "issues": {
+    "PRODSECRM-304": {
+      "depth": 0,
+      "project": "PRODSECRM",
+      "summary": "HuggingFace IBM Granite External Model Reference",
+      "status": "New",
+      "status_category": "new",
+      "priority": "Undefined",
+      "issue_type": "Risk",
+      "assignee": null,
+      "reporter": "Paula Wambui",
+      "labels": [],
+      "components": [],
+      "resolution": null,
+      "created": "2026-09-02T10:57:15.316+0000",
+      "updated": "2026-09-02T12:26:29.877+0000",
+      "fix_versions": [],
+      "fields": {
+        "customfield_10842": "Moderate",
+        "customfield_10642": "Unlikely",
+        "customfield_10517": "False",
+        "customfield_10836": 0.0
+      },
+      "comments": [],
+      "links": [],
+      "subtasks": [],
+      "parent": null,
+      "remote_links": [],
+      "extracted_urls": [],
+      "description": "Exception Title: HuggingFace IBM Granite External Model Reference\nException Type: Supply Chain Exception\nBusiness Unit: Portfolio and Delivery (PnD)\nProduct: Offline Knowledge Portal\nException Reason:\nThe application needs to consume IBM Granite model artifacts hosted in the ibm-granite HuggingFace organization. The existing RHEL AI Enterprise Contract Policies already allow specific HuggingFace organizations, including ibm-granite, through allowed_external_references, but those approvals are scoped to the RHEL AI release pipeline. This application requires its own Enterprise Contract Policy derived from registry-standard with an external reference allowance for the required IBM Granite model artifacts.\nRisk of Approving Exception:\nApproving the exception permits model artifacts to be retrieved from an external HuggingFace source rather than relying solely on internally controlled artifact sources. This introduces supply-chain risk, including the possibility that externally hosted model content could be modified, replaced, compromised, or contain malicious or vulnerable content. The risk is reduced by limiting the allowed external reference to the specific approved HuggingFace organization/model source and by using existing Enterprise Contract controls. Additional model scanning, such as the available pickle scanning capability, can also be used where applicable.\nImpact if Exception NOT Approved:\nWithout the exception, the application will not be able to retrieve and incorporate the required IBM Granite model through the approved build/release workflow. The team would need to identify an alternative model source or implement a different artifact distribution approach, resulting in additional engineering effort and potentially delaying development or release of the functionality that depends on the embedding model.\nProposed Remediation:\nhis one is important because the form expects a permanent resolution. I’d write:\nThe team will create and maintain a product-specific Enterprise Contract Policy derived from registry-standard, limiting allowed_external_references to the minimum required approved IBM Granite HuggingFace source. The team will also evaluate using the established RHEL AI model ingestion pattern, including controlled prefetching of model artifacts and available model security scanning. Before the exception expires, the team will review whether the external reference is still required and either transition to a fully approved supported model distribution mechanism or renew the exception with updated risk justification.\nApproving VP Email: bwalker@redhat.com\nException Expiration: 3/2/2027\nAdditional Watchers: mclayton@redhat.com, jowhite@redhat.com, jsprague@redhat.com\nRelated Risk Ticket: N/A"
+    }
+  },
+  "url_index": {
+    "google_sheets": [],
+    "google_docs": [],
+    "google_drive": [],
+    "confluence": [],
+    "jira_issue": [],
+    "gitlab_mr": [],
+    "gitlab_issue": [],
+    "bugzilla": [],
+    "other": []
+  },
+  "traversal_log": [
+    {
+      "key": "PRODSECRM-304",
+      "depth": 0,
+      "status": "ok",
+      "comments": 0,
+      "links_found": 0
+    }
+  ]
+}

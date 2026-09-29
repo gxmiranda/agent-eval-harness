@@ -1,0 +1,28 @@
+Source: intelligence.json (depth 0/3, 1 issues visited)
+
+Root Issue: PRODSECRM-304
+  Summary: HuggingFace IBM Granite External Model Reference
+  Status: New
+  Priority: Undefined
+  Issue Type: Risk
+  Assignee: (unassigned)
+  Reporter: Paula Wambui
+  Labels: (none)
+  Components: (none)
+  Resolution: (none)
+  Created: 2026-09-02T10:57:15Z
+  Updated: 2026-09-02T12:26:29Z
+  Custom Fields:
+    customfield_10842 (Impact): Moderate
+    customfield_10642 (Risk Probability): Unlikely
+    customfield_10517: False
+    customfield_10836: 0.0
+
+Comments: (none)
+
+Linked Issues: (none)
+
+Note: Intelligence.json is thin (depth 0 only, no linked issues traversed, no comments).
+The analysis references PRODSECRM-118, PRODSECRM-227, PRODSECRM-226, PRODSECRM-269,
+RHOKP-1744, RHOKP-1681, RHOKP-1801, RHOKP-1799 -- none of these were in the
+intelligence graph traversal.

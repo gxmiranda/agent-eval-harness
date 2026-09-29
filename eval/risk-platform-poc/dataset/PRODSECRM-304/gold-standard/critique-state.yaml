@@ -1,0 +1,46 @@
+round: 4
+consecutive_clean: 0
+total_challenges: 20
+resolved_challenges: 17
+severity_changes:
+  - "Medium -> High (Garth escalation, Round 0)"
+mode: "full (escalated from garth)"
+final_disposition: "MAX ROUNDS"
+convergence_trend: "10 -> 4 -> 4 -> 1 genuinely new per round"
+qc6_progression: "GENERIC (R1-R2) -> CONCRETE with qualification (R3-R4)"
+round_1_summary:
+  challenges_raised: 10
+  genuinely_new: 10
+  challenges_resolved: 4
+round_2_summary:
+  challenges_raised: 11
+  genuinely_new: 4
+  challenges_resolved_this_round: 7
+round_3_summary:
+  challenges_raised: 12
+  genuinely_new: 4
+  challenges_resolved_this_round: 5
+round_4_summary:
+  challenges_raised: 12
+  genuinely_new: 1
+  rephrased_from_prior: 11
+  challenges_resolved_this_round: 1
+  resolved_ids:
+    - R4-CHALLENGE-11  # RHOKP-1681 "updated" interpretation — softened language
+still_open:
+  - R1-CHALLENGE-4   # OKP team not consulted — structural
+  - R1-CHALLENGE-5   # OKP content domain — structural
+  - R1-CHALLENGE-6   # Weight poisoning citations — no WebSearch
+  - R2-CHALLENGE-5   # Downstream consumers — structural
+  - R2-CHALLENGE-6   # Ownership placeholders — structural
+  - R2-CHALLENGE-10  # RHEL AI precedent — needs policy details
+  - R3-CHALLENGE-8   # 5-month scanning evidence staleness
+  - R3-CHALLENGE-9   # CRA regulatory framework not loaded
+investigations_performed:
+  - "JIRA MCP: PRODSECRM-226 — hermetic building exception (different type from -227)"
+  - "JIRA MCP: PRODSECRM-227 — description verified, internalization quote confirmed"
+  - "JIRA MCP: PRODSECRM-118 — In Progress, Garth Mollett, 17 comments retrieved"
+  - "JIRA MCP: PRODSECRM-118 comments — Snyk bug confirmed April 2026 (Emily Fox/Florencio)"
+  - "JIRA MCP: PRODSECRM-269 — Resolved, remediation plan verified"
+  - "JIRA MCP: RHOKP-1681 — To Do, Jared Sprague, updated 2026-08-31"
+  - "JIRA MCP: RHOKP-1744 — Closed, Michael Clayton, summary does not confirm model name"

@@ -1,0 +1,49 @@
+adversarial_disposition: MAX ROUNDS
+adversarial_mode: full
+adversarial_rounds: 5
+analyst: Aleksandra Haklik
+analyst_email: ahaklik@redhat.com
+challenges_raised: 43
+challenges_resolved: 43
+severity_changes: None
+critique_state_file: critique-state.yaml
+intel_depth_reached: 3
+intel_issues_visited: 8
+intel_schema_version: 1.1.0
+intel_source: risk-intel-gather
+intel_urls_extracted: 128
+model: unset
+quality_gates_overridden: []
+quality_gates_passed: []
+regulatory_frameworks_loaded:
+- files_loaded:
+  - definitions.md
+  files_skipped:
+  - annex-categories.md (context budget)
+  - obligations-summary.md (context budget)
+  framework: cra
+  staleness_warnings:
+  - definitions.md last verified 2026-05-21 (105 days ago)
+- files_loaded:
+  - definitions.md
+  - impact-levels.md
+  files_skipped: []
+  framework: fedramp
+  staleness_warnings:
+  - definitions.md last verified 2026-05-21 (105 days ago)
+  - impact-levels.md last verified 2026-05-21 (105 days ago)
+regulatory_ref_sha: be36031bfc2e8a19df9c3b3d97de125da88dd9c7
+regulatory_scoping_overrides:
+- action: added
+  analyst_rationale: Analyst override — supply chain integrity relevance
+  framework: cra
+- action: added
+  analyst_rationale: Analyst override — incident response and key management controls
+  framework: fedramp
+risk_id: PRODSECRM-306
+session_id: 2026-09-03-081419
+sources_uploaded: []
+started_at: '2026-09-03T08:14:19Z'
+status: complete
+completed_at: '2026-09-03T10:45:00Z'
+quality_gates_passed: [1, 2, 3, 4, 5, 6]

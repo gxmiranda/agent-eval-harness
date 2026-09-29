@@ -1,0 +1,492 @@
+- challenge_id: CHALLENGE-1
+  claim_targeted: Likelihood rated Unlikely despite citing 15-30% annual pipeline
+    compromise probability from Portfolio SBAR
+  date_raised: '2026-09-03'
+  dimension: Risk quantification validity (Dim 5)
+  evidence_cited: Portfolio SBAR threat analysis, Section 2 likelihood justification
+  resolution_summary: Added three-branch probability model distinguishing pipeline
+    compromise from uncontainable compromise; clarified that Unlikely refers to the
+    conditional probability of the triggering scenario, not the pipeline compromise
+    rate.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: CHALLENGE-2
+  claim_targeted: Severity rated High depends on auxiliary key rotation path rated
+    Unvalidated in controls table
+  date_raised: '2026-09-03'
+  dimension: Logical consistency (Dim 2)
+  evidence_cited: 'Section 4 Control 2 effectiveness: Unvalidated; Section 2 severity
+    justification'
+  resolution_summary: Added explicit caveat acknowledging severity depends on unvalidated
+    control; stated this is best-available-evidence judgment based on SME mechanism
+    confirmation, not confirmed operational capability; added escalation triggers.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: CHALLENGE-3
+  claim_targeted: JIRA Risk Probability field Very Likely dismissed as data entry
+    error without verification
+  date_raised: '2026-09-03'
+  dimension: Claim-source alignment (Dim 3)
+  evidence_cited: PRODSECRM-306 customfield_10642 value, analysis line 44
+  resolution_summary: Investigated JIRA changelog -- confirmed field was set at creation
+    with no subsequent changes; added plausible interpretation that Risk Probability
+    may refer to probability of needing recovery capability (very likely) vs. probability
+    of compromise event (unlikely); noted discrepancy without overriding pending reporter
+    clarification.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: CHALLENGE-4
+  claim_targeted: Impact scoped to RHEL-specific without verifying whether signing
+    key is RHEL-exclusive or shared across products
+  date_raised: '2026-09-03'
+  dimension: Missing perspectives (Dim 4)
+  evidence_cited: Section 2 impact justification, Section 3 Objective 6
+  resolution_summary: Added UNRESOLVED marker noting key scope is unverified; added
+    data gap for Signing Infrastructure / PSRD to confirm whether release2/release4
+    keys are shared; noted impact scope may need re-evaluation if keys are not RHEL-exclusive.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: CHALLENGE-5
+  claim_targeted: No customer SLA analysis or financial impact order-of-magnitude
+    estimate despite listing it as data gap
+  date_raised: '2026-09-03'
+  dimension: Missing perspectives (Dim 4)
+  evidence_cited: Section 3 Objective 4, Section 5 Data Gaps
+  resolution_summary: Strengthened Executive Summary with expanded financial exposure
+    framing; upgraded financial data gap priority to High with specific quantification
+    requirements; added SLA penalty exposure reference.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: CHALLENGE-6
+  claim_targeted: 19-year operational track record without key compromise claim has
+    no citation
+  date_raised: '2026-09-03'
+  dimension: Evidence quality (Dim 1)
+  evidence_cited: Section 2 likelihood justification
+  resolution_summary: 'Replaced unsourced 19-year claim with sourced characterization
+    from PRODSECRM-306 description: keys are ''long-lived'' with no fixed rotation
+    schedule.'
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: CHALLENGE-7
+  claim_targeted: Immediate action owner Stanislav Graf identified as former key owner,
+    may lack current access/authority
+  date_raised: '2026-09-03'
+  dimension: Treatment feasibility (Dim 6)
+  evidence_cited: Section 5 Immediate actions, Section 2 severity justification
+  resolution_summary: Updated action item owner to Signing Infrastructure team lead
+    (current key custodian) with note to verify with PSRD; retained Graf as potential
+    SME input contributor.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: CHALLENGE-8
+  claim_targeted: FedRAMP and CRA Art. 14 regulatory claims lack definition-test pattern
+    (no definitions quoted, no match test, no confidence rating)
+  date_raised: '2026-09-03'
+  dimension: Regulatory mapping rigor (Dim 9)
+  evidence_cited: Section 3 Objective 3
+  resolution_summary: Rewrote Objective 3 with explicit FedRAMP operational requirements
+    reference, CRA Art. 14 scope description, UNVERIFIED markers for both (pending
+    WebFetch), and Low confidence rating for both mappings.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: CHALLENGE-9
+  claim_targeted: Analysis does not model branching probability (containable vs uncontainable
+    compromise) -- severity based on worst branch without weighting
+  date_raised: '2026-09-03'
+  dimension: Risk quantification validity (Dim 5)
+  evidence_cited: Section 2 severity and likelihood justifications
+  resolution_summary: Added explicit three-branch probability model (no compromise
+    / containable / uncontainable) to likelihood justification; noted conditional
+    probability gap as UNRESOLVED.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: CHALLENGE-10
+  claim_targeted: Financial consequence framing is GENERIC (quoted from SBAR rather
+    than independently assessed, no dollar estimate)
+  date_raised: '2026-09-03'
+  dimension: Consequence framing / QC-6 (Dim 10)
+  evidence_cited: Executive Summary, Section 3 Objective 4
+  resolution_summary: Expanded Executive Summary with independent financial exposure
+    analysis beyond SBAR quote; added revenue, reputational, regulatory, and SLA dimensions.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: R2-CHALLENGE-1
+  claim_targeted: Severity High depends on Control 2 rated Unvalidated -- internal
+    inconsistency between severity rating and control effectiveness rating
+  date_raised: '2026-09-03'
+  dimension: Logical consistency (Dim 2)
+  evidence_cited: Section 4 Control 2, Section 2 severity justification caveat
+  resolution_summary: Rephrase of R1-CHALLENGE-2 which already added the explicit
+    caveat. The analysis transparently states the severity depends on an unvalidated
+    control and lists escalation triggers. This is a judgment call, not an inconsistency
+    -- the analysis rates based on best available evidence (SME mechanism confirmation)
+    while acknowledging the limitation.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-CHALLENGE-2
+  claim_targeted: Unlikely likelihood depends on unquantified P(uncontainable|compromise);
+    XZ Utils precedent challenges enumerable-packages assumption
+  date_raised: '2026-09-03'
+  dimension: Risk quantification validity (Dim 5)
+  evidence_cited: Section 2 likelihood justification UNRESOLVED marker
+  resolution_summary: Rephrase of R1-CHALLENGE-1/9. The UNRESOLVED marker already
+    acknowledges the gap. Added XZ Utils to the precedent list in Round 1. The conditional
+    probability cannot be quantified without threat modeling data not available in
+    this session.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-CHALLENGE-3
+  claim_targeted: JIRA Risk Probability Very Likely reinterpreted rather than verified
+    with reporter
+  date_raised: '2026-09-03'
+  dimension: Claim-source alignment (Dim 3)
+  evidence_cited: Section 1 JIRA field discrepancy
+  resolution_summary: Rephrase of R1-CHALLENGE-3. R1 revision already investigated
+    the field changelog and added nuanced interpretation noting the value is not overridden
+    without reporter clarification. Contacting the reporter is outside the scope of
+    the adversarial critique (operational follow-up, not analysis revision).
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-CHALLENGE-4
+  claim_targeted: No compound scenario analysis -- concurrent Critical CVE during
+    recovery window
+  date_raised: '2026-09-03'
+  dimension: Missing perspectives (Dim 4)
+  evidence_cited: Section 2 impact justification, Section 3 Objective 1
+  resolution_summary: Added compound scenario (concurrent Critical CVE during recovery
+    window) as consequence (e) in the impact justification.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-CHALLENGE-5
+  claim_targeted: Objective 7 rated No but RHEL is deployed in safety-critical environments;
+    inability to patch has safety implications
+  date_raised: '2026-09-03'
+  dimension: Missing perspectives (Dim 4)
+  evidence_cited: Section 3 Objective 7
+  resolution_summary: 'Changed Objective 7 from No to Yes (indirect) with explanation:
+    safety-critical RHEL deployments cannot receive patches during recovery window;
+    harm requires concurrent vulnerability.'
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-CHALLENGE-6
+  claim_targeted: Immediate action has no named individual owner -- parenthetical
+    qualifier is not actionable
+  date_raised: '2026-09-03'
+  dimension: Treatment feasibility (Dim 6)
+  evidence_cited: Section 5 Immediate actions
+  resolution_summary: Added note before Immediate actions acknowledging team-level
+    assignments need resolution to named individuals; deferred to analyst review step
+    since current organizational assignments require domain knowledge not available
+    in this analysis context.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-CHALLENGE-7
+  claim_targeted: Financial impact unquantified -- no order-of-magnitude estimate
+    despite High severity rating
+  date_raised: '2026-09-03'
+  dimension: Evidence quality (Dim 1)
+  evidence_cited: Executive Summary, Section 5 Data Gaps
+  resolution_summary: Rephrase of R1-CHALLENGE-5/10. R1 revision already expanded
+    Executive Summary financial framing and upgraded data gap priority. Providing
+    a specific dollar estimate without financial data would be fabrication; the data
+    gap is correctly flagged as High priority for PSRR promotion readiness.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-CHALLENGE-8
+  claim_targeted: RHELDST-42989 spike content not examined -- findings determine Bottleneck
+    A feasibility and timeline
+  date_raised: '2026-09-03'
+  dimension: Investigation gap
+  evidence_cited: Section 2 Bottleneck A, Source 5
+  resolution_summary: Investigated RHELDST-42989 via JIRA MCP. Spike remains in Refinement
+    with no assignee, three goals defined but no findings produced. Added to Bottleneck
+    A description confirming structural constraint is unresolved with no active remediation.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R3-CHALLENGE-1
+  claim_targeted: Severity downgrade relies on Graf's JIRA comment; former employee
+    may not have current knowledge
+  date_raised: '2026-09-03'
+  dimension: Evidence quality (Dim 1)
+  evidence_cited: Section 2 severity justification, Section 4 Control 2
+  resolution_summary: Rephrase of R1-C2/R2-C1. Already addressed with explicit caveat
+    in severity justification acknowledging dependence on unvalidated control and
+    listing escalation triggers.
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-CHALLENGE-2
+  claim_targeted: High severity contradicts Unvalidated control effectiveness
+  date_raised: '2026-09-03'
+  dimension: Logical consistency (Dim 2)
+  evidence_cited: Section 4 Control 2, Section 2 severity justification caveat
+  resolution_summary: Rephrase of R1-C2/R2-C1. The analysis transparently acknowledges
+    this tension; it is a best-available-evidence judgment, not an inconsistency.
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-CHALLENGE-3
+  claim_targeted: Unlikely depends on unquantified P(uncontainable|compromise)
+  date_raised: '2026-09-03'
+  dimension: Risk quantification validity (Dim 5)
+  evidence_cited: Section 2 likelihood UNRESOLVED marker
+  resolution_summary: Rephrase of R1-C1/C9/R2-C2. UNRESOLVED marker already acknowledges
+    the gap. Conditional probability cannot be quantified without threat modeling
+    data not available in this session.
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-CHALLENGE-4
+  claim_targeted: OpenShift/RHCOS perspective absent; RHCOS is mandatory node OS for
+    OCP; could expand impact scope
+  date_raised: '2026-09-03'
+  dimension: Missing perspectives (Dim 4)
+  evidence_cited: Section 2 impact justification, Section 3 Objective 5
+  resolution_summary: Added RHCOS/OpenShift to the UNRESOLVED key scope note in impact
+    justification; added data gap for key scope verification including OpenShift.
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-CHALLENGE-5
+  claim_targeted: No detection controls assessed; detection capability affects likelihood
+    of prolonged undetected compromise
+  date_raised: '2026-09-03'
+  dimension: Missing perspectives (Dim 4)
+  evidence_cited: Section 4 Controls in Place
+  resolution_summary: Added detective control row to Controls table with Unknown effectiveness
+    and DATA GAP marker; added detection controls data gap to Section 5.
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-CHALLENGE-6
+  claim_targeted: RHELDST-43646 1-3 month timeline unsupported since prerequisite
+    spike RHELDST-42989 hasn't started
+  date_raised: '2026-09-03'
+  dimension: Treatment feasibility (Dim 6)
+  evidence_cited: Section 5 Long-Term actions, Section 2 Bottleneck A
+  resolution_summary: Revised Long-Term section header to 'timeline uncertain'; added
+    timeline note acknowledging 1-3 month estimate was aspirational and cannot be
+    evidence-based until spike completes.
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-CHALLENGE-7
+  claim_targeted: Team-level owners not named individuals for High-severity actions
+  date_raised: '2026-09-03'
+  dimension: Treatment feasibility (Dim 6)
+  evidence_cited: Section 5 Immediate and Short-Term actions
+  resolution_summary: Rephrase of R2-C6. Already addressed with note deferring to
+    analyst review step for named individual assignment.
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-CHALLENGE-8
+  claim_targeted: 15-30% probability derivation unknown; downstream analysis inherits
+    imprecision
+  date_raised: '2026-09-03'
+  dimension: Claim-source alignment (Dim 3)
+  evidence_cited: Section 2 likelihood justification, Portfolio SBAR reference
+  resolution_summary: Added parenthetical noting SBAR derivation methodology unknown
+    and downstream analysis inherits imprecision.
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-CHALLENGE-9
+  claim_targeted: Compound scenario in Section 2 not foregrounded in Executive Summary
+  date_raised: '2026-09-03'
+  dimension: Consequence framing / QC-6 (Dim 10)
+  evidence_cited: Executive Summary vs Section 2 impact justification
+  resolution_summary: Added compound scenario (actively exploited Critical CVE during
+    recovery window) to Executive Summary.
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-CHALLENGE-10
+  claim_targeted: Incident communications dimension absent; recovery treated as purely
+    technical
+  date_raised: '2026-09-03'
+  dimension: Missing perspectives (Dim 4)
+  evidence_cited: Section 4, Section 5
+  resolution_summary: Added incident communications workstream to Residual Exposure
+    (item 6) noting public advisory, ISAC coordination, and customer communications
+    requirements.
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R4-CHALLENGE-1
+  claim_targeted: Severity depends on unvalidated control -- optimistic reading of
+    untested recovery path
+  date_raised: '2026-09-03'
+  dimension: Logical consistency (Dim 2)
+  evidence_cited: Section 2 severity caveat, Section 4 Control 2
+  resolution_summary: Rephrase of R1-C2/R2-C1/R3-C1/R3-C2. Addressed in R1 with explicit
+    caveat; analysis transparently acknowledges dependence on unvalidated control.
+  resolved_round: 4
+  round: 4
+  status: resolved
+- challenge_id: R4-CHALLENGE-2
+  claim_targeted: Unlikely likelihood rests on unquantified conditional probability
+    and unassessed detection capability
+  date_raised: '2026-09-03'
+  dimension: Risk quantification validity (Dim 5)
+  evidence_cited: Section 2 likelihood UNRESOLVED marker, Section 4 Control 5 Unknown
+  resolution_summary: Rephrase of R1-C1/C9/R2-C2/R3-C3/R3-C5. UNRESOLVED marker and
+    detection controls data gap already address this. Cannot quantify without threat
+    modeling data.
+  resolved_round: 4
+  round: 4
+  status: resolved
+- challenge_id: R4-CHALLENGE-3
+  claim_targeted: UBI/container ecosystem downstream impact not assessed -- RHEL packages
+    underpin every UBI-based container image
+  date_raised: '2026-09-03'
+  dimension: Missing perspectives (Dim 4)
+  evidence_cited: Section 2 impact justification
+  resolution_summary: Added UBI as key adjacency concern (2) in the UNRESOLVED impact
+    scope note, alongside RHCOS/OpenShift and Satellite.
+  resolved_round: 4
+  round: 4
+  status: resolved
+- challenge_id: R4-CHALLENGE-4
+  claim_targeted: FedRAMP and CRA regulatory claims asserted from unverified sources
+    despite Low confidence
+  date_raised: '2026-09-03'
+  dimension: Regulatory mapping rigor (Dim 9)
+  evidence_cited: Section 3 Objective 3
+  resolution_summary: Rephrase of R1-C8/R3-C8. Already addressed with UNVERIFIED markers,
+    Low confidence rating, and explicit acknowledgment that mappings are keyword association
+    without definition-test pattern. Added regulatory scoping note clarifying mappings
+    are exploratory.
+  resolved_round: 4
+  round: 4
+  status: resolved
+- challenge_id: R4-CHALLENGE-5
+  claim_targeted: Regulatory framework loading rationale not documented -- CRA/FedRAMP
+    loaded despite applicability matrix triggers not firing
+  date_raised: '2026-09-03'
+  dimension: Regulatory mapping rigor (Dim 9)
+  evidence_cited: Section 3, metadata.yaml regulatory_scoping_overrides
+  resolution_summary: Added regulatory scoping note in Objective 3 documenting analyst
+    override rationale (from metadata.yaml) and noting automated triggers did not
+    fire because risk type is Operational, not Compliance.
+  resolved_round: 4
+  round: 4
+  status: resolved
+- challenge_id: R4-CHALLENGE-6
+  claim_targeted: 15-30% SBAR probability provenance unknown; analysis inherits imprecision
+  date_raised: '2026-09-03'
+  dimension: Claim-source alignment (Dim 3)
+  evidence_cited: Section 2 likelihood justification
+  resolution_summary: Rephrase of R3-C8. Already addressed in R3 with parenthetical
+    noting derivation methodology unknown and downstream imprecision.
+  resolved_round: 4
+  round: 4
+  status: resolved
+- challenge_id: R4-CHALLENGE-7
+  claim_targeted: Critical immediate action has no named individual owner
+  date_raised: '2026-09-03'
+  dimension: Treatment feasibility (Dim 6)
+  evidence_cited: Section 5 Immediate actions
+  resolution_summary: Rephrase of R2-C6/R3-C7. Already addressed with Section 5 note
+    deferring to analyst review. Cannot assign named individuals without organizational
+    knowledge.
+  resolved_round: 4
+  round: 4
+  status: resolved
+- challenge_id: R4-CHALLENGE-8
+  claim_targeted: JIRA field discrepancy functionally overridden despite stated non-override
+  date_raised: '2026-09-03'
+  dimension: Claim-source alignment (Dim 3)
+  evidence_cited: Section 1 JIRA field discrepancy
+  resolution_summary: Rephrase of R1-C3/R2-C3/R3-C3. The analysis uses the description/SBAR
+    value with documented rationale; the field value is noted as a dissenting data
+    point pending reporter clarification. This is a transparent analytical choice,
+    not a hidden override.
+  resolved_round: 4
+  round: 4
+  status: resolved
+- challenge_id: R5-CHALLENGE-1
+  claim_targeted: Severity depends on unvalidated control
+  date_raised: '2026-09-03'
+  dimension: Logical consistency (Dim 2)
+  evidence_cited: Section 2 severity caveat, Section 4 Control 2
+  round: 5
+  status: resolved
+  resolved_round: 5
+  resolution_summary: "Rephrase of R1-C2/R2-C1/R3-C1/R3-C2/R4-C1. Addressed in R1; analysis transparently acknowledges the dependency with explicit escalation triggers."
+- challenge_id: R5-CHALLENGE-2
+  claim_targeted: Build-to-ship time != total recovery time; organizational decision
+    latency, key generation, CDN propagation unaddressed
+  date_raised: '2026-09-03'
+  dimension: Risk quantification validity (Dim 5)
+  evidence_cited: Executive Summary recovery timeline, Section 2 severity justification
+  round: 5
+  status: resolved
+  resolved_round: 5
+  resolution_summary: "Added note to severity rating table clarifying build-to-ship is one component; total recovery also includes detection, decision, rotation, validation, propagation, notification phases. Added organizational decision latency to Residual Exposure."
+- challenge_id: R5-CHALLENGE-3
+  claim_targeted: Unquantified conditional probability P(uncontainable|compromise)
+  date_raised: '2026-09-03'
+  dimension: Risk quantification validity (Dim 5)
+  evidence_cited: Section 2 likelihood UNRESOLVED marker
+  round: 5
+  status: resolved
+  resolved_round: 5
+  resolution_summary: "Rephrase of R1-C1/C9/R2-C2/R3-C3/R4-C2. UNRESOLVED marker already acknowledges the gap."
+- challenge_id: R5-CHALLENGE-4
+  claim_targeted: Key scope assumption unverified and impact-critical
+  date_raised: '2026-09-03'
+  dimension: Evidence quality (Dim 1)
+  evidence_cited: Section 2 impact UNRESOLVED note
+  round: 5
+  status: resolved
+  resolved_round: 5
+  resolution_summary: "Rephrase of R1-C4/R3-C4/R4-C3. UNRESOLVED note with RHCOS/UBI/Satellite adjacencies and High-priority data gap already address this."
+- challenge_id: R5-CHALLENGE-5
+  claim_targeted: FedRAMP remediation timelines unverifiable from loaded refs
+  date_raised: '2026-09-03'
+  dimension: Citation accuracy (Dim 8)
+  evidence_cited: Section 3 Objective 3
+  round: 5
+  status: resolved
+  resolved_round: 5
+  resolution_summary: "Rephrase of R1-C8/R4-C4. Already marked UNVERIFIED with Low confidence. Standalone invocation cannot WebFetch."
+- challenge_id: R5-CHALLENGE-6
+  claim_targeted: CRA Art 3(40) applies to product flaws not manufacturer infrastructure
+    flaws; signing key compromise is infrastructure
+  date_raised: '2026-09-03'
+  dimension: Regulatory mapping rigor (Dim 9)
+  evidence_cited: Section 3 Objective 3 CRA mapping
+  round: 5
+  status: resolved
+  resolved_round: 5
+  resolution_summary: "Strengthened CRA analysis to explicitly distinguish product flaws from manufacturer infrastructure flaws using Art. 3(1) and Art. 3(40); concluded CRA applicability is indirect at best and likely inapplicable."
+- challenge_id: R5-CHALLENGE-7
+  claim_targeted: Organizational decision latency unassessed -- who authorizes key
+    rotation, decision authority chain, historical timelines
+  date_raised: '2026-09-03'
+  dimension: Missing perspectives (Dim 4)
+  evidence_cited: Section 5 Recommended Actions
+  round: 5
+  status: resolved
+  resolved_round: 5
+  resolution_summary: "Added organizational decision latency as Residual Exposure item 7, noting unassessed authority chain and potential to dominate total recovery time."

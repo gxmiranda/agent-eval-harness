@@ -1,0 +1,1132 @@
+- challenge_id: R1-C1
+  claim_targeted: 'Severity/Likelihood ratings ("High"/"Likely") are asserted as final
+    while Section 5 explicitly lists confirming the scanner-impact pathway as an *open,
+    unresolved* action needed "to convert the Likelihood/Impact rating from qualitative
+    to evidence-quantified." The analysis rates on a basis it simultaneously says
+    isn''t yet evidence-quantified.
+
+    -'
+  date_raised: '2026-09-10T14:41:33Z'
+  dimension: Logical consistency
+  evidence_cited: ''
+  resolution_summary: Confirmed direction (false-positive) for the CVE-2025-65637
+    example via live VEX fetch; population-wide evidence-quantification across all
+    CVEs remains an explicit open data gap.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: R1-C2
+  claim_targeted: 'ROX-27482 is used as likelihood-supporting evidence for scanner
+    unreliability, but the analysis itself characterizes ROX-27482''s gaps as "unrelated
+    to this specific defect" — an analogical leap presented as corroborating evidence.
+
+    -'
+  date_raised: '2026-09-10T14:41:33Z'
+  dimension: Claim-source alignment
+  evidence_cited: for scanner unreliability, but the analysis itself characterizes
+    ROX-27482's gaps as "unrelated to this specific defect" — an analogical leap presented
+    as corroborating evidence
+  resolution_summary: Reworded to make explicit that ROX-27482 is analogous/general
+    scanner-gap evidence, not direct proof of this specific defect's exploitation.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: R1-C3
+  claim_targeted: 'Impact is rated "Major" treating "scanner reports fixed image as
+    vulnerable" and "scanner reports vulnerable image as fixed" as interchangeable
+    outcomes for rating purposes, when the second is a materially more severe (customer-exposure)
+    failure mode than the first (noise/false-alarm). The rating doesn''t resolve which
+    occurred.
+
+    -'
+  date_raised: '2026-09-10T14:41:33Z'
+  dimension: Risk quantification validity
+  evidence_cited: ''
+  resolution_summary: Live VEX inspection confirms 0 known_affected / 1 fixed / 3
+    known_not_affected for the mismatched-CPE product entries -- direction is false-positive,
+    not false-negative, for this CVE.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: R1-C4
+  claim_targeted: 'The premise that "digest-level identity remains correct" (used
+    to cap Severity below Critical and Impact below Catastrophic) is sourced entirely
+    from the ticket''s own description narrative and is explicitly flagged as not
+    independently verified this session.
+
+    -'
+  date_raised: '2026-09-10T14:41:33Z'
+  dimension: Evidence quality
+  evidence_cited: ''
+  resolution_summary: Digest-level correctness assumption independently verified via
+    live VEX product_tree/relationships inspection during adversarial review.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: R1-C5
+  claim_targeted: 'KONFLUX-6854, the actual multi-CPE remediation ticket, carries
+    **Priority: Minor** per raw JIRA data — directly at odds with this analysis''s
+    "High" severity framing — and the analysis does not address or reconcile this
+    priority mismatch anywhere.
+
+    -'
+  date_raised: '2026-09-10T14:41:33Z'
+  dimension: Missing perspective / claim-source alignment
+  evidence_cited: ''
+  resolution_summary: Added explicit reconciliation note in Section 4 explaining KONFLUX-6854's
+    Minor engineering priority vs. this risk's High GRC severity measure different
+    things.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: R1-C6
+  claim_targeted: 'Escalation criterion #5 (named director+ owner) is rated "Partial,"
+    and the promotion recommendation defers escalation until after a possible bad
+    renewal outcome, at which point executive leverage over the renewal decision has
+    already passed. The trigger for revisiting escalation arrives structurally too
+    late.
+
+    -'
+  date_raised: '2026-09-10T14:41:33Z'
+  dimension: Treatment feasibility
+  evidence_cited: ''
+  resolution_summary: Escalation trigger revised in Section 6 to fire when a renewal
+    decision is under consideration, not only after renewal is granted.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: R1-C7
+  claim_targeted: 'Immediate action "Correct the exception categorization/labeling"
+    has owner "ProdSec GRC / risk program" — no named individual — weakening accountability
+    for a 0-7 day action.
+
+    -'
+  date_raised: '2026-09-10T14:41:33Z'
+  dimension: Treatment feasibility
+  evidence_cited: ''
+  resolution_summary: Named owner (session analyst) assigned to the labeling-correction
+    immediate action.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: R1-C8
+  claim_targeted: 'No direct outreach to the PRODSECRM-316 reporter (Hardik Vyas)
+    or assignee (Bart Kulaga) is documented beyond automated Gmail/Drive searches
+    returning zero hits; no attempt to ask them directly whether they believe the
+    exception will resolve or renew.
+
+    -'
+  date_raised: '2026-09-10T14:41:33Z'
+  dimension: Missing perspective
+  evidence_cited: ''
+  round: 1
+  status: open
+- challenge_id: R1-C9
+  claim_targeted: 'No quantification or even estimate of how many regulated customers
+    (FedRAMP-authorized OCP deployments, PCI-DSS scope) actually consume CSAF/VEX
+    in an automated, CPE-keyed fashion — the customer-trust/regulatory-compliance
+    objective ratings rest on an unquantified population.
+
+    -'
+  date_raised: '2026-09-10T14:41:33Z'
+  dimension: Missing perspective
+  evidence_cited: ''
+  round: 1
+  status: open
+- challenge_id: R1-C10
+  claim_targeted: 'Section 3 Objective 3 asserts "deterministic regulatory scoping...
+    found no strong trigger" without showing the definition-test methodology (which
+    framework provisions were tested, against which product attribute, with what confidence)
+    — this is a negative regulatory conclusion presented without the quote/test/confidence
+    structure the platform''s own methodology calls for elsewhere.
+
+    -'
+  date_raised: '2026-09-10T14:41:33Z'
+  dimension: Regulatory mapping rigor (dimension 9, applied even absent loaded reference
+    files)
+  evidence_cited: ''
+  resolution_summary: Section 3 Objective 3 rewritten to show explicit definition-test
+    structure (frameworks checked, product attribute tested, confidence rating) for
+    the negative regulatory conclusion.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: R1-C11
+  claim_targeted: 'Rated CONCRETE overall (names the mechanism — CPE-keyed scanners
+    misreporting patch status — and the stakeholder — regulated customers relying
+    on CSAF/VEX), but weakened by not resolving which failure direction actually occurred,
+    making the true consequence indeterminate between "noisy false alarm" and "customer
+    left exposed believing they''re patched."
+
+
+    ## Source and Citation Review
+
+
+    -'
+  date_raised: '2026-09-10T14:41:33Z'
+  dimension: Consequence framing (QC-6)
+  evidence_cited: ''
+  resolution_summary: Executive Summary and Impact rating now state the confirmed
+    direction (false-positive dominant for the verified example) instead of an indeterminate
+    'or vice versa' framing.
+  resolved_round: 1
+  round: 1
+  status: resolved
+- challenge_id: R2-C1
+  claim_targeted: 'Severity=High is justified using persistence/distrust arguments
+    (factors 1-3 in "Severity justification") rather than evidence of harm magnitude.
+    The one confirmed instance shows the mild (false-positive) direction, not the
+    severe (false-negative/"vulnerable reported safe") direction the rating implicitly
+    worries about. The analyst should either (a) explicitly justify why persistence
+    alone (without confirmed severe-direction harm) warrants High over Medium, or
+    (b) downgrade pending the CSAF query.
+
+    -'
+  date_raised: '2026-09-10T14:59:27Z'
+  dimension: Risk quantification validity / logical consistency
+  evidence_cited: of harm magnitude
+  resolution_summary: Rating rationale rewritten to explicitly state High is a precaution-weighted
+    judgment driven by persistence/stalled-remediation, not by confirmed harm magnitude,
+    resolving the internal inconsistency.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-C2
+  claim_targeted: 'Likelihood=Likely is based on volume of z-streams "in flight,"
+    but the only hard data point is n=1 occurrence in ~3 days with zero customer comments/escalations
+    on the root ticket. This is insufficient evidence to distinguish "Likely" from
+    "Possible."
+
+    -'
+  date_raised: '2026-09-10T14:59:27Z'
+  dimension: Risk quantification validity
+  evidence_cited: to distinguish "Likely" from "Possible
+  round: 2
+  status: open
+- challenge_id: R2-C3
+  claim_targeted: 'The analysis simultaneously argues the confirmed instance is "not
+    the severe direction" (supporting a lower Impact) and that Impact should still
+    be "Major" because the severe direction "cannot be ruled out" (supporting a higher
+    Impact). This is an internal tension that should be resolved with an explicit
+    confidence-interval statement rather than settling on "Major" as a compromise.
+
+    -'
+  date_raised: '2026-09-10T14:59:27Z'
+  dimension: Logical consistency
+  evidence_cited: ''
+  resolution_summary: Impact rationale rewritten to explicitly resolve the tension
+    between confirmed-mild-instance and unconfirmed-severe-population, framed as precaution
+    under uncertainty rather than an average.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-C4
+  claim_targeted: 'Objective 4 (Revenue/cost) is rated "No — no direct financial exposure
+    identified," but Objective 3 in the same section flags that regulated customers
+    (FedRAMP, PCI-DSS) may rely on CSAF/VEX for compliance attestation. If those customers
+    have contractual data-accuracy commitments from Red Hat, inaccurate VEX data could
+    trigger contractual/SLA exposure — this financial angle is not examined before
+    concluding "No."
+
+    -'
+  date_raised: '2026-09-10T14:59:27Z'
+  dimension: Missing perspective
+  evidence_cited: ''
+  round: 2
+  status: open
+- challenge_id: R2-C5
+  claim_targeted: 'No consideration of external/reputational discovery risk — e.g.,
+    a security researcher or journalist publicly flagging that Red Hat''s own published
+    VEX data misattributes CPEs. This is a distinct escalation path (public disclosure)
+    from the "customer quietly notices" framing used throughout, and is absent from
+    both the Executive Summary and Objective 2 (Customer trust) analysis.
+
+    -'
+  date_raised: '2026-09-10T14:59:27Z'
+  dimension: Missing perspective
+  evidence_cited: ''
+  resolution_summary: Added public-disclosure/reputational discovery path to Objective
+    2 (Customer trust) analysis.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-C6
+  claim_targeted: 'No Legal/Contracts stakeholder consulted or referenced, despite
+    Objective 3 raising customer compliance-attestation exposure — a natural cross-check
+    for whether Red Hat''s own customer agreements or FedRAMP ATO conditions create
+    obligations around VEX accuracy.
+
+    -'
+  date_raised: '2026-09-10T14:59:27Z'
+  dimension: Missing perspective
+  evidence_cited: ''
+  round: 2
+  status: open
+- challenge_id: R2-C7
+  claim_targeted: 'Section 3, Objective 3 tests Red Hat''s regulatory obligation by
+    citing "CRA Art. 3 (''product with digital elements'' placed on the market)" and
+    concluding no obligation is triggered. Art. 3 is CRA''s *definitions* article,
+    not an obligations article — this is precisely the "wrong article for the described
+    scope" failure mode. The substantive CRA provisions that would actually govern
+    a manufacturer''s vulnerability-disclosure-data accuracy (e.g., Art. 13 manufacturer
+    obligations / vulnerability handling, Annex I Part II reporting requirements)
+    were never tested. The negative conclusion ("Art. 3 does not create this obligation")
+    is true but irrelevant to the actual question.
+
+    -'
+  date_raised: '2026-09-10T14:59:27Z'
+  dimension: Citation accuracy (dimension 8)
+  evidence_cited: ''
+  resolution_summary: Removed incorrect CRA Art. 3 citation (definitions article misused
+    as an obligations test); replaced with honest statement that no framework reference
+    files were loaded this session so no article-level obligations test was performed.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-C8
+  claim_targeted: 'None of the four framework citations in Objective 3 (CRA, FedRAMP,
+    PCI-DSS, SOC2) quote actual definitional text — they paraphrase in a single bundled
+    sentence rather than applying the quote-functionality-test-confidence pattern
+    per framework. This reads as a plausible inference rather than a rigorous per-framework
+    definition test.
+
+    -'
+  date_raised: '2026-09-10T14:59:27Z'
+  dimension: Regulatory mapping rigor (dimension 9, applied to citation text alone)
+  evidence_cited: ''
+  resolution_summary: Objective 3 rewritten to state plainly that only the coarse
+    applicability-matrix screen was run, not a per-framework quote/test/confidence
+    analysis, rather than presenting unlinked paraphrase as rigorous mapping.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-C9
+  claim_targeted: 'All four regulatory citations in Objective 3 are text-only with
+    no links (no EUR-Lex anchor for CRA, no FedRAMP.gov/NIST link, no PCI SSC document
+    link, no AICPA TSC link) — a clear violation of the sourcing standard applied
+    elsewhere in this same document (e.g., the CVE/VEX citations are meticulously
+    linked).
+
+    -'
+  date_raised: '2026-09-10T14:59:27Z'
+  dimension: Source linking completeness (dimension 7)
+  evidence_cited: ''
+  resolution_summary: Unlinked regulatory citations removed from Objective 3 rather
+    than left as unsupported text-only citations.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-C10
+  claim_targeted: 'The Executive Summary is largely CONCRETE in naming the mechanism
+    (specific images, specific CPE, specific CVE, false-positive vs. false-negative
+    distinction) but stops short of naming the actual end-state business consequence
+    for the *confirmed* instance — "scanner noise" is the demonstrated outcome, yet
+    the summary''s framing ("real doubt the exception will be resolved... rather than
+    renewed") pivots to governance/process language without stating what a renewal-without-fix
+    actually costs the business in concrete terms (e.g., "N regulated customers will
+    receive incorrect compliance-relevant vulnerability data for M more release cycles").
+    Borderline CONCRETE/PROCEDURAL — recommend tightening.
+
+    -'
+  date_raised: '2026-09-10T14:59:27Z'
+  dimension: Consequence framing (QC-6)
+  evidence_cited: ''
+  resolution_summary: Executive Summary tightened to state the concrete confirmed
+    cost (scanner false-positive noise) versus the specific open question (reverse-direction
+    instance) that would change the assessment.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-C11
+  claim_targeted: 'Section 1 "Context" reproduces a level of narrative detail (reporter,
+    VP approver by name and email, exact trigger PR, cross-team negotiation scope
+    for ART-14748, coordination chain through KONFLUX-8496/EC-1297) that is more consistent
+    with a substantially paraphrased JIRA description than a "brief excerpt." The
+    raw data provided to reviewers explicitly withholds PRODSECRM description fields
+    per policy, and Safety Rule 11 requires output artifacts (analysis.md is one)
+    to use redacted excerpts, not near-full reproduction, even though the description
+    is a fair-game working artifact inside intelligence.json. This paragraph should
+    be checked against the excerpt standard.
+
+    -'
+  date_raised: '2026-09-10T14:59:27Z'
+  dimension: Evidence quality / Safety Rule 11 compliance
+  evidence_cited: ''
+  resolution_summary: Section 1 Context trimmed to remove close paraphrase of the
+    JIRA description's Exception Reason narrative, retaining only operational fields
+    and linked-issue references per Safety Rule 11.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-C12
+  claim_targeted: 'PSIRT-2797 appears in the Sources table (row 10) but is never referenced
+    anywhere in the body text (Executive Summary, Sections 1-6). Either it supports
+    an unstated claim that should be surfaced, or it''s a stray/leftover citation
+    that should be removed.
+
+
+    ## Source and Citation Review
+
+
+    -'
+  date_raised: '2026-09-10T14:59:27Z'
+  dimension: Source linking completeness
+  evidence_cited: ''
+  resolution_summary: PSIRT-2797 now cited in Section 4 as a related but distinct
+    container-vulnerability-accuracy initiative, resolving the orphan-citation issue.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R3-C1
+  claim_targeted: 'Severity "High" is justified primarily by process/governance failure
+    (stalled fix paths, line 65, 72) rather than by the demonstrated technical impact
+    (mild/false-positive direction only, line 67). This conflates a "governance-exception-mismanagement"
+    risk with a "security-data-accuracy" risk into a single rating. The two should
+    either be scored separately or the combined rating should show its work as a weighted
+    composite, not an assertion.
+
+    -'
+  date_raised: '2026-09-10T15:05:07Z'
+  dimension: Logical consistency
+  evidence_cited: ''
+  resolution_summary: Added explicit two-factor rating methodology note separating
+    confirmed technical-defect risk from evidenced exception-governance risk, resolving
+    the conflation.
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-C2
+  claim_targeted: 'Likelihood ("Likely," line 66) is explicitly stated to apply to
+    the metadata-mismatch event, not the harm-causing event, while Impact ("Major,"
+    line 67) is explicitly stated to be about the hypothetical harm-causing event
+    in an "unconfirmed population." A single risk score cannot validly combine a likelihood
+    measured for Event A with an impact measured for Event B.
+
+    -'
+  date_raised: '2026-09-10T15:05:07Z'
+  dimension: Risk quantification validity
+  evidence_cited: ''
+  resolution_summary: Methodology note explicitly states Likely refers to Factor 1
+    recurrence and Major blends Factor 1 confirmed-mild with Factor 2 precaution,
+    rather than implying one unified event likelihood/impact.
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-C3
+  claim_targeted: 'The Severity row (line 65) states the rating should move "downward
+    (toward Medium)... if a broader sample continues to show only the mild direction"
+    -- but the broader sample has not yet been run, and the only sample that exists
+    today shows only the mild direction. The analysis defaults to the higher (High)
+    rating and requires new evidence to downgrade, rather than rating to current evidence
+    (Medium) and flagging upside risk pending the sweep. This inverts normal evidentiary
+    burden.
+
+    -'
+  date_raised: '2026-09-10T15:05:07Z'
+  dimension: Logical consistency / burden of proof
+  evidence_cited: to downgrade, rather than rating to current evidence (Medium) and
+    flagging upside risk pending the sweep
+  resolution_summary: Methodology note explicitly grounds the High rating in independently-evidenced
+    Factor 2 (confirmed date slips, confirmed PDS blocker, confirmed lapsed self-set
+    checkpoint) rather than an un-evidenced precautionary default, addressing the
+    burden-of-proof concern.
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-C4
+  claim_targeted: 'No confirmation that the approving VP (Scott Cuppett) has authority
+    over the Enterprise Contract/Conforma policy being excepted (EC-1297), as distinct
+    from OCP-org authority. If the check-labels policy is owned by a different governance
+    body (Conforma/Trust team) than the org granting the exception, this is a cross-org
+    authorization gap not examined anywhere in Sections 4-6.
+
+    -'
+  date_raised: '2026-09-10T15:05:07Z'
+  dimension: Missing perspective
+  evidence_cited: ''
+  round: 3
+  status: open
+- challenge_id: R3-C5
+  claim_targeted: 'Only the ACS/ROX scanner ecosystem (ROX-27482) is considered as
+    a consumer of the mismatched CSAF/VEX data (Section 2 Likelihood row, Section
+    5 Data Gaps line 154). Third-party/external vulnerability management tools that
+    also consume public CSAF/VEX feeds (outside Red Hat''s own scanner) are not considered
+    at all, despite being the primary channel by which "customer trust" (the stated
+    Primary Objective, line 104) would actually be eroded.
+
+    -'
+  date_raised: '2026-09-10T15:05:07Z'
+  dimension: Missing perspective
+  evidence_cited: ''
+  round: 3
+  status: open
+- challenge_id: R3-C6
+  claim_targeted: 'Section 6, Requirement 5 (line 184) asserts "the JIRA assignee
+    (Bart Kulaga) does not appear to be director-level" with no cited source (org
+    chart, JIRA profile, LDAP lookup). This is presented as evidence supporting "Partial"
+    on a PSRR-promotion requirement without any citation.
+
+    -'
+  date_raised: '2026-09-10T15:05:07Z'
+  dimension: Evidence quality
+  evidence_cited: source (org chart, JIRA profile, LDAP lookup)
+  resolution_summary: Removed unsourced claim about Bart Kulaga's seniority level;
+    reworded Requirement 5 rationale to rest only on directly-evidenced facts (individual-contributor
+    assignees, no director+ named).
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-C7
+  claim_targeted: 'Objective 2 (Customer trust, line 97) asserts "no evidence of external
+    reporting found" for public disclosure of the CPE-misattribution pattern, but
+    does not state what search was performed (query, tool, date range) -- unlike the
+    Gmail/Drive searches elsewhere in the document (line 49) which explicitly report
+    "0 threads; 0 files." An unsupported negative claim.
+
+    -'
+  date_raised: '2026-09-10T15:05:07Z'
+  dimension: Evidence quality
+  evidence_cited: of external reporting found" for public disclosure of the CPE-misattribution
+    pattern, but does not state what search was performed (query, tool, date range)
+    -- unlike the Gmail/Drive searches elsewhere in the document (line 49) which explicitly
+    report "0 threads; 0 files
+  resolution_summary: Ran an actual web search for external reporting on the CVE-2025-65637
+    CPE-misattribution pattern during this review; documented the query and finding
+    instead of an unsupported negative claim.
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-C8
+  claim_targeted: 'The Immediate-term action "[UNRESOLVED: not attempted this session]...
+    Directly ask the ticket reporter... whether renewal is the anticipated outcome"
+    (line 137) is bucketed as "0-7 days" but has no actual scheduled date, delivery
+    mechanism, or escalation path if the reporter doesn''t respond -- it is aspirational,
+    not actionable as written.
+
+    -'
+  date_raised: '2026-09-10T15:05:07Z'
+  dimension: Treatment feasibility
+  evidence_cited: ''
+  resolution_summary: Added explicit target date and escalation path (by 2026-09-26,
+    escalate to ProdSec GRC lead) to the reporter/assignee outreach action.
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-C9
+  claim_targeted: 'The action item at line 136 mixes a completed sub-task ("Done during
+    adversarial review") with an open remaining scope ("check for additional CVEs
+    affected during the exception window") under a single checkbox and owner, obscuring
+    whether the open portion has actually been assigned or scheduled.
+
+    -'
+  date_raised: '2026-09-10T15:05:07Z'
+  dimension: Treatment feasibility
+  evidence_cited: ''
+  resolution_summary: Split the completed VEX-verification sub-task from the open
+    population-sweep sub-task into two separate checkboxes with distinct owners/target
+    dates.
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-C10
+  claim_targeted: 'The "priority divergence" note (Section 4, line 121) treats KONFLUX-6854''s
+    "Minor" priority from its owning team as merely "informative" of possible under-perception
+    of urgency, but does not treat it as any evidence against this platform''s own
+    "High" severity call. A team with 17 comments of active engagement rating the
+    fix "Minor" is at least as plausibly evidence that the technical risk is lower
+    than the informal argument used (that they "may not currently perceive the same
+    urgency").
+
+    -'
+  date_raised: '2026-09-10T15:05:07Z'
+  dimension: Risk quantification validity
+  evidence_cited: against this platform's own "High" severity call
+  resolution_summary: 'Corrected after reading KONFLUX-6854''s full comment history:
+    priority is bot-generated backlog-rank noise (confirmed via identical pattern
+    on KONFLUX-6210), and the actual stall reason (PDS dependency) is now cited as
+    evidence FOR the severity rating, not against it.'
+  resolved_round: 3
+  round: 3
+  status: resolved
+- challenge_id: R3-C11
+  claim_targeted: 'No investigation into whether Red Hat has an existing process to
+    re-issue or correct a published VEX/CSAF document after a misattribution is discovered
+    (e.g., independent of exception resolution). If such a corrective mechanism exists
+    and is cheap to execute, it would substantially reduce residual Impact regardless
+    of the exception''s ultimate disposition -- this is a distinct mitigation path
+    not surfaced in Section 4 (Controls in Place) or Section 5 (Recommended Actions).
+
+
+    ## Source and Citation Review
+
+
+    -'
+  date_raised: '2026-09-10T15:05:07Z'
+  dimension: Missing perspective
+  evidence_cited: ''
+  round: 3
+  status: open
+- challenge_id: R4-C1
+  claim_targeted: 'The "Rating Methodology Note" explicitly concedes Factor 1 alone
+    supports Medium/Moderate, yet Factor 2 (one open governance fact) is used to independently
+    elevate both Severity (to High) and Impact (to Major). The note discloses this
+    double-counting risk but doesn''t eliminate it.
+
+    -'
+  date_raised: '2026-09-10T15:15:39Z'
+  dimension: Risk quantification validity / logical consistency
+  evidence_cited: ''
+  resolution_summary: Impact rating changed from Major to Moderate, scored strictly
+    to Factor 1 evidence; Severity remains High on Factor 2 grounds only; each axis
+    now has exactly one evidentiary basis, eliminating the double-count. Precautionary
+    concern moved to an explicit Escalation Trigger.
+  resolved_round: 4
+  round: 4
+  status: resolved
+- challenge_id: R4-C2
+  claim_targeted: 'KONFLUX-6854''s title indicates a platform-wide Konflux limitation,
+    not an OCP-specific one, but the analysis never investigates whether other products
+    have equivalent exceptions in flight.
+
+    -'
+  date_raised: '2026-09-10T15:15:39Z'
+  dimension: Missing perspective / risk quantification
+  evidence_cited: ''
+  resolution_summary: Ran live JQL search across PRODSECRM for other products with
+    the same exception (none found) and surfaced PRODSECRM-105, a related org-level
+    security-data-accuracy risk, as evidence the problem class is already recognized
+    beyond this one ticket.
+  resolved_round: 4
+  round: 4
+  status: resolved
+- challenge_id: R4-C3
+  claim_targeted: 'The Short-Term action "obtain a committed target date on ART-14748"
+    carries a 1-4 week window with no explicit target date, while the exception expires
+    2026-10-03 (~3 weeks from session date). If the action consumes the full 4 weeks,
+    it completes after the renewal decision point it''s meant to gate.
+
+    -'
+  date_raised: '2026-09-10T15:15:39Z'
+  dimension: Treatment feasibility
+  evidence_cited: ''
+  resolution_summary: Added explicit target date (2026-09-19) to the ART-14748 committed-date
+    action so it completes before the 2026-10-03 renewal decision point.
+  resolved_round: 4
+  round: 4
+  status: resolved
+- challenge_id: R4-C4
+  claim_targeted: 'The only confirmed, demonstrated consequence anywhere in the document
+    is "scanner-side false-positive noise" for one CVE, but that nuance is absent
+    from the flat `severity: High / impact: Major` metadata fields that downstream
+    consumers actually read.
+
+    -'
+  date_raised: '2026-09-10T15:15:39Z'
+  dimension: Consequence framing / logical consistency
+  evidence_cited: ''
+  resolution_summary: Added a YAML comment block in the frontmatter directing downstream
+    consumers of the flat severity/likelihood/impact fields to the Rating Methodology
+    Note and Escalation Trigger before treating them as a single composite score.
+  resolved_round: 4
+  round: 4
+  status: resolved
+- challenge_id: R4-C5
+  claim_targeted: 'The KONFLUX-11654 "track record" argument (wrong `name` label shipped
+    without halt) is used to weaken confidence in the "name/timestamp checks remain
+    enforced" control for a different label mechanism (CPE match), without establishing
+    the same tooling/team enforces both.
+
+    -'
+  date_raised: '2026-09-10T15:15:39Z'
+  dimension: Evidence quality
+  evidence_cited: ''
+  resolution_summary: Added explicit caveat that KONFLUX-11654 documents a different
+    label mechanism (name, not cpe) and the analogy to cpe-label enforcement is directional,
+    not a proven shared-control failure.
+  resolved_round: 4
+  round: 4
+  status: resolved
+- challenge_id: R4-C6
+  claim_targeted: 'Objective 3''s "Partial"/"no strong trigger" conclusion rests on
+    a coarse applicability-matrix screen. Given CSAF/VEX is literally Red Hat''s outbound
+    vulnerability-disclosure artifact, and CRA Art. 11/13 governs manufacturer vulnerability-handling/disclosure
+    obligations, this looks like a case where the coarse screen could plausibly produce
+    a false negative.
+
+
+    ## Source and Citation Review
+
+
+    -'
+  date_raised: '2026-09-10T15:15:39Z'
+  dimension: Regulatory mapping
+  evidence_cited: ''
+  resolution_summary: Identified the specific candidate CRA Art. 11 provision (public
+    disclosure of fixed-vulnerability information) as a closer textual match than
+    the coarse screen tested, and explicitly deferred the full definition-test to
+    formal re-scoping given the platform's two-person regulatory review requirement,
+    rather than either ignoring the concern or issuing an unreviewed conclusion.
+  resolved_round: 4
+  round: 4
+  status: resolved
+- challenge_id: R5-C1
+  claim_targeted: 'Likelihood is rated "Likely" but justified in language ("near-certain,"
+    "structural certainty," "will continue... on every mixed-stream release") that
+    describes the top band of a typical 5-point scale (Almost Certain), not the band
+    actually selected.
+
+    -'
+  date_raised: '2026-09-10T15:22:50Z'
+  dimension: Risk quantification validity / logical consistency
+  evidence_cited: ''
+  resolution_summary: Relabeled Likelihood from Likely to Almost Certain to match
+    the near-certain/structural-certainty prose used to justify it; fixed cross-references
+    elsewhere in the document.
+  resolved_round: 5
+  round: 5
+  status: resolved
+- challenge_id: R5-C2
+  claim_targeted: 'The document resolves double-counting by declaring Severity and
+    Impact measure entirely different things (governance risk vs. technical instance)
+    -- a non-standard redefinition of "Severity" as process/governance risk rather
+    than consequence-magnitude. Downstream JIRA field consumers will misread "High
+    Severity" as "high consequence."
+
+    -'
+  date_raised: '2026-09-10T15:22:50Z'
+  dimension: Logical consistency / rating methodology
+  evidence_cited: ''
+  resolution_summary: Added an explicit reconciliation note to the Executive Summary
+    and a HUMAN-judgment flag in Section 2 asking the analyst to confirm whether using
+    Severity to measure governance risk rather than harm magnitude is acceptable.
+  resolved_round: 5
+  round: 5
+  status: resolved
+- challenge_id: R5-C3
+  claim_targeted: 'Severity is kept at "High" rather than "Critical" specifically
+    because "no such severe-direction instance has been found in the sampling performed,"
+    but the sampling explicitly does not cover the exact category of CVE (pre-existing,
+    back-advised) that produced the one confirmed instance in this dataset.
+
+    -'
+  date_raised: '2026-09-10T15:22:50Z'
+  dimension: Risk quantification validity
+  evidence_cited: ''
+  resolution_summary: Sharpened the Critical-ceiling caveat to explicitly state the
+    sweep is incomplete in exactly the way that matters (pre-existing CVEs advised
+    in-window, the category that produced the one confirmed instance).
+  resolved_round: 5
+  round: 5
+  status: resolved
+- challenge_id: R5-C4
+  claim_targeted: 'The "regulated customer CSAF/VEX consumption" data gap is the one
+    gap most directly tied to the Escalation Trigger''s Major-impact condition, yet
+    it is prioritized "Medium" while less rating-decisive gaps are "High."
+
+    -'
+  date_raised: '2026-09-10T15:22:50Z'
+  dimension: Data gap prioritization inconsistency
+  evidence_cited: ''
+  resolution_summary: Re-prioritized the regulated-customer CSAF/VEX consumption data
+    gap from Medium to High given its direct leverage over the Impact Escalation Trigger.
+  resolved_round: 5
+  round: 5
+  status: resolved
+- challenge_id: R5-C5
+  claim_targeted: 'Several recommended actions lack an individually stated target
+    date, relying instead on the section header''s date range, inconsistent with the
+    more rigorously dated items elsewhere in the same document.
+
+    -'
+  date_raised: '2026-09-10T15:22:50Z'
+  dimension: Treatment feasibility
+  evidence_cited: ''
+  resolution_summary: Added explicit target dates to the remaining Short-Term and
+    Long-Term action items instead of relying only on section-header date ranges.
+  resolved_round: 5
+  round: 5
+  status: resolved
+- challenge_id: R5-C6
+  claim_targeted: 'No party is identified as currently responsible for monitoring
+    the 2026-10-03 expiration date in the interim, given the guardrail pipeline is
+    not yet operational.
+
+    -'
+  date_raised: '2026-09-10T15:22:50Z'
+  dimension: Missing perspective
+  evidence_cited: ''
+  resolution_summary: Added an explicit action item naming the session analyst as
+    interim owner of tracking the 2026-10-03 expiration, given the automated guardrail
+    pipeline is confirmed not yet operational.
+  resolved_round: 5
+  round: 5
+  status: resolved
+- challenge_id: R5-C7
+  claim_targeted: 'The analysis never considers whether the exception''s technical
+    implementation could auto-revert at expiration (potentially causing an availability/build-failure
+    incident, contradicting Objective 1''s "No" answer) versus persisting indefinitely
+    by default.
+
+    -'
+  date_raised: '2026-09-10T15:22:50Z'
+  dimension: Missing perspective / failure mode
+  evidence_cited: ''
+  resolution_summary: Investigated via GitHub search for follow-up PRs referencing
+    PRODSECRM-316 (none found); PR diff itself could not be fetched (API rate-limited).
+    Documented as a bounded, partially-completed investigation in Section 3 Objective
+    1.
+  resolved_round: 5
+  round: 5
+  status: resolved
+- challenge_id: R5-C8
+  claim_targeted: 'The Executive Summary''s most concrete consequence ("wasted triage
+    cycles") reads as minor, paired with a "High" Severity label, without the summary
+    itself flagging that severity is driven by a separate governance factor.
+
+    -'
+  date_raised: '2026-09-10T15:22:50Z'
+  dimension: Consequence framing (QC-6)
+  evidence_cited: ''
+  resolution_summary: Added a reconciliation note directly to the Executive Summary
+    explaining that Severity/Likelihood and Impact measure different things, so scanning-reader
+    consumers aren't misled.
+  resolved_round: 5
+  round: 5
+  status: resolved
+- challenge_id: R5-C9
+  claim_targeted: 'The CRA Art. 11 candidate does not follow the definition-test pattern
+    the document used correctly elsewhere -- no verbatim text quoted, no explicit
+    functionality test, no confidence rating attached to this specific candidate.
+
+
+    ## Source and Citation Review
+
+
+    -'
+  date_raised: '2026-09-10T15:22:50Z'
+  dimension: Regulatory mapping rigor
+  evidence_cited: ''
+  resolution_summary: Corrected the CRA article citation after live web-search verification
+    (Art. 11 in the final adopted text is General Product Safety, not vulnerability
+    handling); identified the platform's own reference file may carry a legacy draft-numbering
+    error and flagged it for regulatory-maintainer review rather than silently fixing
+    the shared file.
+  resolved_round: 5
+  round: 5
+  status: resolved
+- challenge_id: R6-C1
+  claim_targeted: 'Section 3, Objective 3''s round-5 CRA citation correction (Art.
+    13 / Annex I Part II / Art. 14) is accurate but incomplete -- it omits that Annex
+    I Part II doesn''t apply until 11 Dec 2027 and that Art. 14 reporting duties activate
+    11 Sep 2026 (tomorrow, relative to this session). This is a live, checkable, material
+    gap in the regulatory picture, not a nitpick.
+
+    -'
+  date_raised: '2026-09-10T15:33:31Z'
+  dimension: Regulatory mapping rigor / citation completeness
+  evidence_cited: ''
+  resolution_summary: 'Added precise CRA applicability dates (Annex I Part II: 2027-12-11;
+    Art. 14: 2026-09-11) verified via independent web search, and explicitly distinguished
+    Art. 14''s reporting obligation from this ticket''s metadata-accuracy subject
+    matter rather than conflating them.'
+  resolved_round: 6
+  round: 6
+  status: resolved
+- challenge_id: R6-C2
+  claim_targeted: 'Escalation Trigger condition (2) -- "the exception is renewed past
+    2026-10-03 without a committed remediation date" -- raises Impact, but the Rating
+    Methodology Note assigns "committed-remediation-date" facts exclusively to Factor
+    2/Severity ("If Factor 2 resolves... Severity should be revisited"). This re-introduces
+    the Severity/Impact double-count that round 4''s correction claims to have eliminated.
+
+    -'
+  date_raised: '2026-09-10T15:33:31Z'
+  dimension: Logical consistency / risk quantification
+  evidence_cited: ''
+  resolution_summary: Removed the renewal-without-committed-date condition from the
+    Impact Escalation Trigger (it belongs to Severity per the Rating Methodology Note);
+    Impact trigger now keyed only to technical/harm findings, eliminating the re-introduced
+    double-count.
+  resolved_round: 6
+  round: 6
+  status: resolved
+- challenge_id: R6-C3
+  claim_targeted: 'Two unreconciled justifications exist for "not Critical." The ratings
+    table (round-5 caveat) says the ceiling is fragile -- "not Critical based on an
+    incomplete sweep that happens to be clean so far." The Rating Rationale section
+    gives an unhedged structural reason instead -- "the exposure is explicitly bounded
+    to advisory/CSAF metadata... the actual container images ship with correct content."
+    A reader of only one section gets a different confidence level about the same
+    conclusion.
+
+    -'
+  date_raised: '2026-09-10T15:33:31Z'
+  dimension: Logical consistency
+  evidence_cited: ''
+  resolution_summary: Reconciled the two not-Critical justifications by explaining
+    they answer different questions (bounded harm category vs. confidence given an
+    incomplete sweep) rather than being in tension.
+  resolved_round: 6
+  round: 6
+  status: resolved
+- challenge_id: R6-C4
+  claim_targeted: 'Escalation Analysis item 5 penalizes the risk for lacking "a named
+    director+ owner." But most of Section 5''s own action items are assigned to teams,
+    not named individuals -- the same ownership-diffusion weakness the analysis flags
+    as a PSRR-promotion blocker.
+
+    -'
+  date_raised: '2026-09-10T15:33:31Z'
+  dimension: Treatment feasibility
+  evidence_cited: ''
+  resolution_summary: Added a symmetry note acknowledging this analysis's own Section
+    5 actions have the same team-level (not named-individual) ownership pattern flagged
+    as a PSRR-promotion weakness.
+  resolved_round: 6
+  round: 6
+  status: resolved
+- challenge_id: R6-C5
+  claim_targeted: 'PRODSECRM-213/309 precedent is cited only to support "High," never
+    against it, despite PRODSECRM-213 being Resolved -- an equally valid reading of
+    the same evidence.
+
+    -'
+  date_raised: '2026-09-10T15:33:31Z'
+  dimension: Risk quantification validity (Severity)
+  evidence_cited: only to support "High," never against it, despite PRODSECRM-213
+    being Resolved -- an equally valid reading of the same evidence
+  resolution_summary: Balanced the PRODSECRM-213/309 precedent citation to acknowledge
+    PRODSECRM-213's Resolved status as evidence the renewal pattern is organizationally
+    survivable, not only as evidence of danger.
+  resolved_round: 6
+  round: 6
+  status: resolved
+- challenge_id: R6-C6
+  claim_targeted: '"Almost Certain" is applied to a mechanically-certain event, not
+    a probabilistic one; the harm-relevant event remains unrated, yet the flat metadata
+    field will be consumed as if it measures overall risk likelihood.
+
+    -'
+  date_raised: '2026-09-10T15:33:31Z'
+  dimension: Risk quantification validity (Likelihood)
+  evidence_cited: ''
+  resolution_summary: Added epistemic caveat distinguishing structural/mechanical
+    certainty from a probabilistic forecast for the Almost Certain Likelihood rating.
+  resolved_round: 6
+  round: 6
+  status: resolved
+- challenge_id: R6-C7
+  claim_targeted: Moderate is scored to "confirmed harm magnitude" while Section 3
+    scores Customer trust/Product integrity as "Yes" using a broader, harm-agnostic
+    theory of trust damage -- the two sections use inconsistent harm models on the
+    same fact pattern.
+  date_raised: '2026-09-10T15:33:31Z'
+  dimension: Risk quantification validity (Impact)
+  evidence_cited: ''
+  resolution_summary: Added reconciliation note explaining Section 3's binary relevance
+    test (Yes/Yes) and Section 2's graded Impact rating (Moderate) answer different
+    questions and are not in tension.
+  resolved_round: 6
+  round: 6
+  status: resolved
+- challenge_id: R7-C1
+  claim_targeted: 'Section 2''s Severity row states the rating "should be revisited
+    (upward, toward Critical) if the population-level check in Section 5 finds a `known_affected`
+    entry under a mismatched CPE." The Escalation Trigger section independently states
+    Impact "should be immediately re-rated to Major (or higher) if... the Section
+    5 population sweep finds a `known_affected` entry." This is the identical technical
+    finding used as the trigger for raising both Severity and Impact, contradicting
+    the Composite note''s claim that "each rating axis now has exactly one evidentiary
+    basis."
+
+    -'
+  date_raised: '2026-09-10T15:41:06Z'
+  dimension: Logical consistency / double-counting
+  evidence_cited: ''
+  resolution_summary: Removed the duplicated known_affected upward-trigger sentence
+    from the Severity row; consolidated into a single canonical Escalation Trigger
+    note covering both Severity and Impact conditions explicitly.
+  resolved_round: 7
+  round: 7
+  status: resolved
+- challenge_id: R7-C2
+  claim_targeted: 'The Data Gaps table states the "regulated customers consuming CSAF/VEX"
+    gap "directly gates Escalation Trigger condition #3 for the Impact rating." The
+    current Escalation Trigger (post round-6 correction) lists only two conditions,
+    numbered (1) and (2). "Condition #3" no longer exists in the document -- a stale
+    cross-reference from the round-6 edit.
+
+    -'
+  date_raised: '2026-09-10T15:41:06Z'
+  dimension: Claim-source alignment / stale cross-reference
+  evidence_cited: ''
+  resolution_summary: 'Fixed the stale ''condition #3'' cross-reference in the Data
+    Gaps table to point at the correct condition (2) after the round-6 trigger renumbering.'
+  resolved_round: 7
+  round: 7
+  status: resolved
+- challenge_id: R7-C3
+  claim_targeted: 'The Rating Methodology Note uses the PRODSECRM-213 -> PRODSECRM-309
+    renewal precedent to argue for High Severity (governance risk). The round-6 "balanced"
+    note in Residual Exposure reframes the same precedent as evidence the org has
+    "a working... mechanism... this org''s survivable, if imperfect, normal operating
+    pattern." This undercuts the aggravating use of the same precedent feeding Factor
+    2 of Severity, but the reconciliation note never revisits whether Severity''s
+    Factor 2 justification should also be softened -- it papers over the tension rather
+    than resolving which reading governs the number.
+
+    -'
+  date_raised: '2026-09-10T15:41:06Z'
+  dimension: Logical consistency across sections
+  evidence_cited: the org has "a working
+  resolution_summary: Added explicit reconciliation explaining the precedent's two
+    uses (survivable historical outcome vs. ongoing exposure-window severity driver)
+    are compatible, not contradictory, and clarified Factor 2 is not weakened by PRODSECRM-213's
+    eventual resolution.
+  resolved_round: 7
+  round: 7
+  status: resolved
+- challenge_id: R7-C4
+  claim_targeted: 'The round-6 "named-owner symmetry" note acknowledges Section 5''s
+    own team-level ownership pattern but does not fix it -- several action items still
+    lack a named individual owner despite having target dates.
+
+    -'
+  date_raised: '2026-09-10T15:41:06Z'
+  dimension: Treatment feasibility
+  evidence_cited: ''
+  resolution_summary: Added a named coordinating owner (session analyst) for all team-owned
+    Section 5 actions, closing the tracking/actionability gap without fabricating
+    false individual engineering ownership.
+  resolved_round: 7
+  round: 7
+  status: resolved
+- challenge_id: R7-C5
+  claim_targeted: 'No perspective from the Conforma/EC-1297 governance body on what
+    security risk `enforceContainerFirstSecurityLabels` was originally designed to
+    close, beyond the CVE-2025-65637 anecdote.
+
+    -'
+  date_raised: '2026-09-10T15:41:06Z'
+  dimension: Missing perspective
+  evidence_cited: ''
+  resolution_summary: Added EC-1297's own stated purpose (ensuring cpe/name/created
+    labels are correct) confirming the bypassed control is squarely on-point for this
+    defect, not a peripheral gate.
+  resolved_round: 7
+  round: 7
+  status: resolved
+- challenge_id: R7-C6
+  claim_targeted: 'Rating Impact as a specific point value ("Moderate") from a single
+    verified instance (n=1) implies more precision than the evidence supports.
+
+
+    ## Source and Citation Review
+
+
+    -'
+  date_raised: '2026-09-10T15:41:06Z'
+  dimension: Risk quantification validity
+  evidence_cited: supports
+  resolution_summary: Added explicit false-precision caveat framing Moderate as an
+    evidence floor from n=1, not a population-representative point estimate, while
+    explaining why a scored value is retained operationally.
+  resolved_round: 7
+  round: 7
+  status: resolved
+- challenge_id: R8-C1
+  claim_targeted: 'The document uses three different, unreconciled dates for the start
+    of "the exception window" -- 2026-09-06 (Likelihood row spot-check), 2026-09-07
+    (Data Gaps table and Residual Exposure section), and 2026-09-10 (Section 1''s
+    stated ticket creation date). None of the 2026-09-07 or 2026-09-06 dates is tied
+    to a JIRA-sourced fact; they trace to the PR #2451 platform cutover, a distinct
+    event from "this ticket''s exception was granted." This undermines the precision
+    of the Section 5 population-sweep action item and the Escalation Trigger''s Condition
+    1.
+
+    -'
+  date_raised: '2026-09-10T15:50:19Z'
+  dimension: Logical consistency / Risk quantification validity
+  evidence_cited: ''
+  resolution_summary: Reconciled the three unreconciled dates (2026-09-07 platform
+    cutover vs 2026-09-10T11:15 UTC JIRA-verified ticket creation vs the loosely-used
+    2026-09-06) into a single canonical statement; verified the exact creation timestamp
+    via rp jira get.
+  resolved_round: 8
+  round: 8
+  status: resolved
+- challenge_id: R8-C2
+  claim_targeted: 'If `check-labels` failure is release-blocking, and platform-wide
+    enforcement went live 2026-09-07 while the ticket/exception wasn''t created until
+    2026-09-10, there is an unexamined ~3-day window in which OCP mixed-stream releases
+    could have failed to release entirely -- a potential availability incident distinct
+    from the CSAF/VEX metadata-accuracy story. Objective 1 is rated "No" without addressing
+    this gap.
+
+    -'
+  date_raised: '2026-09-10T15:50:19Z'
+  dimension: Missing perspective / Consequence framing
+  evidence_cited: ''
+  resolution_summary: Added explicit finding to Objective 1 and a new Data Gap entry
+    flagging the unexamined ~3-day availability-risk gap between platform enforcement
+    going live and the exception being created; marked UNRESOLVED as investigation
+    was not completed this session.
+  resolved_round: 8
+  round: 8
+  status: resolved
+- challenge_id: R8-C3
+  claim_targeted: 'Section 3, Objective 3 states regulatory scoping "found no strong
+    match -- consistent with `regulatory_frameworks_loaded: []`," but the same row
+    states the analyst "checked `regulatory/cra/obligations-summary.md` directly"
+    and quotes it, and Source 20 cites this same file. The document never reconciles
+    "no framework files loaded" with "directly checked and quoted a framework reference
+    file."
+
+    -'
+  date_raised: '2026-09-10T15:50:19Z'
+  dimension: Claim-source alignment
+  evidence_cited: 20 cites this same file
+  resolution_summary: 'Clarified that regulatory_frameworks_loaded: [] reflects the
+    original Step 8 formal scoping decision, distinct from the manual ad hoc citation-accuracy
+    check of the same reference file performed during the adversarial-review loop.'
+  resolved_round: 8
+  round: 8
+  status: resolved
+- challenge_id: R8-C4
+  claim_targeted: 'Escalation Trigger Condition (2) -- "a regulated customer is confirmed
+    to have relied on a mismatched CPE entry" -- has no realistic detection mechanism
+    identified anywhere in Section 5. The only related action is a population estimate,
+    not a mechanism for learning whether reliance/harm actually occurred.
+
+    -'
+  date_raised: '2026-09-10T15:50:19Z'
+  dimension: Treatment feasibility
+  evidence_cited: ''
+  resolution_summary: Added explicit feasibility caveat acknowledging Escalation Trigger
+    Condition 2 has no active detection mechanism and is realistically triggerable
+    only by customer self-report, rather than silently leaving the gap undisclosed.
+  resolved_round: 8
+  round: 8
+  status: resolved
+- challenge_id: R8-C5
+  claim_targeted: 'Round 7''s own code-level finding (PR #2451 flips `enforce` default
+    platform-wide) is used only to strengthen the "could recur elsewhere" narrative,
+    not followed up with the cheaper, more direct question of whether other products
+    are currently failing releases because of this same flip and simply haven''t filed
+    an exception ticket yet.
+
+
+    ## Source and Citation Review
+
+
+    -'
+  date_raised: '2026-09-10T15:50:19Z'
+  dimension: Missing perspective / systemic scope
+  evidence_cited: ''
+  resolution_summary: Added a new Data Gap action item recommending a check of Konflux-wide
+    release/build failure telemetry for other products hitting the same platform-wide
+    enforce flip, rather than leaving the systemic-scope finding without a followup
+    action.
+  resolved_round: 8
+  round: 8
+  status: resolved

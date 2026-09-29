@@ -1,0 +1,104 @@
+- challenge_id: R1-C1
+  claim_targeted: High severity and Major impact rely on release-blocking language
+    and control weakness, but no customer, GA-channel, release-delay, or revenue scope
+    is quantified.
+  date_raised: '2026-09-07T00:00:00Z'
+  dimension: Risk quantification
+  evidence_cited: Analysis Section 2 and Section 6
+  resolution_summary: Recorded missing customer, release-channel, delay, and revenue
+    scope as an explicit unresolved data gap.
+  resolved_round: 2
+  round: 1
+  status: resolved
+- challenge_id: R1-C2
+  claim_targeted: Very Likely is supported by observed violations and delayed remediation,
+    but the analysis does not define the materialization event or time horizon.
+  date_raised: '2026-09-07T00:00:00Z'
+  dimension: Likelihood validity
+  evidence_cited: Analysis Section 2; intelligence component issue statuses and comments
+  resolution_summary: Defined the rated operational event and retained the rating
+    provisionally with a time-horizon data gap.
+  resolved_round: 2
+  round: 1
+  status: resolved
+- challenge_id: R1-C3
+  claim_targeted: The recommended modelcar action assumes publication to the production
+    registry, while RHOAIENG-85748 is still in Review and its latest comment says
+    the PR was merged but Conforma resolution is pending.
+  date_raised: '2026-09-07T00:00:00Z'
+  dimension: Treatment feasibility
+  evidence_cited: RHOAIENG-85748 status and latest comment in intelligence.json
+  resolution_summary: Separated modelcar code adoption, registry publication, policy
+    activation, and release validation in the action framing.
+  resolved_round: 2
+  round: 1
+  status: resolved
+- challenge_id: R1-C4
+  claim_targeted: The analysis cites RHOAIENG-92450, RHOAIENG-85032, and RHOAIENG-88794,
+    but none is present in intelligence.json.
+  date_raised: '2026-09-07T00:00:00Z'
+  dimension: Claim-source alignment
+  evidence_cited: Local search of intelligence.json
+  resolution_summary: Removed unsupported JIRA references from the evidence basis
+    and added explicit unresolved CVE applicability language.
+  resolved_round: 2
+  round: 1
+  status: resolved
+- challenge_id: R1-C5
+  claim_targeted: The analysis states MR !22103 is merged, but the session intelligence
+    establishes the stage task as Resolved and the direct MR page as reachable, not
+    that the MR is merged or active.
+  date_raised: '2026-09-07T00:00:00Z'
+  dimension: Source/status accuracy
+  evidence_cited: RHOAIENG-88510 and MR !22103 link review
+  resolution_summary: Corrected stage MR wording to distinguish reachable link and
+    resolved task from verified merge and policy application.
+  resolved_round: 2
+  round: 1
+  status: resolved
+- challenge_id: R1-C6
+  claim_targeted: The Executive Summary names release blockage and weaker provenance,
+    but does not state the immediate business consequence or affected customer path.
+  date_raised: '2026-09-07T00:00:00Z'
+  dimension: Consequence framing
+  evidence_cited: Analysis Executive Summary and Section 2 impact gaps
+  resolution_summary: Clarified the conditional release and provenance consequences
+    and retained customer-path scope as unresolved.
+  resolved_round: 2
+  round: 1
+  status: resolved
+- challenge_id: R2-C1
+  claim_targeted: High severity and Major impact still lack customer, GA-channel,
+    release-delay, or revenue scope; the revised analysis records this as an unresolved
+    boundary.
+  date_raised: '2026-09-07T00:00:00Z'
+  dimension: Risk quantification
+  evidence_cited: Analysis Section 2 and Section 6
+  resolution_summary: Confirmed the missing business scope is an unresolved boundary
+    rather than an unsupported quantified claim.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-C2
+  claim_targeted: Very Likely is tied to an explicit operational event, but its time
+    horizon and release-manifest applicability remain unverified.
+  date_raised: '2026-09-07T00:00:00Z'
+  dimension: Likelihood validity
+  evidence_cited: Analysis Section 2 and unresolved data gaps
+  resolution_summary: Confirmed the time horizon and release-manifest applicability
+    remain explicitly unresolved.
+  resolved_round: 2
+  round: 2
+  status: resolved
+- challenge_id: R2-C3
+  claim_targeted: The revised modelcar action separates code adoption, registry publication,
+    policy activation, and release validation, but final registry and Conforma outcomes
+    are not proven.
+  date_raised: '2026-09-07T00:00:00Z'
+  dimension: Treatment feasibility
+  evidence_cited: Analysis Section 4 and Section 5; RHOAIENG-85748 context
+  resolution_summary: Confirmed the separate modelcar completion conditions and retained
+    final registry and Conforma outcomes as unresolved.
+  resolved_round: 2
+  round: 2
+  status: resolved

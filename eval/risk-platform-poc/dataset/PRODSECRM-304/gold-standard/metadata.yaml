@@ -1,0 +1,58 @@
+adversarial_disposition: "MAX ROUNDS"
+adversarial_mode: "full (escalated from garth)"
+adversarial_rounds: 4
+challenges_raised: 20
+challenges_resolved: 16
+severity_changes:
+  - "Medium -> High (Garth escalation)"
+critique_state_file: critique-state.yaml
+analyst: Aleksandra Haklik
+analyst_email: ahaklik@redhat.com
+model: unset
+quality_gates_overridden: []
+quality_gates_passed: []
+risk_id: PRODSECRM-304
+session_id: 2026-09-02-125403
+sources_uploaded: []
+started_at: '2026-09-02T12:54:03Z'
+status: complete
+completed_at: '2026-09-04T08:30:00Z'
+quality_gates_passed: [1, 2, 3, 4, 5, 6]
+intel_source: risk-intel-gather
+intel_schema_version: '1.1.0'
+intel_issues_visited: 1
+intel_depth_reached: 0
+intel_urls_extracted: 0
+regulatory_ref_sha: be36031bfc2e8a19df9c3b3d97de125da88dd9c7
+regulatory_frameworks_loaded: []
+regulatory_scoping_overrides: []
+supplementary_intel:
+  - source: analyst_input
+    subject: EC Policy scope and governance context
+    facts_discovered:
+      - Target model is ibm-granite/granite-embedding-30m-english (validated in RHOKP-1744)
+      - Planned migration to granite-embedding-small-english-r2 (RHOKP-1681)
+      - Differs from RHEL AI OGX precedent (granite-embedding-125m-english)
+      - No Konflux lock file or draft EC policy MR attached to PRODSECRM-304
+      - RHOKP-1801/1799 track prodsec/Konflux process work (due 2026-09-18)
+      - PRODSECRM-227 internalization remediation relationship identified
+    jira_keys_mentioned:
+      - RHOKP-1744
+      - RHOKP-1681
+      - RHOKP-1801
+      - RHOKP-1799
+      - PRODSECRM-227
+    documents_linked: []
+    recorded_at: '2026-09-03T11:00:00Z'
+  - source: jira_comment
+    subject: Michael Clayton clarification on architecture
+    facts_discovered:
+      - Dual-source architecture: RHOKP team-controlled S3 bucket (primary) + HuggingFace (fallback)
+      - S3 prefetch mirrors RHEL AI pattern and acts as compensating control
+      - Product deliverable is an MCP server
+      - EC Policy must cover both HuggingFace and S3 sources
+      - Does not resolve content domain question
+    jira_keys_mentioned:
+      - PRODSECRM-304
+    documents_linked: []
+    recorded_at: '2026-09-04T08:45:00Z'

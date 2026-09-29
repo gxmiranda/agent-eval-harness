@@ -1,0 +1,264 @@
+======================================================================
+INTELLIGENCE BRIEFING
+======================================================================
+Root issue  : PRODSECRM-316
+Gathered at : 2026-09-10T13:57:35Z
+Depth       : 3/3
+
+ISSUES TRAVERSED (70 visited, 3 skipped)
+----------------------------------------------------------------------
+  [0] PRODSECRM-316 -- OCP mixed el8/el9 images on a single Konflux advisory CPE (temporary skip of check-labels CPE match)
+       Status: New  |  Priority: Undefined  |  Comments: 0
+  [1] ART-14748 (is blocked by) -- Split RPAs for OCP versions with mixed el8/el9 images
+       Status: New  |  Priority: Undefined  |  Comments: 2
+  [1] KONFLUX-6854 (is cloned by) -- advisory task supports multiple cpes
+       Status: New  |  Priority: Minor  |  Comments: 17
+  [2] KONFLUX-6210 (blocks) -- container-first vulnerability reporting
+       Status: In Progress  |  Priority: Normal  |  Comments: 239
+  [2] KONFLUX-11654 (blocks) -- Get enforceContainerFirstSecurityLabels RPA changes merged
+       Status: Closed  |  Priority: Critical  |  Comments: 3
+  [2] KONFLUX-9127 (blocks) -- Cross-cutting issues for KONFLUX-6210
+       Status: In Progress  |  Priority: Critical  |  Comments: 2
+  [2] ART-14837 -- Review design doc
+       Status: Closed  |  Priority: Undefined  |  Comments: 0
+  [2] ART-14838 -- Write design doc
+       Status: Closed  |  Priority: Undefined  |  Comments: 0
+  [2] KONFLUX-3868 (clones) -- rh-advisories pipeline handles multiple product_ids
+       Status: Closed  |  Priority: Minor  |  Comments: 23
+  [2] CLDX-154 (is depended on by) -- Konflux supports shipping separate OCP binaries for each version of RHEL
+       Status: Review  |  Priority: Major  |  Comments: 12
+  [2] KFLUXSPRT-4876 (is related to) -- Defnine product_id per components
+       Status: Closed  |  Priority: Normal  |  Comments: 1
+  [2] SDENGINE-145 (relates to) -- Support multiple cpe id in Konflux advisory
+       Status: New  |  Priority: Normal  |  Comments: 33
+  [3] KONFLUX-6218 (is related to) -- Align allowed repoids to only real repoids
+       Status: Closed  |  Priority: Major  |  Comments: 21
+  [3] KONFLUX-6200 (relates to) -- Missing ICM file (content sets)
+       Status: Closed  |  Priority: Critical  |  Comments: 3
+  [3] ROX-30918 (is related to) -- Update CPE/name labels
+       Status: Closed  |  Priority: Undefined  |  Comments: 4
+  [3] PSDEVOPS-4341 (blocks) -- Use image digest as version 
+       Status: Closed  |  Priority: Undefined  |  Comments: 0
+  [3] ROX-27482 (blocks) -- ACS Scanners unable to detect vulnerabilities in Konflux-generated images
+       Status: Waiting  |  Priority: Critical  |  Comments: 19
+  [3] ROX-29158 (blocks) -- Only output vulnerabilities from Red Hat for Konflux images
+       Status: Closed  |  Priority: Major  |  Comments: 1
+  [3] ROX-29933 (relates to) -- Consider Konflux-built images when filtering non-Red Hat data
+       Status: Closed  |  Priority: Critical  |  Comments: 0
+  [3] CLAIRDEV-203 (is documented by) -- Document labels.json support
+       Status: Closed  |  Priority: Normal  |  Comments: 0
+  [3] RELDEL-8146 (is triggering) -- Investigate why CPE other fields need to be set in every containerfile
+       Status: Backlog  |  Priority: Undefined  |  Comments: 0
+  [3] CLAIRDEV-55 (is related to) -- Red Hat containers break versioning heuristic on name changes
+       Status: Closed  |  Priority: Major  |  Comments: 2
+  [3] CLAIRDEV-85 (blocks) -- matcher: support "not vulnerable" assertions
+       Status: In Progress  |  Priority: Major  |  Comments: 2
+  [3] CLAIRDEV-123 (blocks) -- Red Hat Container First content without embedded Dockerfiles
+       Status: Closed  |  Priority: Major  |  Comments: 6
+  [3] CLAIRDEV-125 (is related to) -- rhcc: remove container-first support
+       Status: Closed  |  Priority: Minor  |  Comments: 2
+  [3] PSIRT-2797 (is depended on by) -- Container CVE Affectedness
+       Status: New  |  Priority: Major  |  Comments: 5
+  [3] RELEASE-1670 (is blocked by) -- Container-first vulnerability reporting
+       Status: In Progress  |  Priority: Critical  |  Comments: 18
+  [3] KONFLUX-15646 (relates to) -- Explore shipping labels.json as OCI referrer artifact for in-place metadata correction
+       Status: New  |  Priority: Undefined  |  Comments: 0
+  [3] CLOUDWF-10908 -- Release-time SBOM in registry
+       Status: Closed  |  Priority: Normal  |  Comments: 3
+  [3] EC-1296 (informs) -- container-first policy checks
+       Status: Closed  |  Priority: Major  |  Comments: 1
+  [3] STONEBLD-3527 -- Container-first vulnerability reporting Build enhancements
+       Status: Closed  |  Priority: Critical  |  Comments: 2
+  [3] EC-1297 (informs) -- Enforce Required Image Labels
+       Status: Closed  |  Priority: Major  |  Comments: 1
+  [3] KONFLUX-9129 -- A mass pull request is sent to all users to supply correct initial values for their name and cpe label in their Dockerfiles/Containerfiles.
+       Status: Closed  |  Priority: Critical  |  Comments: 2
+  [3] KONFLUX-10711 -- /root/buildinfo/labels.json contains un-rendered label templates
+       Status: Closed  |  Priority: Undefined  |  Comments: 1
+  [3] AIPCC-5642 -- Add name and cpe labels to container images for Clair VEX integration
+       Status: Closed  |  Priority: Undefined  |  Comments: 57
+  [3] KONFLUX-8496 (is Informed by) -- Notify Conforma team when policy checks should be enforced.
+       Status: New  |  Priority: Normal  |  Comments: 0
+  [3] KONFLUX-13788 -- container-first vulnerability reporting - SF Security placeholder
+       Status: Closed  |  Priority: Undefined  |  Comments: 1
+  [3] KONFLUX-7147 -- Draft requirements
+       Status: Closed  |  Priority: Critical  |  Comments: 1
+  [3] KONFLUX-7491 -- Get KONFLUX-6210 through Pending Approval
+       Status: Closed  |  Priority: Critical  |  Comments: 1
+  [3] KONFLUX-7492 -- Optional: Review requirements for KONFLUX-6210 - Ralph
+       Status: Closed  |  Priority: Critical  |  Comments: 0
+  [3] KONFLUX-7493 -- Optional: Review requirements for KONFLUX-6210 - Scott
+       Status: Closed  |  Priority: Undefined  |  Comments: 0
+  [3] KONFLUX-7494 -- Optional: Review requirements for KONFLUX-6210 - Andrew
+       Status: Closed  |  Priority: Undefined  |  Comments: 0
+  [3] KONFLUX-7495 (clones) -- Review requirements for KONFLUX-6210 - Rogue
+       Status: Closed  |  Priority: Undefined  |  Comments: 2
+  [3] KONFLUX-7496 -- Review requirements for KONFLUX-6210 - Ladislav
+       Status: Closed  |  Priority: Undefined  |  Comments: 0
+  [3] KONFLUX-7497 -- Review requirements for KONFLUX-6210 - Mykola
+       Status: Closed  |  Priority: Undefined  |  Comments: 0
+  [3] KONFLUX-7498 -- Optional: Review requirements for KONFLUX-6210 - Nizi
+       Status: Closed  |  Priority: Undefined  |  Comments: 1
+  [3] KONFLUX-7499 -- Optional: Review requirements for KONFLUX-6210 - Brian
+       Status: Closed  |  Priority: Undefined  |  Comments: 0
+  [3] KONFLUX-7500 -- Review requirements for KONFLUX-6210 - Mike B
+       Status: Closed  |  Priority: Undefined  |  Comments: 0
+  [3] KONFLUX-7501 (is cloned by) -- Review requirements for KONFLUX-6210 - John
+       Status: Closed  |  Priority: Undefined  |  Comments: 0
+  [3] KONFLUX-7502 (is cloned by) -- Review requirements for KONFLUX-6210 - David
+       Status: Closed  |  Priority: Undefined  |  Comments: 0
+  [3] KONFLUX-7503 (is cloned by) -- Review requirements for KONFLUX-6210 - Hank
+       Status: Closed  |  Priority: Undefined  |  Comments: 2
+  [3] KONFLUX-7504 (is cloned by) -- Review requirements for KONFLUX-6210 - Crozzy
+       Status: Closed  |  Priority: Undefined  |  Comments: 0
+  [3] KONFLUX-7505 (is cloned by) -- Review requirements for KONFLUX-6210 - Jason
+       Status: Closed  |  Priority: Undefined  |  Comments: 1
+  [3] KONFLUX-14735 -- Enable container-first security labels for external-dns-operator RPAs
+       Status: Closed  |  Priority: Undefined  |  Comments: 6
+  [3] KONFLUX-14736 -- Enable container-first security labels for nexus/automation-orchestrator RPAs
+       Status: In Progress  |  Priority: Undefined  |  Comments: 1
+  [3] KONFLUX-14737 -- Enable container-first security labels for Ansible Automation Platform RPAs (AAP 2.6, 2.7)
+       Status: In Progress  |  Priority: Undefined  |  Comments: 2
+  [3] KONFLUX-14738 -- Enable container-first security labels for RHOAI RPAs (v2.25)
+       Status: Closed  |  Priority: Undefined  |  Comments: 5
+  [3] KONFLUX-14739 -- Enable container-first security labels for Trusted Content (RHTPA) RPAs
+       Status: Closed  |  Priority: Undefined  |  Comments: 1
+  [3] KONFLUX-14740 -- Enable enforceContainerFirstSecurityLabels on all rh-advisories RPAs
+       Status: New  |  Priority: Undefined  |  Comments: 1
+  [3] RELEASE-1361 (is related to) -- Switch cpe/product_id to list
+       Status: Closed  |  Priority: Normal  |  Comments: 5
+  [3] TUSC-171 (causes) -- Parse product_ids from konflux advisories
+       Status: Closed  |  Priority: Undefined  |  Comments: 1
+  [3] SRVCOM-3075 (is related to) -- Migration to Konflux
+       Status: Closed  |  Priority: Critical  |  Comments: 3
+  [3] SECDATA-891 (is blocked by) -- Support multiple product_id in Konflux advisory
+       Status: Closed  |  Priority: Major  |  Comments: 11
+  [3] TEAMNADO-6123 (relates to) -- Integrate with Konflux (aka RHTAP) for published errata
+       Status: Closed  |  Priority: Major  |  Comments: 25
+  [3] KFLUXMIG-224 (is related to) -- OpenShift Serverless enablement
+       Status: Closed  |  Priority: Undefined  |  Comments: 32
+  [3] RELEASE-1396 -- Support multiple product_id
+       Status: Closed  |  Priority: Normal  |  Comments: 8
+  [3] CLOUDDST-23491 (blocks) -- OpenShift | oc binary refers to incorrect oc version
+       Status: Closed  |  Priority: Normal  |  Comments: 37
+  [3] CLDX-165 (is blocked by) -- OCP | Re-create the release process
+       Status: In Progress  |  Priority: Major  |  Comments: 4
+  [3] KFLUXMIG-239 -- OpenShift ART containers enablement
+       Status: Closed  |  Priority: Undefined  |  Comments: 49
+  [3] SECDATA-878 -- Support multiple cpe id in Konflux advisory
+       Status: New  |  Priority: Normal  |  Comments: 33
+
+COMMENTS SUMMARY (total: 715)
+----------------------------------------------------------------------
+  ART-14748: 2 comments
+  KONFLUX-6854: 17 comments
+  KONFLUX-6210: 239 comments
+  KONFLUX-11654: 3 comments
+  KONFLUX-9127: 2 comments
+  KONFLUX-3868: 23 comments
+  CLDX-154: 12 comments
+  KFLUXSPRT-4876: 1 comment
+  SDENGINE-145: 33 comments
+  KONFLUX-6218: 21 comments
+  KONFLUX-6200: 3 comments
+  ROX-30918: 4 comments
+  ROX-27482: 19 comments
+  ROX-29158: 1 comment
+  CLAIRDEV-55: 2 comments
+  CLAIRDEV-85: 2 comments
+  CLAIRDEV-123: 6 comments
+  CLAIRDEV-125: 2 comments
+  PSIRT-2797: 5 comments
+  RELEASE-1670: 18 comments
+  CLOUDWF-10908: 3 comments
+  EC-1296: 1 comment
+  STONEBLD-3527: 2 comments
+  EC-1297: 1 comment
+  KONFLUX-9129: 2 comments
+  KONFLUX-10711: 1 comment
+  AIPCC-5642: 57 comments
+  KONFLUX-13788: 1 comment
+  KONFLUX-7147: 1 comment
+  KONFLUX-7491: 1 comment
+  KONFLUX-7495: 2 comments
+  KONFLUX-7498: 1 comment
+  KONFLUX-7503: 2 comments
+  KONFLUX-7505: 1 comment
+  KONFLUX-14735: 6 comments
+  KONFLUX-14736: 1 comment
+  KONFLUX-14737: 2 comments
+  KONFLUX-14738: 5 comments
+  KONFLUX-14739: 1 comment
+  KONFLUX-14740: 1 comment
+  RELEASE-1361: 5 comments
+  TUSC-171: 1 comment
+  SRVCOM-3075: 3 comments
+  SECDATA-891: 11 comments
+  TEAMNADO-6123: 25 comments
+  KFLUXMIG-224: 32 comments
+  RELEASE-1396: 8 comments
+  CLOUDDST-23491: 37 comments
+  CLDX-165: 4 comments
+  KFLUXMIG-239: 49 comments
+  SECDATA-878: 33 comments
+
+URLS FOUND (1164 total)
+----------------------------------------------------------------------
+  JIRA Issues (152):
+    - ART-14748  [from: ]
+    - KONFLUX-6854  [from: ]
+    - ART-14748  [from: ]
+    - CVE-2025  [from: ]
+    - RHSA-2026  [from: ]
+    - RHOSE-4  [from: ]
+    - KONFLUX-6854  [from: ]
+    - CLAIRDEV-123  [from: ]
+    - CLAIRDEV-123  [from: ]
+    - KONFLUX-6210  [from: ]
+    ... and 142 more
+  Google Docs (17):
+    - 1fKCjDcz9Ef49irjJ3rb35f1Nl85BIAg6a90uoyoWyJQ  [from: ]
+    - 1bmGtcRHnlF5Nvujy_QHiC4ZC36-ekoIlzmnKtr1RjEE  [from: ]
+    - 1b91tKETUbDPMVk8KhoH3rx9nKkXVJz0rkm1P6wbJtWE  [from: ]
+    - 11LdrniUumDnioSt9iVQDplIcU82X57VzgcCttXRRktc  [from: ]
+    - 1W0jr_NXIReqzAOUYb9l1tMu_ziP3OVFM7YAViD42uFE  [from: ]
+    - 10kfgBYUA9ozTjR0wtFK5KIt2gti7u3Ke4Sh1cN0ERKg  [from: ]
+    - 1wP8G6oNrGnNQb8M5jCX0MGNt_PAHJ1TzCbkhpLf_bkQ  [from: ]
+    - 1_ZxO6Hlf-j7cCA9_4wfsSH8yu6cD0x-Bl2zwuwC7eHY  [from: ]
+    - 18jfEH3X377A7G6LN9qVE16CH07Wfkqs7wrjSefChiOs  [from: ]
+    - 13A5HanMQvax3Vqebs68-xsDXc2xQHwJpM5cP-D2sAco  [from: ]
+    ... and 7 more
+  Google Drive (1):
+    - 1C8bB6HsTFKYh_Dyb_xNay-svpVXclUhW  [from: ]
+  GitLab MRs (132):
+    - 5145  [from: ]
+    - 218  [from: ]
+    - 219  [from: ]
+    - 220  [from: ]
+    - 768  [from: ]
+    - 769  [from: ]
+    - 770  [from: ]
+    - 771  [from: ]
+    - 772  [from: ]
+    - 773  [from: ]
+    ... and 122 more
+  External (862):
+    - https://github.com/konflux-ci/release-service-catalog/pull/245  [from: ]
+    - https://github.com/konflux-ci/release-service-catalog/pull/2537  [from: ]
+    - https://security.access.redhat.com/data/csaf/v2/vex/2025/cve-2025-65637.json  [from: ]
+    - https://access.redhat.com/errata/RHSA-2026:6493  [from: ]
+    - https://redhat-internal.slack.com/archives/CB95J6R4N/p1768922278919739  [from: ]
+    - https://github.com/konflux-ci/release-service-catalog/pull/2451  [from: ]
+    - https://github.com/openshift-eng/art-tools/pull/3369  [from: ]
+    - https://github.com/konflux-ci/prioritize/blob/main/config/konflux.yaml  [from: ]
+    - https://github.com/konflux-ci/prioritize  [from: ]
+    - https://gitlab.cee.redhat.com/rbean/jira-automation/-/blob/main/.gitlab-ci.yml  [from: ]
+    ... and 852 more
+
+METADATA
+----------------------------------------------------------------------
+  Elapsed time : 99.1s
+  API requests : 219
+  Issues visited : 70
+  Issues skipped : 3
+======================================================================

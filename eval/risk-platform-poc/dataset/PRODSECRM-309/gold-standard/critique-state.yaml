@@ -1,0 +1,80 @@
+consecutive_clean: 3
+dedup_decisions:
+- challenge_id: R1-C1
+  matched_existing_id: null
+  similarity: 0.0
+  verdict: new
+- challenge_id: R1-C2
+  matched_existing_id: null
+  similarity: 0.0
+  verdict: new
+- challenge_id: R1-C3
+  matched_existing_id: null
+  similarity: 0.0
+  verdict: new
+- challenge_id: R1-C4
+  matched_existing_id: null
+  similarity: 0.0
+  verdict: new
+- challenge_id: R1-C5
+  matched_existing_id: null
+  similarity: 0.0
+  verdict: new
+- challenge_id: R1-C6
+  matched_existing_id: null
+  similarity: 0.0
+  verdict: new
+- challenge_id: R2-C1
+  matched_existing_id: null
+  similarity: 0.0
+  verdict: new
+- challenge_id: R2-C2
+  matched_existing_id: null
+  similarity: 0.0
+  verdict: new
+- challenge_id: R2-C3
+  matched_existing_id: null
+  similarity: 0.0
+  verdict: new
+- challenge_id: R3-C1
+  matched_existing_id: R2-C1
+  similarity: 1.0
+  verdict: duplicate
+- challenge_id: R3-C2
+  matched_existing_id: R2-C2
+  similarity: 1.0
+  verdict: duplicate
+- challenge_id: R3-C3
+  matched_existing_id: R2-C3
+  similarity: 1.0
+  verdict: duplicate
+- challenge_id: R4-C1
+  matched_existing_id: R2-C1
+  similarity: 1.0
+  verdict: duplicate
+- challenge_id: R4-C2
+  matched_existing_id: R2-C2
+  similarity: 1.0
+  verdict: duplicate
+- challenge_id: R4-C3
+  matched_existing_id: R2-C3
+  similarity: 1.0
+  verdict: duplicate
+- challenge_id: R5-C1
+  matched_existing_id: R2-C1
+  similarity: 1.0
+  verdict: duplicate
+- challenge_id: R5-C2
+  matched_existing_id: R2-C2
+  similarity: 1.0
+  verdict: duplicate
+- challenge_id: R5-C3
+  matched_existing_id: R2-C3
+  similarity: 1.0
+  verdict: duplicate
+disposition: EXHAUSTED
+mode: full
+resolved_challenges: 9
+round: 5
+severity_changes: []
+total_challenges: 9

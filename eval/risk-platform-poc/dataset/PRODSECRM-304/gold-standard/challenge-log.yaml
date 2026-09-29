@@ -1,0 +1,109 @@
+challenges:
+  # Round 1 challenges
+  - id: R1-CHALLENGE-1
+    dimension: "Logical consistency"
+    summary: "PSRR section says Medium but severity is now High — internal contradiction"
+    raised_round: 1
+    status: resolved
+    resolved_round: 1
+    resolution_summary: "PSRR rationale updated to reflect High severity."
+  - id: R1-CHALLENGE-2
+    dimension: "Evidence quality"
+    summary: "Snyk scanning bug claim from April 2025 (17 months old) used as current severity driver without verification"
+    raised_round: 1
+    status: resolved
+    resolved_round: 2
+    resolution_summary: "Scanning bug confirmed current via PRODSECRM-118 comments (Emily Fox 2026-04-28 quoting Florencio). Evidence is 5 months old, not 17. Snyk bug, ClamAV >2GB failure, Clair timeouts all confirmed. Analysis updated throughout."
+  - id: R1-CHALLENGE-3
+    dimension: "Claim-source alignment"
+    summary: "PRODSECRM-227 remediation quote unverified"
+    raised_round: 1
+    status: resolved
+    resolved_round: 1
+    resolution_summary: "Quote verified via JIRA MCP. -226 confirmed as different exception type. RHOKP-1681 confirmed in To Do status."
+  - id: R1-CHALLENGE-4
+    dimension: "Missing perspectives"
+    summary: "OKP team not consulted"
+    raised_round: 1
+    status: open
+    researcher_notes: "Structural limitation. OKP content domain, architecture, downstream consumers all unknown."
+  - id: R1-CHALLENGE-5
+    dimension: "Risk quantification validity"
+    summary: "OKP content domain not established — impact Moderate with insufficient information"
+    raised_round: 1
+    status: open
+    researcher_notes: "Added as Critical data gap. UNRESOLVED markers on impact and Objective 7. Cannot resolve without OKP team input."
+  - id: R1-CHALLENGE-6
+    dimension: "Missing perspectives"
+    summary: "Weight poisoning threat model not substantiated with citations"
+    raised_round: 1
+    status: open
+    researcher_notes: "Severity justification now explicitly notes this is theoretical with no documented incidents. Characterized as speculative supporting factor."
+  - id: R1-CHALLENGE-7
+    dimension: "Evidence quality"
+    summary: "Depth-0 intelligence base"
+    raised_round: 1
+    status: resolved
+    resolved_round: 2
+    resolution_summary: "JIRA MCP lookups verified -118, -227, -226, -269, RHOKP-1681. Evidence base improved from 1 to 6 verified issues. RHOKP-1744/-1801/-1799 remain unverified."
+  - id: R1-CHALLENGE-8
+    dimension: "Consequence framing (QC-6)"
+    summary: "Executive Summary consequence GENERIC on stakes"
+    raised_round: 1
+    status: resolved
+    resolved_round: 2
+    resolution_summary: "Executive Summary now includes explicit worst-case consequence with conditional framing."
+  - id: R1-CHALLENGE-9
+    dimension: "Treatment feasibility"
+    summary: "Action items assigned without confirming authority"
+    raised_round: 1
+    status: resolved
+    resolved_round: 1
+    resolution_summary: "Ownership caveats added; all marked preliminary."
+  - id: R1-CHALLENGE-10
+    dimension: "Logical consistency"
+    summary: "Objective 7 dismissed categorically while content domain unknown"
+    raised_round: 1
+    status: resolved
+    resolved_round: 1
+    resolution_summary: "Objective 7 changed to UNRESOLVED: content domain dependent."
+  # Round 2 new challenges
+  - id: R2-CHALLENGE-3
+    dimension: "Logical consistency"
+    summary: "Likelihood/severity contradiction — severity driven by uncontrolled weight poisoning, likelihood ignores it"
+    raised_round: 2
+    status: resolved
+    resolved_round: 2
+    resolution_summary: "Likelihood section restructured. Weight poisoning addressed as uncontrolled threat vector. Likelihood rated on target profile and attacker sophistication, not control adequacy. HuggingFace platform risk acknowledged as known gap."
+  - id: R2-CHALLENGE-5
+    dimension: "Missing perspectives"
+    summary: "No cross-product contamination assertion unsourced"
+    raised_round: 2
+    status: open
+    researcher_notes: "Added to data gaps. Impact justification flags unsourced assumptions. Cannot resolve without OKP team input."
+  - id: R2-CHALLENGE-6
+    dimension: "Treatment feasibility"
+    summary: "Ownership still placeholder — not actionable"
+    raised_round: 2
+    status: open
+    researcher_notes: "Valid structural limitation. Cannot confirm ownership without stakeholder engagement."
+  - id: R2-CHALLENGE-7
+    dimension: "Claim-source alignment"
+    summary: "-269 pattern claim unverified"
+    raised_round: 2
+    status: resolved
+    resolved_round: 2
+    resolution_summary: "Verified -269 via JIRA MCP. Updated analysis to accurately reflect -269 remediation plan and resolved status."
+  - id: R2-CHALLENGE-10
+    dimension: "Missing perspectives"
+    summary: "RHEL AI precedent controls not assessed"
+    raised_round: 2
+    status: open
+    researcher_notes: "Added as Medium data gap. Cannot assess without RHEL AI EC Policy details."
+  - id: R2-CHALLENGE-11
+    dimension: "Logical consistency"
+    summary: "-226/-227 duplicate could be accidental mislink"
+    raised_round: 2
+    status: resolved
+    resolved_round: 2
+    resolution_summary: "Severity justification notes ambiguity. Also notes RHOKP-1681 tracks work in product backlog (not completely abandoned, but stalled at To Do)."

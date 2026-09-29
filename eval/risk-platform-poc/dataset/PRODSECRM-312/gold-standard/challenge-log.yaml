@@ -1,0 +1,204 @@
+- challenge_id: G-C1
+  claim_targeted: Analysis claims vendors are 'known, established technology vendors
+    with existing Red Hat partnerships' but only 1 of 5 legal agreements is confirmed
+  date_raised: '2026-09-14'
+  dimension: Evidence quality / Claim-source alignment
+  evidence_cited: RHOAIENG-38398 (Mellanox) Closed/Done; RHOAIENG-38388 (Intel), RHOAIENG-38389
+    (Fedora/EPEL), RHOAIENG-38427 (Habanalabs), RHOAIENG-38387 (CentOS) all In Progress
+  round: 0
+  status: open
+- challenge_id: G-C2
+  claim_targeted: Analysis characterizes the problem as 'self-resolving through AIPCC
+    base image sourcing' but 3 of 5 AIPCC sourcing requests closed as Won't Do
+  date_raised: '2026-09-14'
+  dimension: Evidence quality / Claim-source alignment
+  evidence_cited: AIPCC-16754 (CentOS Won't Do), AIPCC-16766 (Fedora/EPEL Won't Do),
+    AIPCC-16830 (Mellanox Won't Do); only AMD/NVIDIA completed but neither is among
+    the 5 keys in PRODSECRM-312
+  resolution_summary: 'Corrected in analysis during Garth escalation: updated Section
+    4 and Executive Summary to accurately reflect AIPCC Won''t Do resolutions and
+    persistent dependency'
+  resolved_round: 0
+  round: 0
+  status: resolved
+- challenge_id: G-C3
+  claim_targeted: Blast radius described as 'all Konflux-onboarded teams' but count
+    is unquantified -- listed as data gap without investigation
+  date_raised: '2026-09-14'
+  dimension: Missing perspectives
+  evidence_cited: Section 5 Data Gaps table lists this but no Release Engineering
+    query was attempted
+  round: 0
+  status: open
+- challenge_id: G-C4
+  claim_targeted: No regulatory framework scoped despite RHAISTRAT-576 explicitly
+    titled 'Third-Party Content Compliance & Release Requirements'
+  date_raised: '2026-09-14'
+  dimension: Missing perspectives
+  evidence_cited: RHAISTRAT-576 title references 'Compliance'; potential FedRAMP SC-7,
+    PCI-DSS Req 6.3, CRA Art 10(6) applicability not investigated
+  round: 0
+  status: open
+- challenge_id: R1-C1
+  claim_targeted: Likelihood rating (Likely) justified by request approval probability,
+    not harm materialization probability -- category error
+  date_raised: '2026-09-14'
+  dimension: Logical consistency / Risk quantification
+  evidence_cited: VP approval, engineering pressure, JIRA customfield_10642 are approval
+    indicators, not supply chain compromise indicators
+  round: 1
+  status: open
+- challenge_id: R1-C2
+  claim_targeted: Severity (High) and Impact (Moderate) are inconsistent -- blast
+    radius used to justify High severity but vendor reputation used to cap Impact
+    at Moderate
+  date_raised: '2026-09-14'
+  dimension: Logical consistency
+  evidence_cited: Section 2 severity justification vs Section 2 impact justification
+    use contradictory logic on vendor reputation
+  round: 1
+  status: open
+- challenge_id: R1-C3
+  claim_targeted: Section 6 PSRR promotion assessment still contains pre-correction
+    'self-resolving' language contradicted by Section 4 correction
+  date_raised: '2026-09-14'
+  dimension: Logical consistency / Internal contradiction
+  evidence_cited: Requirement 6 and promotion rationale in Section 6 vs corrected
+    text in Section 4 Residual Exposure
+  round: 1
+  status: open
+- challenge_id: R1-C4
+  claim_targeted: Blast radius asserted as 'all Konflux-onboarded products' but never
+    quantified
+  date_raised: '2026-09-14'
+  dimension: Evidence quality / Risk quantification
+  evidence_cited: Data gap table acknowledges but rates Medium priority; severity
+    argument depends on this unquantified claim
+  round: 1
+  status: open
+- challenge_id: R1-C5
+  claim_targeted: No Conforma team input on whether product-scoped key allowlists
+    are feasible or on roadmap
+  date_raised: '2026-09-14'
+  dimension: Missing perspectives
+  evidence_cited: Primary recommendation depends on per-product EnterpriseContractPolicy
+    scaling; no confirmation from Conforma team
+  round: 1
+  status: open
+- challenge_id: R1-C6
+  claim_targeted: Short-term 1-4 week timeline for legal agreements not credible;
+    epics In Progress for 3+ months
+  date_raised: '2026-09-14'
+  dimension: Treatment feasibility
+  evidence_cited: RHOAIENG-38388, 38389, 38427, 38387 all In Progress since at least
+    Q2 2026; CentOS key provenance (Stream vs legacy) not investigated
+  round: 1
+  status: open
+- challenge_id: R1-C7
+  claim_targeted: Long-term recommendation to complete AIPCC migration contradicts
+    analysis finding that AIPCC abandoned sourcing for 3 of 5 vendors
+  date_raised: '2026-09-14'
+  dimension: Treatment feasibility
+  evidence_cited: Section 4 corrected text vs Section 5 long-term recommendation;
+    AIPCC-16754, 16766, 16830 all Won't Do
+  round: 1
+  status: open
+- challenge_id: R1-C8
+  claim_targeted: No analysis of escalation path if ProdSec declines request that
+    has VP approval
+  date_raised: '2026-09-14'
+  dimension: Missing perspectives
+  evidence_cited: VP approval (jofernan@redhat.com) noted but no scenario analysis
+    for executive escalation
+  round: 1
+  status: open
+- challenge_id: R1-C9
+  claim_targeted: Consequence framing partially PROCEDURAL -- describes process gap
+    for non-RHOAI products without naming specific business consequence
+  date_raised: '2026-09-14'
+  dimension: Consequence framing (QC-6)
+  evidence_cited: 'Executive Summary: ''any Red Hat product could silently ship''
+    -- describes gap, not consequence for specific affected products'
+  round: 1
+  status: open
+- challenge_id: R1-C10
+  claim_targeted: Five vendor keys treated as undifferentiated risk; no per-vendor
+    breakdown by ecosystem (Intel/Habanalabs, Mellanox/NVIDIA, CentOS/Fedora)
+  date_raised: '2026-09-14'
+  dimension: Missing perspectives
+  evidence_cited: Different legal exposure, key compromise probability, and Red Hat
+    influence across three vendor categories
+  round: 1
+  status: open
+- challenge_id: R2-C1
+  claim_targeted: Blast radius remains unquantified -- severity argument depends on
+    unproven 'global' claim
+  date_raised: '2026-09-14'
+  dimension: Evidence quality / Risk quantification
+  evidence_cited: Round 1 CHALLENGE-4 rephrased; priority upgraded to Critical but
+    gap not filled
+  round: 2
+  status: open
+- challenge_id: R2-C2
+  claim_targeted: Five vendor keys treated as equivalent risk despite qualitative
+    differences in Red Hat control over signing infrastructure
+  date_raised: '2026-09-14'
+  dimension: Missing perspectives / Risk quantification
+  evidence_cited: Round 1 CHALLENGE-10 rephrased; data gap added but not incorporated
+    into ratings
+  round: 2
+  status: open
+- challenge_id: R2-C3
+  claim_targeted: Per-product EnterpriseContractPolicy recommendation may be blocked
+    by same legal prerequisites stalling PSX exceptions
+  date_raised: '2026-09-14'
+  dimension: Treatment feasibility
+  evidence_cited: PSX tickets blocked by RHOAIENG legal epics; AMD precedent benefited
+    from resolved legals (RHOAIENG-38426)
+  round: 2
+  status: open
+- challenge_id: R2-C4
+  claim_targeted: Conforma-exception AI skill automation listed as Effective control
+    but not factored into urgency/likelihood analysis
+  date_raised: '2026-09-14'
+  dimension: Logical consistency
+  evidence_cited: Section 4 lists automation as significantly reducing overhead; not
+    reflected in likelihood justification
+  round: 2
+  status: open
+- challenge_id: R2-C5
+  claim_targeted: PSRR WARRANTS RE-EVALUATION is a non-decision -- analysis should
+    commit to Warranted or Not Warranted
+  date_raised: '2026-09-14'
+  dimension: Treatment feasibility / Logical consistency
+  evidence_cited: 5 of 8 requirements met after corrections; self-resolving basis
+    for original Not Warranted invalidated
+  round: 2
+  status: open
+- challenge_id: R2-C6
+  claim_targeted: Multiple factual claims unverifiable from provided JIRA context
+    (Austin Kimbrell, Chris Kodama, jofernan, Doug Hellmann)
+  date_raised: '2026-09-14'
+  dimension: Claim-source alignment
+  evidence_cited: Round 1 SOURCE-2 through SOURCE-5 rephrased; claims cited from PRODSECRM-312
+    description (omitted per Safety Rule 11)
+  round: 2
+  status: open
+- challenge_id: R2-C7
+  claim_targeted: Recommendation to decline request without demonstrated engagement
+    with requestor (Florencio Cano Gabarda)
+  date_raised: '2026-09-14'
+  dimension: Missing perspectives
+  evidence_cited: PRODSECRM-312 has zero comments; no ProdSec engagement visible;
+    description omitted per Safety Rule 11
+  round: 2
+  status: open
+- challenge_id: R2-C8
+  claim_targeted: Detective control catches attributed to Conforma may actually be
+    from AIPCC sourcing reviews
+  date_raised: '2026-09-14'
+  dimension: Evidence quality
+  evidence_cited: AIPCC-16754 and AIPCC-16830 are AIPCC sourcing tickets, not Conforma
+    exception tickets; retirements may have been discovered during AIPCC investigation
+  round: 2
+  status: open

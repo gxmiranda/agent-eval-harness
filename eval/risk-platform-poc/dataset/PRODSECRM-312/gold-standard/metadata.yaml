@@ -1,0 +1,29 @@
+adversarial_disposition: EXHAUSTED
+adversarial_mode: full (escalated from garth)
+adversarial_rounds: 3
+challenges_raised: 22
+challenges_resolved: 20
+severity_changes:
+  - 'Garth escalation: Medium -> High (severity)'
+  - 'Round 1 researcher: Moderate -> Major (impact)'
+  - 'Round 2 researcher: PSRR Not Warranted -> Warranted (conditional)'
+critique_state_file: critique-state.yaml
+status: complete
+completed_at: '2026-09-14T11:50:00Z'
+quality_gates_passed: [1, 2, 3, 4, 5, 6]
+quality_gates_overridden: []
+analyst: Aleksandra Haklik
+analyst_email: ahaklik@redhat.com
+model: unset
+risk_id: PRODSECRM-312
+session_id: 2026-09-14-093350
+sources_uploaded: []
+started_at: '2026-09-14T09:33:50Z'
+intel_source: risk-intel-gather
+intel_schema_version: '1.1.0'
+intel_issues_visited: 30
+intel_depth_reached: 3
+intel_urls_extracted: 128
+regulatory_ref_sha: be36031bfc2e8a19df9c3b3d97de125da88dd9c7
+regulatory_frameworks_loaded: []
+regulatory_scoping_overrides: []

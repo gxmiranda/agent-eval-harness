@@ -1,0 +1,28 @@
+adversarial_disposition: EXHAUSTED
+adversarial_mode: full
+adversarial_rounds: 5
+analyst: Aleksandra Haklik
+analyst_email: ahaklik@redhat.com
+challenges_raised: 9
+challenges_resolved: 9
+critique_state_file: critique-state.yaml
+drive_status: no matching documents
+gmail_status: unavailable (local token refresh error)
+intel_depth_reached: 3
+intel_issues_visited: 177
+intel_schema_version: 1.1.0
+intel_source: risk-intel-gather
+intel_urls_extracted: 999
+model: unset
+quality_gates_overridden: []
+quality_gates_passed: [1, 2, 3, 4, 5, 6]
+regulatory_frameworks_loaded: []
+regulatory_ref_sha: be36031bfc2e8a19df9c3b3d97de125da88dd9c7
+regulatory_scoping_overrides: []
+severity_changes: []
+risk_id: PRODSECRM-309
+session_id: 2026-09-07-093958
+sources_uploaded: []
+started_at: '2026-09-07T09:39:58Z'
+status: complete
+completed_at: '2026-09-07T10:16:58Z'
