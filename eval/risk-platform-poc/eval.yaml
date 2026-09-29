@@ -1,0 +1,305 @@
+# Risk Platform Multi-Provider Benchmarking PoC
+# GRCAUTO-44: Spike — Multi-Provider Evaluation Framework
+#
+# Evaluates candidate LLM models against 5 gold-standard PRODSECRM risk
+# assessments across 8 dimensions (D1-D8) using deterministic quality
+# gates and LLM judge personas.
+#
+# Prerequisites:
+#   - RP_PATH environment variable pointing to risk-platform repo
+#   - Anthropic API credentials (for D6 Garth critique and LLM judges)
+#
+# Usage:
+#   /eval-run --model claude-opus-4-6
+#   /eval-run --config eval/risk-platform-poc/eval-openai.yaml --model gpt-4.1
+
+name: risk-platform-benchmark
+description: >
+  Multi-provider LLM benchmarking for PRODSECRM risk assessments.
+  Compares candidate models against Claude Opus gold-standard outputs
+  across 8 evaluation dimensions derived from the platform's quality
+  criteria (QC-1 through QC-6) and adversarial review methodology.
+
+execution:
+  mode: case
+  prompt: "{{ input.prompt }}"
+  timeout: 600
+  max_budget_usd: 20.0
+  env:
+    RP_PATH: "$RP_PATH"
+    RISK_PLATFORM_PATH: "$RP_PATH"
+
+runner:
+  type: claude-code
+  system_prompt: |
+    You are generating a PRODSECRM risk assessment. Follow the template
+    structure exactly. Fill ALL sections including Section 2 (Risk
+    Assessment ratings), Section 6 (Escalation Analysis), and the
+    Analyst Assessment. Use the standard rating scales and cite specific
+    evidence from the intelligence data provided.
+
+models:
+  skill: claude-opus-4-6
+  judge: claude-opus-4-6
+
+hooks:
+  before_each:
+    - command: >-
+        python3 "$(dirname "$AGENT_EVAL_CONFIG")/scripts/build_context.py"
+      timeout: 60
+      description: "Assemble risk assessment prompt from frozen inputs"
+  after_each:
+    - command: >-
+        python3 "$(dirname "$AGENT_EVAL_CONFIG")/scripts/run_quality_gates.py"
+      timeout: 120
+      description: "Run quality gates and Garth critique on candidate output"
+      on_failure: continue
+
+dataset:
+  path: dataset
+  schema: |
+    Each case directory represents one PRODSECRM gold-standard risk
+    assessment with frozen inputs and reference outputs.
+
+    input.yaml fields:
+      - risk_id: JIRA issue key (e.g., PRODSECRM-306)
+      - title: Risk title
+      - severity, likelihood, impact: Gold-standard ratings
+      - adversarial_mode: full | full (escalated from garth)
+      - adversarial_rounds: Number of critique rounds completed
+      - analyst_decision: CONCUR | MODIFY
+      - analyst_changes: Description of analyst modifications
+      - analyst_rationale: Rationale for any overrides
+      - has_regulatory: Whether regulatory scoping applies
+      - prompt: (assembled at runtime by before_each hook)
+
+    annotations.yaml fields:
+      - gold_analysis: Path to gold-standard analysis.md
+      - gold_challenges_raised/resolved: Adversarial baseline metrics
+      - gold_severity/likelihood/impact: Expected ratings
+      - has_regulatory: Flag for conditional D3 judge
+
+    gold-standard/ directory:
+      - analysis.md: Reference output for judge comparison
+      - intelligence.json: Frozen JIRA input for prompt assembly
+      - metadata.yaml: Session state and adversarial metrics
+      - critique-state.yaml, challenge-log.yaml: Adversarial baseline
+  workspace:
+    files:
+      - dest: templates/risk-assessment-output.md
+        source: $RP_PATH/templates/risk-assessment-output.md
+      - dest: docs/quality-criteria.md
+        source: $RP_PATH/docs/quality-criteria.md
+
+outputs:
+  - path: output
+    schema: |
+      analysis.md            -- candidate model's risk assessment output
+      gates.json             -- deterministic QC-1 through QC-6 results
+      critique-results.json  -- Garth adversarial critique metrics (D6)
+
+traces:
+  stdout: true
+  stderr: true
+  events: false
+  metrics: true
+
+judges:
+  # ═══════════════════════════════════════════════════════════════════════
+  # D1: Structural Completeness (deterministic, binary gate)
+  # Source: QC-1 (exec summary), QC-2 (sections), QC-5 (sources table)
+  # ═══════════════════════════════════════════════════════════════════════
+  - name: d1_structural_completeness
+    description: >
+      D1: All required sections present, executive summary exists and is
+      labeled [AI-GENERATED], sources table present with cited JIRA keys.
+    feedback_type: bool
+    check: |
+      import json
+      files = outputs.get("files", {})
+      for path, content in files.items():
+          if path.endswith("gates.json") and isinstance(content, str):
+              try:
+                  gates = json.loads(content)
+              except json.JSONDecodeError as exc:
+                  return False, f"malformed gates.json: {exc}"
+              failed = [g for g in gates if g["number"] in [1, 2, 5] and not g["passed"]]
+              if failed:
+                  names = ", ".join(f"QC-{g['number']}: {g.get('details', '')}" for g in failed)
+                  return False, f"Failed: {names}"
+              return True, "All structural gates passed (QC-1, QC-2, QC-5)"
+      return False, "gates.json not found in output"
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # D2: Citation Quality (LLM judge)
+  # Source: QC-2 (source linking), QC-3 (citation verification)
+  # ═══════════════════════════════════════════════════════════════════════
+  - name: d2_citation_quality
+    description: >
+      D2: Citation verifiability, format compliance per citation type
+      (EUR-Lex, JIRA, NVD, internal paths), [UNVERIFIED] marker usage.
+    feedback_type: int
+    score_range: [1, 5]
+    prompt_file: judges/d2_citation_auditor.md
+    samples: 2
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # D3: Regulatory Mapping Rigor (LLM judge, conditional)
+  # Source: QC-4 (5-element regulatory mapping test)
+  # ═══════════════════════════════════════════════════════════════════════
+  - name: d3_regulatory_mapping
+    description: >
+      D3: 5-element regulatory mapping test (definition, functionality,
+      match test, confidence, interpretive basis). Only scored on cases
+      with regulatory scoping (CRA, FedRAMP, PCI-DSS, SOC 2).
+    feedback_type: int
+    score_range: [1, 5]
+    prompt_file: judges/d3_regulatory_analyst.md
+    samples: 2
+    if: "annotations.get('has_regulatory', False)"
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # D4: Consequence Framing (deterministic, 1-5 scale)
+  # Source: QC-6 ("So What" consequence test)
+  # ═══════════════════════════════════════════════════════════════════════
+  - name: d4_consequence_framing
+    description: >
+      D4: Executive summary contains concrete business consequences
+      (customers, revenue, trust, compliance, availability).
+    feedback_type: int
+    score_range: [1, 5]
+    check: |
+      import json
+      files = outputs.get("files", {})
+      for path, content in files.items():
+          if path.endswith("gates.json") and isinstance(content, str):
+              try:
+                  gates = json.loads(content)
+              except json.JSONDecodeError as exc:
+                  return 1, f"malformed gates.json: {exc}"
+              qc6 = next((g for g in gates if g["number"] == 6), None)
+              if qc6 is None:
+                  return 1, "QC-6 gate not found in gates.json"
+              if qc6["passed"]:
+                  return 5, f"Strong consequence framing: {qc6.get('details', 'passed')}"
+              details = (qc6.get("details") or "").lower()
+              if "partial" in details or "some" in details:
+                  return 3, f"Partial consequence framing: {qc6.get('details', '')}"
+              return 2, f"Weak consequence framing: {qc6.get('details', '')}"
+      return 1, "gates.json not found in output"
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # D5: Rating Accuracy (LLM judge)
+  # Source: Gold standard severity/likelihood/impact comparison
+  # ═══════════════════════════════════════════════════════════════════════
+  - name: d5_rating_accuracy
+    description: >
+      D5: Severity/likelihood/impact ratings compared to gold standard.
+      Evaluates reasoning quality, not just value matching.
+    feedback_type: int
+    score_range: [1, 5]
+    prompt_file: judges/d5_rating_calibrator.md
+    samples: 2
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # D6: Adversarial Durability (deterministic from Garth critique)
+  # Source: Shrike/Garth critique loop metrics
+  # ═══════════════════════════════════════════════════════════════════════
+  - name: d6_adversarial_durability
+    description: >
+      D6: Adversarial stress test. Garth single-pass critique run on
+      candidate output; scores based on new defects found vs gold
+      standard baseline.
+    feedback_type: int
+    score_range: [1, 5]
+    check: |
+      import json
+      files = outputs.get("files", {})
+      for path, content in files.items():
+          if path.endswith("critique-results.json") and isinstance(content, str):
+              try:
+                  cr = json.loads(content)
+              except json.JSONDecodeError as exc:
+                  return 1, f"malformed critique-results.json: {exc}"
+              if cr.get("error"):
+                  return 3, f"Critique error (defaulting to mid-range): {cr['error']}"
+              new_defects = cr.get("new_defects", 0)
+              challenges = cr.get("challenges_raised", 0)
+              if new_defects == 0:
+                  return 5, f"No material defects ({challenges} challenges, all resolved)"
+              elif new_defects <= 2:
+                  return 4, f"{new_defects} minor new defects found ({challenges} challenges)"
+              elif new_defects <= 5:
+                  return 3, f"{new_defects} new defects found ({challenges} challenges)"
+              elif new_defects <= 10:
+                  return 2, f"{new_defects} significant new defects ({challenges} challenges)"
+              else:
+                  return 1, f"{new_defects} defects -- output is unreliable"
+      return 3, "critique-results.json not found (defaulting to mid-range)"
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # D7: Actionability of Recommendations (LLM judge)
+  # Source: Section 5 template compliance
+  # ═══════════════════════════════════════════════════════════════════════
+  - name: d7_actionability
+    description: >
+      D7: Recommendations have named owners, concrete timelines,
+      definitions of done, and are tiered by timeframe.
+    feedback_type: int
+    score_range: [1, 5]
+    prompt_file: judges/d7_mitigation_reviewer.md
+    samples: 2
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # D8: Data Gap Detection (LLM judge)
+  # Source: Gold standard data gaps comparison
+  # ═══════════════════════════════════════════════════════════════════════
+  - name: d8_gap_detection
+    description: >
+      D8: Data gaps identified match or exceed gold standard. Evaluates
+      semantic equivalence, materiality, and actionability of identified
+      gaps.
+    feedback_type: int
+    score_range: [1, 5]
+    prompt_file: judges/d8_gap_comparator.md
+    samples: 2
+
+# ═══════════════════════════════════════════════════════════════════════════
+# Pass criteria (Section 7.1: Deep Analysis Tasks)
+# ═══════════════════════════════════════════════════════════════════════════
+thresholds:
+  d1_structural_completeness:
+    min_pass_rate: 1.0           # Must PASS on every case
+  d3_regulatory_mapping:
+    min_mean: 3.0                # Must score >= 3 on regulatory cases
+  d5_rating_accuracy:
+    min_mean: 4.0                # Core quality target
+  d6_adversarial_durability:
+    min_mean: 3.5                # Must not regress significantly
+
+# ═══════════════════════════════════════════════════════════════════════════
+# Reward composition (weighted formula across all dimensions)
+# D1 acts as a boolean gate -- if it fails, reward is zeroed.
+# ═══════════════════════════════════════════════════════════════════════════
+reward:
+  formula: >-
+    0.15 * d2_citation_quality
+    + 0.15 * d3_regulatory_mapping
+    + 0.10 * d4_consequence_framing
+    + 0.20 * d5_rating_accuracy
+    + 0.15 * d6_adversarial_durability
+    + 0.15 * d7_actionability
+    + 0.10 * d8_gap_detection
+  gate: true
+
+# ═══════════════════════════════════════════════════════════════════════════
+# Model comparison matrix (for /eval-anova)
+# Uncomment additional models as candidates are selected.
+# ═══════════════════════════════════════════════════════════════════════════
+matrix:
+  factors:
+    model:
+      - claude-opus-4-6
+      # - claude-sonnet-4-6
+      # - gpt-4.1
+  replications: 1
