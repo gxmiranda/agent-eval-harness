@@ -24,6 +24,7 @@ import yaml
 
 def main() -> None:
     ws = Path(os.environ["CASE_WORKSPACE"])
+    case_source_dir = Path(os.environ.get("CASE_SOURCE_DIR", ""))
     rp_path = Path(os.environ["RP_PATH"])
 
     # Add Risk Platform source to import path
@@ -42,8 +43,9 @@ def main() -> None:
     input_path = ws / "input.yaml"
     input_data = yaml.safe_load(input_path.read_text(encoding="utf-8"))
 
-    # ── Load frozen intelligence ────────────────────────────────────────
-    intel_path = ws / "gold-standard" / "intelligence.json"
+    # ── Load frozen intelligence from source dataset ───────────────────
+    # The gold-standard directory is in the source dataset, not the workspace
+    intel_path = case_source_dir / "gold-standard" / "intelligence.json"
     with intel_path.open(encoding="utf-8") as f:
         intel_data = json.load(f)
 
@@ -103,7 +105,7 @@ def main() -> None:
         data_gaps_table = "No data gaps identified."
 
     # ── Build prompt context ────────────────────────────────────────────
-    briefing_path = ws / "gold-standard" / "briefing.txt"
+    briefing_path = case_source_dir / "gold-standard" / "briefing.txt"
     context = build_unattended_context(
         intel_path=intel_path,
         briefing_path=briefing_path if briefing_path.exists() else None,

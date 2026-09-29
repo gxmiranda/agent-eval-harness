@@ -38,6 +38,10 @@ runner:
     Analyst Assessment. Use the standard rating scales and cite specific
     evidence from the intelligence data provided.
 
+    IMPORTANT: Write the risk assessment to output/analysis.md in the
+    current working directory. You MUST use the Write tool to save
+    output/analysis.md with the complete assessment.
+
 models:
   skill: claude-opus-4-6
   judge: claude-opus-4-6

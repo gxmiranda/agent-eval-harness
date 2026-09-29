@@ -1296,32 +1296,9 @@ def _run_single_case(runner, skill_name, case_id, case_ws, output_dir,
             global_hook_outputs=global_hook_outputs,
             subagent_model=subagent_model)
 
-    case_args = skill_args_template
-    input_path = case_ws / "input.yaml"
-    if input_path.exists() and case_args:
-        case_data = _yaml.safe_load(input_path.read_text()) or {}
-        if isinstance(case_data, dict):
-            case_args = _resolve_arguments(case_args, case_data)
-
-    if mlflow_experiment:
-        from agent_eval.mlflow.experiment import inject_tracing_env
-        inject_tracing_env(str(case_ws), project_root=Path.cwd(),
-                           tracking_uri=mlflow_tracking_uri,
-                           experiment_name=mlflow_experiment)
-
-    case_settings = case_ws / ".claude" / "settings.json"
-    settings_path = case_settings if case_settings.exists() else None
-
-    exec_label = f"/{skill_name} {case_args}" if skill_name else case_args
-    print(f"  [{index}/{total_cases}] {case_id}: {exec_label}",
-          file=sys.stderr)
-
-    # Per-case hooks: build case-specific env, run before_each/after_each.
-    # The entire block is wrapped in try/finally so that after_each cleanup
-    # hooks fire even if before_each or run_skill raises.
+    # Per-case hooks: build case-specific env, run before_each hooks BEFORE
+    # template resolution (so hooks can populate input.yaml fields that templates reference).
     case_hook_env = None
-    merged_hook_data = {}
-    merged_env = {}
     result = None
     error_msg = ""
     try:
@@ -1340,6 +1317,31 @@ def _run_single_case(runner, skill_name, case_id, case_ws, output_dir,
                 run_hooks(config.hooks.before_each, env=case_hook_env,
                           cwd=case_ws, log_dir=log_dir,
                           phase_name="before_each", case_id=case_id)
+
+    # Now resolve arguments (after before_each hooks have populated input.yaml)
+        case_args = skill_args_template
+        input_path = case_ws / "input.yaml"
+        if input_path.exists() and case_args:
+            case_data = _yaml.safe_load(input_path.read_text()) or {}
+            if isinstance(case_data, dict):
+                case_args = _resolve_arguments(case_args, case_data)
+
+        if mlflow_experiment:
+            from agent_eval.mlflow.experiment import inject_tracing_env
+            inject_tracing_env(str(case_ws), project_root=Path.cwd(),
+                               tracking_uri=mlflow_tracking_uri,
+                               experiment_name=mlflow_experiment)
+
+        case_settings = case_ws / ".claude" / "settings.json"
+        settings_path = case_settings if case_settings.exists() else None
+
+        exec_label = f"/{skill_name} {case_args}" if skill_name else case_args
+        print(f"  [{index}/{total_cases}] {case_id}: {exec_label}",
+              file=sys.stderr)
+
+        merged_hook_data = {}
+        merged_env = {}
+        if config and config.hooks and hook_env:
 
             # Collect hook outputs and merge with global
             case_outputs = collect_hook_outputs(case_ws)
