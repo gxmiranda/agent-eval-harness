@@ -1,0 +1,22 @@
+# Risk Platform Benchmarking — OpenAI Candidate Models
+# Extends the main eval.yaml to use the responses-api runner for OpenAI models.
+#
+# The judge model stays on Claude Opus to avoid self-preference bias
+# (Section 11.1 anti-bias control: judge model != candidate model).
+#
+# Usage:
+#   /eval-run --config eval/risk-platform-poc/eval-openai.yaml --model gpt-4.1
+
+extends: eval.yaml
+
+name: risk-platform-benchmark-openai
+description: >
+  OpenAI candidate model benchmarking via the Responses API runner.
+  Same judges, thresholds, and dataset as the main config.
+
+runner:
+  type: responses-api
+
+models:
+  skill: gpt-4.1
+  judge: claude-opus-4-6         # Anti self-preference bias

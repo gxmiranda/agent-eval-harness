@@ -1,0 +1,26 @@
+# Risk Platform Benchmarking — Triage/Summary Task Tier
+# Extends the main eval.yaml with relaxed thresholds per Section 7.2.
+#
+# Triage tasks: audit comment generation, triage classification, summaries.
+# These tasks currently use Claude Sonnet and have lower quality requirements.
+#
+# Usage:
+#   /eval-run --config eval/risk-platform-poc/eval-triage.yaml --model claude-sonnet-4-6
+
+extends: eval.yaml
+
+name: risk-platform-benchmark-triage
+description: >
+  Triage/summary task tier benchmarking. Relaxed thresholds for tasks
+  that do not require deep analytical reasoning (audit comments, triage
+  classification, summaries).
+
+thresholds:
+  d1_structural_completeness:
+    min_pass_rate: 1.0           # Still must PASS
+  d3_regulatory_mapping:
+    min_mean: 2.5                # Relaxed -- triage rarely involves regulatory
+  d5_rating_accuracy:
+    min_mean: 3.5                # Relaxed from 4.0
+  d6_adversarial_durability:
+    min_mean: 3.0                # Relaxed from 3.5
