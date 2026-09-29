@@ -21,6 +21,18 @@ from string import Template
 
 import yaml
 
+# ── Context truncation caps ─────────────────────────────────────────────
+# Keep assembled prompts under ~40K chars so claude --print doesn't stall.
+# The gold-standard assessments were produced interactively with selective
+# context loading, not by dumping the entire intelligence graph into one
+# prompt.  These caps approximate that behaviour.
+_MAX_COMMENT_EXCERPTS = 50       # number of comments to keep (most recent)
+_MAX_COMMENT_CHARS = 15_000      # hard cap on comment_excerpts total chars
+_MAX_LINKED_ISSUES = 30          # number of linked-issue summary lines
+_MAX_LINKED_CHARS = 5_000        # hard cap on linked_issue_summaries chars
+_MAX_BRIEFING_CHARS = 8_000      # hard cap on briefing_text chars
+_MAX_DESCRIPTION_CHARS = 4_000   # hard cap on root_description chars
+
 
 def main() -> None:
     ws = Path(os.environ["CASE_WORKSPACE"])
@@ -114,6 +126,9 @@ def main() -> None:
     )
     context["data_gaps_table"] = data_gaps_table
 
+    # ── Truncate context to stay within prompt budget ───────────────────
+    context = _truncate_context(context)
+
     # ── Load and modify prompt template ─────────────────────────────────
     prompt_template_path = (
         rp_path / "src" / "risk_platform" / "prompts" / "unattended_draft_analysis.md"
@@ -141,6 +156,66 @@ def main() -> None:
         yaml.dump(input_data, default_flow_style=False, allow_unicode=True),
         encoding="utf-8",
     )
+
+
+def _truncate_context(context: dict) -> dict:
+    """Cap context field sizes to keep the assembled prompt manageable.
+
+    The gold-standard assessments were produced interactively over multiple
+    turns with selective context loading.  Dumping everything (up to 802
+    comments / 177 linked issues) into a single prompt causes claude --print
+    to stall.  These caps approximate the real interactive context budget.
+    """
+    # ── comment_excerpts: keep the last N comments (most recent) ────────
+    comments = context.get("comment_excerpts", "")
+    if comments:
+        lines = comments.split("\n")
+        if len(lines) > _MAX_COMMENT_EXCERPTS:
+            lines = lines[-_MAX_COMMENT_EXCERPTS:]
+        text = "\n".join(lines)
+        if len(text) > _MAX_COMMENT_CHARS:
+            # Trim from the front to keep the most recent comments
+            text = text[-_MAX_COMMENT_CHARS:]
+            nl = text.find("\n")
+            if nl > 0:
+                text = text[nl + 1:]
+        context["comment_excerpts"] = text
+
+    # ── linked_issue_summaries: keep the first N issues ─────────────────
+    linked = context.get("linked_issue_summaries", "")
+    if linked:
+        lines = linked.split("\n")
+        if len(lines) > _MAX_LINKED_ISSUES:
+            lines = lines[:_MAX_LINKED_ISSUES]
+        text = "\n".join(lines)
+        if len(text) > _MAX_LINKED_CHARS:
+            text = text[:_MAX_LINKED_CHARS]
+            nl = text.rfind("\n")
+            if nl > 0:
+                text = text[:nl]
+        context["linked_issue_summaries"] = text
+
+    # ── briefing_text: truncate at a paragraph boundary ─────────────────
+    briefing = context.get("briefing_text", "")
+    if len(briefing) > _MAX_BRIEFING_CHARS:
+        truncated = briefing[:_MAX_BRIEFING_CHARS]
+        para = truncated.rfind("\n\n")
+        if para > _MAX_BRIEFING_CHARS // 2:
+            truncated = truncated[:para]
+        context["briefing_text"] = (
+            truncated + "\n\n[... truncated for context budget]"
+        )
+
+    # ── root_description: truncate at a word boundary ───────────────────
+    desc = context.get("root_description", "")
+    if len(desc) > _MAX_DESCRIPTION_CHARS:
+        truncated = desc[:_MAX_DESCRIPTION_CHARS]
+        space = truncated.rfind(" ")
+        if space > _MAX_DESCRIPTION_CHARS // 2:
+            truncated = truncated[:space]
+        context["root_description"] = truncated + " [... truncated]"
+
+    return context
 
 
 def _modify_template_for_benchmark(
