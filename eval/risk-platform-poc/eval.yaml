@@ -23,14 +23,16 @@ description: >
 execution:
   mode: case
   prompt: "{{ input.prompt }}"
-  timeout: 900
+  timeout: 600
   max_budget_usd: 20.0
   env:
     RP_PATH: "$RP_PATH"
     RISK_PLATFORM_PATH: "$RP_PATH"
+    ANTHROPIC_API_KEY: "$ANTHROPIC_API_KEY"
 
 runner:
   type: claude-code
+  max_turns: 1
   system_prompt: |
     You are generating a PRODSECRM risk assessment. Follow the template
     structure exactly. Fill ALL sections including Section 2 (Risk
@@ -38,9 +40,9 @@ runner:
     Analyst Assessment. Use the standard rating scales and cite specific
     evidence from the intelligence data provided.
 
-    IMPORTANT: Write the risk assessment to output/analysis.md in the
-    current working directory. You MUST use the Write tool to save
-    output/analysis.md with the complete assessment.
+    Output the complete risk assessment document directly as your response.
+    Do NOT use any tools (Write, Bash, Edit, etc.). Simply respond with
+    the full markdown document.
 
 models:
   skill: claude-opus-4-6

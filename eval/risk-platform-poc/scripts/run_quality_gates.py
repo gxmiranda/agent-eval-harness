@@ -2,7 +2,8 @@
 """Run quality gates and Garth critique on candidate output.
 
 Runs as an after_each hook in the eval harness. Locates the candidate's
-analysis.md from the output directory (or extracts it from stdout),
+analysis.md from the output directory (written by Write tool) or from
+the conversation stream (when using max_turns=1 / no tool calls),
 runs check_all_gates() for deterministic QC-1 through QC-6 scoring,
 and runs run_garth_critique() for D6 adversarial durability scoring.
 
@@ -78,30 +79,90 @@ def main() -> None:
 def _find_analysis(output_dir: Path, ws: Path) -> Path | None:
     """Locate the candidate's analysis.md in output artifacts.
 
-    Checks for an explicit analysis.md file first, then attempts to
-    extract markdown content from captured stdout.
+    Search order:
+    1. Explicit analysis.md file (written via Write tool)
+    2. Extract from stdout.log stream-json (max_turns=1, no tool calls)
+    3. Scan any output file for risk assessment markdown content
     """
-    # Check explicit file locations
+    # 1. Check for explicit analysis.md file
     for candidate in [output_dir / "analysis.md", ws / "analysis.md"]:
         if candidate.exists() and candidate.stat().st_size > 100:
             return candidate
 
-    # If runner captured stdout, extract markdown content
-    # The claude-code and responses-api runners write stdout to files
-    # in the output directory or capture it in the conversation.
-    for path in output_dir.iterdir():
-        if not path.is_file():
-            continue
-        try:
-            content = path.read_text(encoding="utf-8", errors="replace")
-        except Exception:
-            continue
-        if "## Executive Summary" in content and "## Section 1" in content:
+    # 2. Extract from stdout.log (stream-json from claude --print)
+    # With max_turns=1, the model's response text is in the stream-json
+    # assistant message events. Extract the last assistant text.
+    stdout_path = output_dir / "stdout.log"
+    if not stdout_path.exists():
+        stdout_path = ws / "stdout.log"
+    if stdout_path.exists():
+        content = _extract_assistant_text(stdout_path)
+        if content and "## Executive Summary" in content:
             analysis_path = output_dir / "analysis.md"
             analysis_path.write_text(content, encoding="utf-8")
             return analysis_path
 
+    # 3. Fallback: scan any output file for markdown content
+    if output_dir.exists():
+        for path in output_dir.iterdir():
+            if not path.is_file() or path.name in ("gates.json", "critique-results.json"):
+                continue
+            try:
+                content = path.read_text(encoding="utf-8", errors="replace")
+            except Exception:
+                continue
+            if "## Executive Summary" in content and "## Section 1" in content:
+                analysis_path = output_dir / "analysis.md"
+                if path != analysis_path:
+                    analysis_path.write_text(content, encoding="utf-8")
+                return analysis_path
+
     return None
+
+
+def _extract_assistant_text(stdout_path: Path) -> str:
+    """Extract the assistant's response text from a stream-json stdout.log.
+
+    Parses the stream-json line by line looking for assistant message
+    events (same approach as execute.py::_extract_last_assistant_text,
+    but without a size limit since we need the full analysis).
+    """
+    texts: list[str] = []
+    raw_content = stdout_path.read_text(encoding="utf-8", errors="replace")
+
+    for line in raw_content.splitlines():
+        line = line.strip()
+        if not (line.startswith("{") and line.endswith("}")):
+            # Not JSON -- might be raw text output (--output-format text)
+            continue
+        try:
+            obj = json.loads(line)
+        except (ValueError, TypeError):
+            continue
+
+        # stream-json: "result" event has the final text
+        if obj.get("type") == "result" and isinstance(obj.get("result"), str):
+            texts.append(obj["result"])
+        # stream-json: "assistant" message events contain text blocks
+        elif obj.get("type") == "assistant" and not obj.get("parent_tool_use_id"):
+            msg = obj.get("message") or {}
+            for block in msg.get("content") or []:
+                if isinstance(block, dict) and block.get("type") == "text":
+                    text = (block.get("text") or "").strip()
+                    if text:
+                        texts.append(text)
+        # json output format: single result object
+        elif "result" in obj and isinstance(obj.get("result"), str):
+            texts.append(obj["result"])
+
+    if texts:
+        return texts[-1]
+
+    # If no JSON was found, the output might be raw text (--output-format text)
+    if "## Executive Summary" in raw_content:
+        return raw_content
+
+    return ""
 
 
 def _run_garth(
@@ -110,9 +171,18 @@ def _run_garth(
     """Run Garth single-pass critique and write results.
 
     Uses the Risk Platform's run_garth_critique() with an AIService
-    instance. Requires Anthropic API credentials (ANTHROPIC_API_KEY or
-    GOOGLE_CLOUD_PROJECT for Vertex AI).
+    instance. Requires Anthropic API credentials. Falls back gracefully
+    if the critique cannot run (missing dependencies, auth issues).
     """
+    # Force direct Anthropic backend for the critique to avoid
+    # google-auth dependency issues with Vertex AI.
+    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
+    if api_key:
+        # Temporarily unset GOOGLE_CLOUD_PROJECT to force direct backend
+        gcp_project = os.environ.pop("GOOGLE_CLOUD_PROJECT", None)
+    else:
+        gcp_project = None
+
     try:
         from risk_platform.ai_service import AIService
         from risk_platform.critique import run_garth_critique
@@ -121,7 +191,9 @@ def _run_garth(
 
         # Load JIRA context for the Critic (zero-context adversarial review)
         jira_context = ""
-        jira_path = ws / "gold-standard" / "jira-context.txt"
+        # Read from source dataset, not workspace
+        case_source_dir = Path(os.environ.get("CASE_SOURCE_DIR", ""))
+        jira_path = case_source_dir / "gold-standard" / "jira-context.txt"
         if jira_path.exists():
             jira_context = jira_path.read_text(encoding="utf-8")
 
@@ -148,6 +220,10 @@ def _run_garth(
             "disposition": None,
             "mode": "garth",
         }
+    finally:
+        # Restore GOOGLE_CLOUD_PROJECT if we removed it
+        if gcp_project is not None:
+            os.environ["GOOGLE_CLOUD_PROJECT"] = gcp_project
 
     (output_dir / "critique-results.json").write_text(
         json.dumps(results, indent=2), encoding="utf-8"
