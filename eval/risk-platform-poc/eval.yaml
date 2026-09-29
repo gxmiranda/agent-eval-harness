@@ -23,7 +23,7 @@ description: >
 execution:
   mode: case
   prompt: "{{ input.prompt }}"
-  timeout: 600
+  timeout: 900
   max_budget_usd: 20.0
   env:
     RP_PATH: "$RP_PATH"
