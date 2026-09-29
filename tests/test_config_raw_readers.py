@@ -32,6 +32,7 @@ ALLOWED_YAML_READERS = {
     "agent_eval/hooks.py": {"collect_hook_outputs": "hook output YAML"},
     "agent_eval/state.py": {"main": "tmp/ state files"},
     "agent_eval/tools/interception.py": {"generate_interception": "tool_handlers.yaml"},
+    "scripts/discover.py": {"_verify_config": "eval_name extraction for --verify (path check, not config load)"},
     "scripts/ensure_deps.py": {"_read": "stdlib fallback when agent_eval cannot import (follows extends itself)"},
     "skills/eval-analyze/scripts/assess_skills.py": {"_parse_frontmatter": "SKILL.md frontmatter"},
     "skills/eval-analyze/scripts/find_skills.py": {"find_skill": "SKILL.md frontmatter",

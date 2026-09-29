@@ -225,6 +225,7 @@ class ClaudeCodeRunner(EvalRunner):
             log_prefix=log_prefix,
             provider_plan=overrides.get("provider_plan"),
             run_id=overrides.get("run_id"),
+            max_turns=config.runner.max_turns,
         )
 
     def __init__(
@@ -242,6 +243,7 @@ class ClaudeCodeRunner(EvalRunner):
         permission_mode: Optional[str] = None,
         provider_plan=None,
         run_id: Optional[str] = None,
+        max_turns: Optional[int] = None,
     ):
         # spec 014: the plan (an OpenRouter-routed run) is a constructor
         # argument — it decides the env the CLI starts with, the id on the
@@ -271,6 +273,7 @@ class ClaudeCodeRunner(EvalRunner):
                 f"Invalid permission_mode '{permission_mode}'. "
                 f"Must be one of: {sorted(self._VALID_PERMISSION_MODES)}")
         self._permission_mode = permission_mode
+        self._max_turns = max_turns
 
     def bind_provider(self, binding) -> None:
         """The provider session's per-case binding: generation ids are sighted
@@ -321,6 +324,9 @@ class ClaudeCodeRunner(EvalRunner):
 
         if self._effort:
             cmd.extend(["--effort", self._effort])
+
+        if self._max_turns is not None:
+            cmd.extend(["--max-turns", str(self._max_turns)])
 
         if self._permission_mode:
             cmd.extend(["--permission-mode", self._permission_mode])

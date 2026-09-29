@@ -750,6 +750,10 @@ class RunnerConfig:
     # Passed as --permission-mode (a CLI flag), so it applies even in untrusted
     # isolated workspaces where settings-file permissions are trust-gated.
     permission_mode: Optional[str] = None
+    # Claude Code: maximum number of assistant turns (passed as --max-turns).
+    # With max_turns=1, the agent produces one response with no tool calls —
+    # useful for prompt-mode evals that want pure text generation.
+    max_turns: Optional[int] = None
 
 
 def _parse_runner_config(runner_raw, *, context="runner"):
@@ -785,6 +789,11 @@ def _parse_runner_config(runner_raw, *, context="runner"):
             raise ValueError(
                 f'{context}.settings.enabledPlugins."*" must be a boolean, '
                 f'got: {enabled_plugins["*"]!r}')
+    max_turns = runner_raw.get("max_turns")
+    if max_turns is not None:
+        if not isinstance(max_turns, int) or max_turns < 1:
+            raise ValueError(
+                f"{context}.max_turns must be a positive integer, got: {max_turns!r}")
     return RunnerConfig(
         type=runner_raw.get("type", "claude-code"),
         command=command,
@@ -795,6 +804,7 @@ def _parse_runner_config(runner_raw, *, context="runner"):
         system_prompt=runner_raw.get("system_prompt"),
         effort=runner_raw.get("effort"),
         permission_mode=runner_raw.get("permission_mode"),
+        max_turns=max_turns,
     )
 
 
