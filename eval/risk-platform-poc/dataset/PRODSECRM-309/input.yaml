@@ -1,0 +1,11 @@
+risk_id: PRODSECRM-309
+title: "RHOAI 3.6 Conforma exceptions"
+severity: High
+likelihood: Likely
+impact: Major
+adversarial_mode: full
+adversarial_rounds: 5
+analyst_decision: CONCUR
+analyst_changes: "None -- concurred as-is."
+analyst_rationale: "N/A"
+has_regulatory: false

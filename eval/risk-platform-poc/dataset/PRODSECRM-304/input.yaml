@@ -1,0 +1,18 @@
+risk_id: PRODSECRM-304
+title: "HuggingFace IBM Granite External Model Reference"
+severity: Medium
+likelihood: Unlikely
+impact: Moderate
+adversarial_mode: "full (escalated from garth)"
+adversarial_rounds: 4
+analyst_decision: MODIFY
+analyst_changes: >
+  AI recommended High severity. Analyst changed to Medium because High
+  conflates a bounded product exception with the systemic PRODSECRM-118
+  program risk. Treatment: conditional acceptance with 3 prerequisites.
+analyst_rationale: >
+  High conflates a bounded product exception (standalone factors: stalled
+  remediation, missing EC Policy artifact) with the systemic PRODSECRM-118
+  program risk (scanning gaps, unowned AIBOM work). Standalone severity
+  is Medium.
+has_regulatory: false

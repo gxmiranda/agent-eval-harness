@@ -1,0 +1,11 @@
+risk_id: PRODSECRM-312
+title: "Third-party RPM signature verification keys in Conforma"
+severity: High
+likelihood: Likely
+impact: Major
+adversarial_mode: "full (escalated from garth)"
+adversarial_rounds: 3
+analyst_decision: CONCUR
+analyst_changes: "None -- concurred as-is."
+analyst_rationale: "N/A"
+has_regulatory: false

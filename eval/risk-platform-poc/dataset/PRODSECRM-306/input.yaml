@@ -1,0 +1,14 @@
+risk_id: PRODSECRM-306
+title: "Slow recovery from signing key compromise"
+severity: High
+likelihood: Unlikely
+impact: Major
+adversarial_mode: full
+adversarial_rounds: 5
+analyst_decision: CONCUR
+analyst_changes: "None on ratings or substance."
+analyst_rationale: "N/A"
+has_regulatory: true
+regulatory_frameworks:
+  - CRA
+  - FedRAMP

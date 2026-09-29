@@ -1,0 +1,14 @@
+gold_analysis: gold-standard/analysis.md
+gold_analysis_original: gold-standard/analysis.original.md
+gold_intelligence: gold-standard/intelligence.json
+gold_metadata: gold-standard/metadata.yaml
+gold_critique_state: gold-standard/critique-state.yaml
+gold_challenge_log: gold-standard/challenge-log.yaml
+gold_challenges_raised: 20
+gold_challenges_resolved: 16
+gold_adversarial_disposition: "MAX ROUNDS"
+gold_severity: Medium
+gold_likelihood: Unlikely
+gold_impact: Moderate
+has_regulatory: false
+analyst_overrode_severity: true

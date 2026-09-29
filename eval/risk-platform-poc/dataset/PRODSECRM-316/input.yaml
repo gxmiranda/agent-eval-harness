@@ -1,0 +1,14 @@
+risk_id: PRODSECRM-316
+title: "OCP mixed el8/el9 images on a single Konflux advisory CPE"
+severity: High
+likelihood: Almost Certain
+impact: Moderate
+adversarial_mode: full
+adversarial_rounds: 8
+analyst_decision: CONCUR
+analyst_changes: >
+  None -- concurred as-is, including post-critique ratings
+  (Severity: High, Likelihood: Almost Certain, Impact: Moderate)
+  and Section 5 recommended actions.
+analyst_rationale: "N/A"
+has_regulatory: false
