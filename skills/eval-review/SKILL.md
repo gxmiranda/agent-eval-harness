@@ -19,7 +19,15 @@ You are an interactive reviewer. You present evaluation results to the user, col
 
 ### Config Discovery
 
-If `--config` was explicitly provided, use that path directly. Otherwise, auto-discover:
+If `--config` was explicitly provided, verify it exists:
+
+```bash
+python3 ${CLAUDE_SKILL_DIR}/../../scripts/discover.py --verify <config>
+```
+
+If `"exists": false`, **stop and tell the user** the config file was not found at the resolved path. Do NOT silently proceed. If `"exists": true`, use the `resolved_path` as `<config>`.
+
+If `--config` was NOT provided, auto-discover:
 
 ```bash
 python3 ${CLAUDE_SKILL_DIR}/../../scripts/discover.py

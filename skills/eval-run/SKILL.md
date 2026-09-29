@@ -34,9 +34,17 @@ If `--runner harbor`: after config discovery, **skip to the Harbor runner sectio
 
 ### Config Discovery
 
-If `--config` was explicitly provided, use that path directly.
+If `--config` was explicitly provided, verify it exists:
 
-Otherwise, auto-discover eval configs:
+```bash
+python3 ${CLAUDE_SKILL_DIR}/../../scripts/discover.py --verify <config>
+```
+
+If the output shows `"exists": false`, **stop and tell the user** the config file was not found at the resolved path shown in the output. Do NOT silently fall through to bootstrap — the user explicitly requested this file. Suggest they check the path. Use the `resolved_path` from the output to show them where the script looked.
+
+If `"exists": true`, use the `resolved_path` as `<config>` and `eval_name` from the output.
+
+If `--config` was NOT provided, auto-discover eval configs:
 
 ```bash
 python3 ${CLAUDE_SKILL_DIR}/../../scripts/discover.py
@@ -44,17 +52,9 @@ python3 ${CLAUDE_SKILL_DIR}/../../scripts/discover.py
 
 - **1 config found**: auto-select it as `<config>`
 - **Multiple configs found**: present the list and ask the user which to run
-- **No configs found**: proceed to the bootstrap flow below
+- **No configs found**: bootstrap via `/eval-analyze` (invoked through the Skill tool) — if `skills/` contains skills, suggest `/eval-analyze --skill <name>`; otherwise `/eval-analyze --prompt <path>` (prompt mode)
 
 After selecting a config, read its `skill` field to set `<eval-name>` (used in `$AGENT_EVAL_RUNS_DIR/<eval-name>/<id>` paths below).
-
-Check if the resolved config file exists:
-
-```bash
-test -f <config> && echo "CONFIG_EXISTS" || echo "NO_CONFIG"
-```
-
-**If config is missing**: bootstrap via `/eval-analyze` (invoked through the Skill tool) — if `skills/` contains skills, suggest `/eval-analyze --skill <name>`; otherwise `/eval-analyze --prompt <path>` (prompt mode).
 
 Once config exists, read it to understand the eval setup — the skill under test, runner, dataset, outputs, judges, models, and any tool interception. The downstream scripts read the same config; you don't need to pass these fields through, just confirm they're present and warn the user about anything missing or surprising.
 

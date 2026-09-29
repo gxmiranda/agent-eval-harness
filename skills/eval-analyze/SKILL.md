@@ -34,7 +34,15 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/agent_eval/state.py init tmp/analyze-config.
 
 ### Config Location Discovery
 
-If `--config` provided, use that path. Otherwise run `python3 ${CLAUDE_SKILL_DIR}/../../scripts/discover.py` and decide:
+If `--config` provided, verify it resolves correctly:
+
+```bash
+python3 ${CLAUDE_SKILL_DIR}/../../scripts/discover.py --verify <config>
+```
+
+If `"exists": true`, use the `resolved_path` as `<config>`. If `"exists": false`, the file does not yet exist — that is expected for first-time analysis, so use the `resolved_path` as the target location for the new config.
+
+If `--config` was NOT provided, run `python3 ${CLAUDE_SKILL_DIR}/../../scripts/discover.py` and decide:
 - **No configs**: Create `eval.yaml` at project root
 - **One root config** and `--skill` targets a different eval than the existing one: offer to reorganize into `eval/` layout. If the user accepts, run `python3 ${CLAUDE_SKILL_DIR}/scripts/reorganize.py --eval-name <name>` (add `--project-root <path>` if not the cwd). If declined, ask where to put the new config.
 - **Nested/flat layout already exists**: place the new config at `eval/<skill-name>/eval.yaml` (nested) or alongside existing flat configs
