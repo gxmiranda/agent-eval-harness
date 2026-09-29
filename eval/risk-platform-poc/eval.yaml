@@ -26,8 +26,6 @@ execution:
   timeout: 600
   max_budget_usd: 20.0
   env:
-    RP_PATH: "$RP_PATH"
-    RISK_PLATFORM_PATH: "$RP_PATH"
     ANTHROPIC_API_KEY: "$ANTHROPIC_API_KEY"
 
 runner:
@@ -49,6 +47,40 @@ models:
   judge: claude-opus-4-6
 
 hooks:
+  before_all:
+    - command: |
+        # Resolve RP_PATH: explicit env > sibling checkouts > error.
+        # Writes the resolved path to .hook-outputs.yaml so it propagates
+        # to all before_each and after_each hooks via the harness's
+        # hook-output forwarding mechanism.
+        rp="${RP_PATH:-}"
+        if [ -z "$rp" ] || [ ! -d "$rp/src/risk_platform" ]; then
+          for candidate in \
+            "../risk/risk-platform" \
+            "../risk-platform" \
+            "../../risk/risk-platform" \
+            "$HOME/repos/risk/risk-platform"; do
+            if [ -d "$candidate/src/risk_platform" ]; then
+              rp="$(cd "$candidate" && pwd)"
+              break
+            fi
+          done
+        fi
+        if [ -z "$rp" ] || [ ! -d "$rp/src/risk_platform" ]; then
+          echo "ERROR: Cannot find risk-platform repo." >&2
+          echo "Set RP_PATH to the risk-platform checkout, e.g.:" >&2
+          echo "  export RP_PATH=/path/to/risk-platform" >&2
+          exit 1
+        fi
+        echo "RP_PATH resolved: $rp" >&2
+        cat > .hook-outputs.yaml <<EOF
+        env:
+          RP_PATH: "$rp"
+          RISK_PLATFORM_PATH: "$rp"
+          PYTHONPATH: "$rp/src"
+        EOF
+      timeout: 10
+      description: "Resolve and propagate RP_PATH to all hooks"
   before_each:
     - command: >-
         python3 "$(dirname "$AGENT_EVAL_CONFIG")/scripts/build_context.py"

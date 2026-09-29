@@ -36,7 +36,25 @@ _MAX_DESCRIPTION_CHARS = 4_000   # hard cap on root_description chars
 def main() -> None:
     ws = Path(os.environ["CASE_WORKSPACE"])
     case_source_dir = Path(os.environ.get("CASE_SOURCE_DIR", ""))
-    rp_path = Path(os.environ["RP_PATH"])
+
+    # ── Validate RP_PATH ────────────────────────────────────────────────
+    rp_raw = os.environ.get("RP_PATH", "")
+    if not rp_raw:
+        print(
+            "ERROR: RP_PATH environment variable is not set.\n"
+            "The before_all hook should propagate it via .hook-outputs.yaml.\n"
+            "If running manually, export RP_PATH=/path/to/risk-platform",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    rp_path = Path(rp_raw)
+    if not (rp_path / "src" / "risk_platform").is_dir():
+        print(
+            f"ERROR: RP_PATH={rp_path} does not contain src/risk_platform/.\n"
+            "Check that RP_PATH points to the risk-platform repo root.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
     # Add Risk Platform source to import path
     rp_src = rp_path / "src"
