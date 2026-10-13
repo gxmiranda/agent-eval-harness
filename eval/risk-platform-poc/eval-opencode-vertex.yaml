@@ -26,5 +26,5 @@ runner:
     bash {config_dir}/scripts/run_opencode.sh {workspace} {output_dir} {model}
 
 models:
-  skill: anthropic/claude-opus-4-6
+  skill: google-vertex/claude-opus-4-6@default
   judge: claude-opus-4-6

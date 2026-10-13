@@ -29,20 +29,6 @@ execution:
     ANTHROPIC_VERTEX_PROJECT_ID: "$ANTHROPIC_VERTEX_PROJECT_ID"
     CLOUD_ML_REGION: "$CLOUD_ML_REGION"
     OPENAI_API_KEY: "$OPENAI_API_KEY"
-    # Inject the benchmark-eval agent config into OpenCode via env var.
-    # This makes the agent available to `opencode run --agent benchmark-eval`
-    # regardless of working directory (no filesystem dependency).
-    OPENCODE_CONFIG_CONTENT: >-
-      {"agent":{"benchmark-eval":{"description":"Benchmark risk assessment
-      generation - no tools, text output only","mode":"primary","steps":1,
-      "temperature":0,"permission":{"edit":"deny","bash":"deny","read":"deny",
-      "glob":"deny","grep":"deny","list":"deny","task":"deny","webfetch":"deny",
-      "websearch":"deny","lsp":"deny","skill":"deny","external_directory":"deny"},
-      "prompt":"You are generating a PRODSECRM risk assessment. Follow the
-      template structure exactly. Fill ALL sections including Section 2, Section
-      6, and the Analyst Assessment. Use the standard rating scales and cite
-      specific evidence from the intelligence data. Output the complete markdown
-      document directly as your response. Do NOT use any tools."}}}
 
 runner:
   type: claude-code
