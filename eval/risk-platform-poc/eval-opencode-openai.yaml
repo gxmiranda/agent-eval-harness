@@ -28,12 +28,7 @@ description: >
 runner:
   type: cli
   command: >-
-    opencode run
-    --agent benchmark-eval
-    --model {model}
-    --auto
-    --format default
-    {args}
+    bash {config_dir}/scripts/run_opencode.sh {workspace} {output_dir} {model}
 
 models:
   skill: openai/gpt-6-sol
