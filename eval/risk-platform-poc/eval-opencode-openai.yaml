@@ -1,0 +1,49 @@
+# GRCAUTO-114: Benchmark with OpenCode + OpenAI models via OpenAI API
+#
+# Overrides task model routing via env vars so the Risk Platform's
+# AIService uses OpenAI models for critique and triage roles:
+#   - AI_MODEL_CRITIQUE=openai/gpt-6-sol (higher-tier for adversarial)
+#   - AI_MODEL_TRIAGE=openai/gpt-6-luna  (lower-tier for summaries)
+#
+# Per GRCAUTO-43: lower-tier (Luna) for triage, audit comments, summaries;
+# higher-tier (Sol) for deep analysis + adversarial critique.
+#
+# Usage:
+#   /eval-run --config eval/risk-platform-poc/eval-opencode-openai.yaml \
+#             --model openai/gpt-6-sol
+#
+# Prerequisites:
+#   - OPENAI_API_KEY set (for model invocation and task model routing)
+#   - ANTHROPIC_API_KEY set (for LLM judges -- anti self-preference bias)
+#   - OpenCode installed (`opencode --version`)
+
+extends: eval.yaml
+
+name: risk-platform-benchmark-opencode-openai
+description: >
+  GRCAUTO-114: OpenCode + OpenAI benchmark. Evaluates the OpenCode
+  runtime with OpenAI models (Sol for deep analysis, Luna for triage)
+  against the 5 gold-standard PRODSECRM risk assessments.
+
+runner:
+  type: cli
+  command: >-
+    opencode run
+    --agent benchmark-eval
+    --model {model}
+    --auto
+    --format default
+    {args}
+
+models:
+  skill: openai/gpt-6-sol
+  judge: claude-opus-4-6          # Anti self-preference bias
+
+hooks:
+  before_all: !replace
+    - command: >-
+        bash "$(dirname "$AGENT_EVAL_CONFIG")/scripts/resolve_env.sh"
+        --critique-model openai/gpt-6-sol
+        --triage-model openai/gpt-6-luna
+      timeout: 10
+      description: "Resolve RP_PATH and set OpenAI task model routing"

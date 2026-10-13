@@ -189,18 +189,18 @@ def _run_garth(
     """Run Garth single-pass critique and write results.
 
     Uses the Risk Platform's run_garth_critique() with an AIService
-    instance. Requires Anthropic API credentials. Falls back gracefully
-    if the critique cannot run (missing dependencies, auth issues).
-    """
-    # Force direct Anthropic backend for the critique to avoid
-    # google-auth dependency issues with Vertex AI.
-    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
-    if api_key:
-        # Temporarily unset GOOGLE_CLOUD_PROJECT to force direct backend
-        gcp_project = os.environ.pop("GOOGLE_CLOUD_PROJECT", None)
-    else:
-        gcp_project = None
+    instance. Provider selection is driven by the AI_MODEL_CRITIQUE env
+    var (propagated by resolve_env.sh via .hook-outputs.yaml):
 
+    - GRCAUTO-113 (Anthropic/Vertex): AI_MODEL_CRITIQUE is unset, so
+      AIService falls back to config/models.yaml (committed Anthropic
+      defaults).
+    - GRCAUTO-114 (OpenAI): AI_MODEL_CRITIQUE=openai/gpt-6-sol, so
+      AIService routes the critique to the OpenAI provider.
+
+    Falls back gracefully if the critique cannot run (missing
+    dependencies, auth issues, provider unavailable).
+    """
     try:
         from risk_platform.ai_service import AIService
         from risk_platform.critique import run_garth_critique
@@ -238,10 +238,6 @@ def _run_garth(
             "disposition": None,
             "mode": "garth",
         }
-    finally:
-        # Restore GOOGLE_CLOUD_PROJECT if we removed it
-        if gcp_project is not None:
-            os.environ["GOOGLE_CLOUD_PROJECT"] = gcp_project
 
     (output_dir / "critique-results.json").write_text(
         json.dumps(results, indent=2), encoding="utf-8"

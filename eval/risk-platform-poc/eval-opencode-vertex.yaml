@@ -1,0 +1,35 @@
+# GRCAUTO-113: Benchmark with OpenCode + Anthropic models via Vertex AI
+#
+# Uses the committed config/models.yaml from the risk-platform repo
+# (Anthropic defaults for all task roles: orchestrator, critique, triage).
+#
+# Usage:
+#   /eval-run --config eval/risk-platform-poc/eval-opencode-vertex.yaml \
+#             --model anthropic/claude-opus-4-6
+#
+# Prerequisites:
+#   - GOOGLE_CLOUD_PROJECT set (for Vertex AI)
+#   - ANTHROPIC_API_KEY set (for LLM judges and Garth critique fallback)
+#   - OpenCode installed (`opencode --version`)
+
+extends: eval.yaml
+
+name: risk-platform-benchmark-opencode-vertex
+description: >
+  GRCAUTO-113: OpenCode + Anthropic/Vertex benchmark. Evaluates the
+  OpenCode runtime with Anthropic models served through Vertex AI
+  against the 5 gold-standard PRODSECRM risk assessments.
+
+runner:
+  type: cli
+  command: >-
+    opencode run
+    --agent benchmark-eval
+    --model {model}
+    --auto
+    --format default
+    {args}
+
+models:
+  skill: anthropic/claude-opus-4-6
+  judge: claude-opus-4-6
