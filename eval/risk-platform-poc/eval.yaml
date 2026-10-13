@@ -151,7 +151,7 @@ judges:
       (EUR-Lex, JIRA, NVD, internal paths), [UNVERIFIED] marker usage.
     feedback_type: int
     score_range: [1, 5]
-    prompt_file: judges/d2_citation_auditor.md
+    prompt_file: eval/risk-platform-poc/judges/d2_citation_auditor.md
     samples: 2
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -165,7 +165,7 @@ judges:
       with regulatory scoping (CRA, FedRAMP, PCI-DSS, SOC 2).
     feedback_type: int
     score_range: [1, 5]
-    prompt_file: judges/d3_regulatory_analyst.md
+    prompt_file: eval/risk-platform-poc/judges/d3_regulatory_analyst.md
     samples: 2
     if: "annotations.get('has_regulatory', False)"
 
@@ -209,7 +209,7 @@ judges:
       Evaluates reasoning quality, not just value matching.
     feedback_type: int
     score_range: [1, 5]
-    prompt_file: judges/d5_rating_calibrator.md
+    prompt_file: eval/risk-platform-poc/judges/d5_rating_calibrator.md
     samples: 2
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -258,7 +258,7 @@ judges:
       definitions of done, and are tiered by timeframe.
     feedback_type: int
     score_range: [1, 5]
-    prompt_file: judges/d7_mitigation_reviewer.md
+    prompt_file: eval/risk-platform-poc/judges/d7_mitigation_reviewer.md
     samples: 2
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -272,7 +272,7 @@ judges:
       gaps.
     feedback_type: int
     score_range: [1, 5]
-    prompt_file: judges/d8_gap_comparator.md
+    prompt_file: eval/risk-platform-poc/judges/d8_gap_comparator.md
     samples: 2
 
 # ═══════════════════════════════════════════════════════════════════════════
