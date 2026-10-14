@@ -31,14 +31,14 @@ runner:
     bash {config_dir}/scripts/run_opencode.sh {workspace} {output_dir} {model}
 
 models:
-  skill: openai/gpt-6-sol
+  skill: openai/gpt-6-astra
   judge: claude-opus-4-6          # Anti self-preference bias
 
 hooks:
   before_all: !replace
     - command: >-
         bash "$(dirname "$AGENT_EVAL_CONFIG")/scripts/resolve_env.sh"
-        --critique-model openai/gpt-6-sol
-        --triage-model openai/gpt-6-luna
+        --critique-model openai/gpt-6-astra
+        --triage-model openai/gpt-6-sol
       timeout: 10
       description: "Resolve RP_PATH and set OpenAI task model routing"
