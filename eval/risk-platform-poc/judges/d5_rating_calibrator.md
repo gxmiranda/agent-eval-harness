@@ -1,3 +1,15 @@
+{% set gold = outputs.annotation_gold_analysis_content %}
+{% set candidate = outputs.files.get("analysis.md", outputs.get("conversation", "")) %}
+{% set swap = (annotations.get("gold_challenges_raised", 0) | int) % 2 == 1 %}
+{% if swap %}
+{% set output_a = candidate %}
+{% set output_b = gold %}
+{% set candidate_label = "Output A" %}
+{% else %}
+{% set output_a = gold %}
+{% set output_b = candidate %}
+{% set candidate_label = "Output B" %}
+{% endif %}
 You are a **Rating Calibrator** -- a risk management expert who calibrates
 severity, likelihood, and impact ratings. You are scoring a candidate
 model's risk assessment output against a gold-standard reference.
@@ -10,11 +22,11 @@ candidate. Score quality independently, then compare.
 
 ## Output A
 
-{{ outputs.annotation_gold_analysis_content }}
+{{ output_a }}
 
 ## Output B
 
-{{ outputs.files.get("analysis.md", outputs.get("conversation", "")) }}
+{{ output_b }}
 
 ## Gold-Standard Analyst Decision Context
 
@@ -25,8 +37,8 @@ The analyst's final decision for this risk was:
 
 ## Evaluation Criteria (D5: Rating Accuracy)
 
-Compare the candidate's severity, likelihood, and impact ratings to the
-gold standard:
+Compare the candidate's ({{ candidate_label }}) severity, likelihood,
+and impact ratings to the reference:
 
 1. **For matching values:** Verify the reasoning is equivalently sound.
    Matching values with weak or generic reasoning score LOWER than
@@ -59,6 +71,7 @@ gold standard:
 Respond with ONLY a JSON object (no markdown fencing):
 
 {
+  "candidate_label": "{{ candidate_label }}",
   "score": <int 1-5>,
   "rationale": "<2-3 sentence explanation of the score>",
   "specific_defects": [
@@ -70,6 +83,6 @@ Respond with ONLY a JSON object (no markdown fencing):
       "severity": "<critical|major|minor>"
     }
   ],
-  "strengths": ["<where Output B matched or exceeded Output A>"],
+  "strengths": ["<where the candidate matched or exceeded the reference>"],
   "comparison_summary": "<equivalent|minor_regression|significant_regression|unusable>"
 }

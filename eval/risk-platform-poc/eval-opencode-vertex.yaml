@@ -3,13 +3,16 @@
 # Uses the committed config/models.yaml from the risk-platform repo
 # (Anthropic defaults for all task roles: orchestrator, critique, triage).
 #
+# Judge model is OpenAI (not Opus) to avoid self-preference bias when
+# the candidate IS Opus (proposal Section 11.1 anti-bias control).
+#
 # Usage:
 #   /eval-run --config eval/risk-platform-poc/eval-opencode-vertex.yaml \
-#             --model anthropic/claude-opus-4-6
+#             --model google-vertex/claude-opus-4-6@default
 #
 # Prerequisites:
-#   - GOOGLE_CLOUD_PROJECT set (for Vertex AI)
-#   - ANTHROPIC_API_KEY set (for LLM judges and Garth critique fallback)
+#   - GOOGLE_CLOUD_PROJECT set (for Vertex AI candidate execution)
+#   - OPENAI_API_KEY set (for LLM judges -- anti self-preference)
 #   - OpenCode installed (`opencode --version`)
 
 extends: eval.yaml
@@ -27,4 +30,4 @@ runner:
 
 models:
   skill: google-vertex/claude-opus-4-6@default
-  judge: claude-opus-4-6
+  judge: openai:/gpt-6-astra       # Anti self-preference: judge != candidate provider

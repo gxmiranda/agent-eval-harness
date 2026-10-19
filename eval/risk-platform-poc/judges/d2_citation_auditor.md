@@ -1,3 +1,15 @@
+{% set gold = outputs.annotation_gold_analysis_content %}
+{% set candidate = outputs.files.get("analysis.md", outputs.get("conversation", "")) %}
+{% set swap = (annotations.get("gold_challenges_raised", 0) | int) % 2 == 1 %}
+{% if swap %}
+{% set output_a = candidate %}
+{% set output_b = gold %}
+{% set candidate_label = "Output A" %}
+{% else %}
+{% set output_a = gold %}
+{% set output_b = candidate %}
+{% set candidate_label = "Output B" %}
+{% endif %}
 You are a **Citation Auditor** -- a senior technical editor specializing in
 verifiable sourcing for compliance documents. You are scoring a candidate
 model's risk assessment output against a gold-standard reference.
@@ -10,15 +22,16 @@ candidate. Score quality independently, then compare.
 
 ## Output A
 
-{{ outputs.annotation_gold_analysis_content }}
+{{ output_a }}
 
 ## Output B
 
-{{ outputs.files.get("analysis.md", outputs.get("conversation", "")) }}
+{{ output_b }}
 
 ## Evaluation Criteria (D2: Citation Quality)
 
-For EACH citation in Output B, check against these format requirements:
+For EACH citation in the candidate output ({{ candidate_label }}), check
+against these format requirements:
 
 - **EUR-Lex**: article-level anchored links (`eli/reg/{year}/{number}/oj/eng#art_{N}`)
 - **JIRA**: browse URLs (`redhat.atlassian.net/browse/XXX-NNN`)
@@ -31,7 +44,7 @@ For regulatory citations specifically:
 - Are there mismatched article numbers, conflated provisions, or vague characterizations?
 - Is `[UNVERIFIED]` used correctly where source text was not retrieved?
 
-Compare citation density and quality to Output A.
+Compare citation density and quality between the two outputs.
 
 ## Scoring Rubric (1-5)
 
@@ -48,6 +61,7 @@ Compare citation density and quality to Output A.
 Respond with ONLY a JSON object (no markdown fencing):
 
 {
+  "candidate_label": "{{ candidate_label }}",
   "score": <int 1-5>,
   "rationale": "<2-3 sentence explanation of the score>",
   "specific_defects": [
@@ -59,6 +73,6 @@ Respond with ONLY a JSON object (no markdown fencing):
       "severity": "<critical|major|minor>"
     }
   ],
-  "strengths": ["<where Output B matched or exceeded Output A>"],
+  "strengths": ["<where the candidate matched or exceeded the reference>"],
   "comparison_summary": "<equivalent|minor_regression|significant_regression|unusable>"
 }

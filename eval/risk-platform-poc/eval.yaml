@@ -297,29 +297,55 @@ judges:
 # ═══════════════════════════════════════════════════════════════════════════
 # Pass criteria (Section 7.1: Deep Analysis Tasks)
 # ═══════════════════════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════════════════
+# Pass criteria (aligned with evaluation proposal Section 7.1)
+#
+# Proposal requires:
+#   1. D1 must PASS                    -> min_pass_rate: 1.0
+#   2. Average D2-D8 >= 4.0           -> approximated as min_mean per judge
+#   3. No individual dimension at 1   -> not expressible as a threshold;
+#                                        flagged in report via low scores
+#   4. D3 (Regulatory) >= 3           -> min_mean: 3.0
+#   5. D6 regression <= 1 point       -> use --baseline for regression check
+#
+# Deviation: the harness does not support cross-judge average thresholds.
+# Per-judge min_mean values approximate the "average >= 4.0" requirement.
+# The regression check for D6 uses /eval-run --baseline <run-id>.
+# ═══════════════════════════════════════════════════════════════════════════
 thresholds:
   d1_structural_completeness:
-    min_pass_rate: 1.0           # Must PASS on every case
+    min_pass_rate: 1.0           # Must PASS on every case (proposal item 1)
+  d2_citation_quality:
+    min_mean: 3.5                # Per-judge floor (contributes to avg >= 4.0)
   d3_regulatory_mapping:
-    min_mean: 3.0                # Must score >= 3 on regulatory cases
+    min_mean: 3.0                # Must score >= 3 (proposal item 4)
+  d4_consequence_framing:
+    min_mean: 3.5                # Per-judge floor
   d5_rating_accuracy:
     min_mean: 4.0                # Core quality target
   d6_adversarial_durability:
-    min_mean: 3.5                # Must not regress significantly
+    min_mean: 3.5                # Per-judge floor; regression via --baseline
+  d7_actionability:
+    min_mean: 3.5                # Per-judge floor
+  d8_gap_detection:
+    min_mean: 3.5                # Per-judge floor
 
 # ═══════════════════════════════════════════════════════════════════════════
 # Reward composition (weighted formula across all dimensions)
 # D1 acts as a boolean gate -- if it fails, reward is zeroed.
 # ═══════════════════════════════════════════════════════════════════════════
+# D3 (regulatory mapping) is excluded from the reward formula because it
+# is skipped (N/A) for 4 of 5 cases, which would zero the composite.
+# D3 quality is enforced via its threshold (min_mean: 3.0) on the one
+# regulatory case. The remaining weights are renormalized to sum to 1.0.
 reward:
   formula: >-
-    0.15 * d2_citation_quality
-    + 0.15 * d3_regulatory_mapping
-    + 0.10 * d4_consequence_framing
-    + 0.20 * d5_rating_accuracy
-    + 0.15 * d6_adversarial_durability
-    + 0.15 * d7_actionability
-    + 0.10 * d8_gap_detection
+    0.175 * d2_citation_quality
+    + 0.12 * d4_consequence_framing
+    + 0.235 * d5_rating_accuracy
+    + 0.175 * d6_adversarial_durability
+    + 0.175 * d7_actionability
+    + 0.12 * d8_gap_detection
   gate: true
 
 # ═══════════════════════════════════════════════════════════════════════════

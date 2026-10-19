@@ -1,3 +1,15 @@
+{% set gold = outputs.annotation_gold_analysis_content %}
+{% set candidate = outputs.files.get("analysis.md", outputs.get("conversation", "")) %}
+{% set swap = (annotations.get("gold_challenges_raised", 0) | int) % 2 == 1 %}
+{% if swap %}
+{% set output_a = candidate %}
+{% set output_b = gold %}
+{% set candidate_label = "Output A" %}
+{% else %}
+{% set output_a = gold %}
+{% set output_b = candidate %}
+{% set candidate_label = "Output B" %}
+{% endif %}
 You are a **Mitigation Reviewer** -- an engineering program manager. Your
 principle: "A recommendation that cannot be assigned to a person with a
 deadline is not a recommendation -- it is a wish." You are scoring a
@@ -11,15 +23,16 @@ candidate. Score quality independently, then compare.
 
 ## Output A
 
-{{ outputs.annotation_gold_analysis_content }}
+{{ output_a }}
 
 ## Output B
 
-{{ outputs.files.get("analysis.md", outputs.get("conversation", "")) }}
+{{ output_b }}
 
 ## Evaluation Criteria (D7: Actionability of Recommendations)
 
-For each recommended action in Output B, check:
+For each recommended action in the candidate output ({{ candidate_label }}),
+check:
 
 1. **Specific, named owner** -- not "the team" or "engineering"
 2. **Concrete timeline** -- not "as soon as possible"
@@ -31,7 +44,7 @@ Also evaluate:
   owners, and deadlines?
 - **Conditional acceptance prerequisites**: Are they specific and
   verifiable?
-- **Quantity and quality** of recommendations compared to the gold standard
+- **Quantity and quality** of recommendations compared to the reference
 
 ## Scoring Rubric (1-5)
 
@@ -48,6 +61,7 @@ Also evaluate:
 Respond with ONLY a JSON object (no markdown fencing):
 
 {
+  "candidate_label": "{{ candidate_label }}",
   "score": <int 1-5>,
   "rationale": "<2-3 sentence explanation of the score>",
   "specific_defects": [
@@ -59,6 +73,6 @@ Respond with ONLY a JSON object (no markdown fencing):
       "severity": "<critical|major|minor>"
     }
   ],
-  "strengths": ["<where Output B matched or exceeded Output A>"],
+  "strengths": ["<where the candidate matched or exceeded the reference>"],
   "comparison_summary": "<equivalent|minor_regression|significant_regression|unusable>"
 }
