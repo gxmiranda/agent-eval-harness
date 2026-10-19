@@ -6,11 +6,10 @@
 # prompt from input.yaml (populated by build_context.py) and passes it to
 # opencode run as a properly quoted single argument.
 #
-# Uses the built-in "plan" agent which has edit and bash set to "ask".
-# With --auto, non-denied permissions are auto-approved, but plan mode
-# only suggests changes without executing them -- producing pure text
-# output. Custom agents trigger an "assistant message prefill" error on
-# the Vertex AI provider, so we use the built-in plan agent instead.
+# Uses the built-in "plan" agent with a workspace-local opencode.json that
+# denies ALL permissions and disables MCP servers. This ensures a strictly
+# frozen-input comparison: the model can only respond with text based on
+# the prompt content, with no file reads, JIRA lookups, or other tool use.
 #
 # Usage: run_opencode.sh <workspace> <output_dir> <model>
 set -uo pipefail
@@ -35,7 +34,37 @@ if [ $? -ne 0 ] || [ -z "$prompt" ]; then
     exit 1
 fi
 
-# Run OpenCode with the plan agent (text output only, no file modifications)
+# Write a lockdown opencode.json into the workspace to deny ALL tools
+# and disable MCP servers. OpenCode's project-level config overrides
+# the global config, and "deny" is always enforced even with --auto.
+# This prevents the model from reading files, querying JIRA, or using
+# any tool -- ensuring a strictly frozen-input benchmark comparison.
+cat > "${workspace}/opencode.json" <<'LOCKDOWN'
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "read": "deny",
+    "edit": "deny",
+    "bash": "deny",
+    "glob": "deny",
+    "grep": "deny",
+    "list": "deny",
+    "task": "deny",
+    "webfetch": "deny",
+    "websearch": "deny",
+    "lsp": "deny",
+    "skill": "deny",
+    "external_directory": "deny",
+    "question": "deny",
+    "jira_*": "deny",
+    "slack_*": "deny",
+    "*": "deny"
+  },
+  "mcp": {}
+}
+LOCKDOWN
+
+# Run OpenCode with the plan agent (all tools denied via workspace config)
 opencode run \
     --agent plan \
     --model "$model" \

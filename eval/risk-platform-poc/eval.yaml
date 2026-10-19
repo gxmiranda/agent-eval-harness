@@ -23,7 +23,7 @@ description: >
 execution:
   mode: case
   prompt: "{{ input.prompt }}"
-  timeout: 600
+  timeout: 900
   max_budget_usd: 20.0
   env:
     ANTHROPIC_VERTEX_PROJECT_ID: "$ANTHROPIC_VERTEX_PROJECT_ID"
