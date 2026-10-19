@@ -165,7 +165,7 @@ judges:
     feedback_type: int
     score_range: [1, 5]
     prompt_file: eval/risk-platform-poc/judges/d2_citation_auditor.md
-    samples: 2
+    samples: 3
 
   # ═══════════════════════════════════════════════════════════════════════
   # D3: Regulatory Mapping Rigor (LLM judge, conditional)
@@ -179,7 +179,7 @@ judges:
     feedback_type: int
     score_range: [1, 5]
     prompt_file: eval/risk-platform-poc/judges/d3_regulatory_analyst.md
-    samples: 2
+    samples: 3
     if: "annotations.get('has_regulatory', False)"
 
   # ═══════════════════════════════════════════════════════════════════════
@@ -229,7 +229,7 @@ judges:
     feedback_type: int
     score_range: [1, 5]
     prompt_file: eval/risk-platform-poc/judges/d5_rating_calibrator.md
-    samples: 2
+    samples: 3
 
   # ═══════════════════════════════════════════════════════════════════════
   # D6: Adversarial Durability (deterministic from Garth critique)
@@ -278,7 +278,7 @@ judges:
     feedback_type: int
     score_range: [1, 5]
     prompt_file: eval/risk-platform-poc/judges/d7_mitigation_reviewer.md
-    samples: 2
+    samples: 3
 
   # ═══════════════════════════════════════════════════════════════════════
   # D8: Data Gap Detection (LLM judge)
@@ -292,7 +292,7 @@ judges:
     feedback_type: int
     score_range: [1, 5]
     prompt_file: eval/risk-platform-poc/judges/d8_gap_comparator.md
-    samples: 2
+    samples: 3
 
 # ═══════════════════════════════════════════════════════════════════════════
 # Pass criteria (Section 7.1: Deep Analysis Tasks)

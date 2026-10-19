@@ -1,0 +1,54 @@
+# Judge calibration eval config (evaluation proposal Section 11.6)
+#
+# Runs judges against pre-built calibration cases (no model invocation):
+#   - Self-eval case: gold standard as candidate (expected: 4-5 all dimensions)
+#   - Degraded case: weakened gold standard (expected: 2-3 on D2, D5, D7, D8)
+#
+# Generate calibration cases first:
+#   python3 eval/risk-platform-poc/scripts/generate_calibration.py \
+#     eval/risk-platform-poc/dataset \
+#     eval/risk-platform-poc/dataset-calibration
+#
+# Then score (skip execution -- cases have pre-built output/):
+#   python3 skills/eval-run/scripts/score.py judges \
+#     --config eval/risk-platform-poc/eval-calibration.yaml \
+#     --run-id calibration-001
+#
+# Note: This config skips execution (no runner) -- it only scores
+# pre-existing output/ directories in the calibration dataset.
+
+extends: eval.yaml
+
+name: risk-platform-calibration
+description: >
+  Judge calibration: self-eval and degradation tests per evaluation
+  proposal Section 11.6. Validates that judges produce sensible scores
+  before trusting them for production acceptance decisions.
+
+dataset:
+  path: dataset-calibration
+  schema: |
+    Calibration cases with pre-built output/ directories.
+    - Self-eval: gold standard as candidate (all dimensions 4-5)
+    - Degraded: weakened output (D2/D5/D7/D8 should score 2-3)
+
+# Relaxed thresholds for calibration -- we're validating the judges
+# themselves, not enforcing quality. Set all to 0 / 0.0 so no threshold
+# check can fail (the point is to observe scores, not gate them).
+thresholds:
+  d1_structural_completeness:
+    min_pass_rate: 0.0
+  d2_citation_quality:
+    min_mean: 0
+  d3_regulatory_mapping:
+    min_mean: 0
+  d4_consequence_framing:
+    min_mean: 0
+  d5_rating_accuracy:
+    min_mean: 0
+  d6_adversarial_durability:
+    min_mean: 0
+  d7_actionability:
+    min_mean: 0
+  d8_gap_detection:
+    min_mean: 0
