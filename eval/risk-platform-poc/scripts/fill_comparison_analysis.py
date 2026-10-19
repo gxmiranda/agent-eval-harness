@@ -164,6 +164,22 @@ def _truncate_summary(summary: dict, name: str, model: str) -> dict:
     # Cost
     result["cost_usd"] = summary.get("total_cost_usd")
 
+    # Judge cost estimation from token counts (Vertex pricing)
+    # Vertex Opus: $15/Mtok input, $75/Mtok output
+    # OpenAI Astra: approximate similar pricing
+    ju = summary.get("judge_usage") or {}
+    prompt_tokens = ju.get("prompt_tokens", 0) or 0
+    completion_tokens = ju.get("completion_tokens", 0) or 0
+    judge_cost = ju.get("judge_cost_usd")
+    if judge_cost is None and (prompt_tokens or completion_tokens):
+        # Estimate using Opus Vertex pricing as default
+        judge_cost = (prompt_tokens * 15.0 / 1_000_000
+                      + completion_tokens * 75.0 / 1_000_000)
+    result["judge_cost_usd"] = round(judge_cost, 4) if judge_cost else None
+    result["judge_requests"] = ju.get("requests", 0)
+    result["judge_prompt_tokens"] = prompt_tokens
+    result["judge_completion_tokens"] = completion_tokens
+
     return result
 
 

@@ -11,12 +11,19 @@
 # frozen-input comparison: the model can only respond with text based on
 # the prompt content, with no file reads, JIRA lookups, or other tool use.
 #
+# Output: Uses --format json and pipes through parse_opencode_json.py to:
+#   - Extract text content -> stdout (captured as stdout.log by CLI runner)
+#   - Extract token/cost telemetry -> output/metrics.json (read by CLI runner)
+#
 # Usage: run_opencode.sh <workspace> <output_dir> <model>
 set -uo pipefail
 
 workspace="$1"
 output_dir="$2"
 model="$3"
+
+# Resolve the scripts directory (where parse_opencode_json.py lives)
+script_dir="$(cd "$(dirname "$0")" && pwd)"
 
 # Read the assembled prompt from input.yaml
 prompt=$(python3 -c "
@@ -64,11 +71,13 @@ cat > "${workspace}/opencode.json" <<'LOCKDOWN'
 }
 LOCKDOWN
 
-# Run OpenCode with the plan agent (all tools denied via workspace config)
+# Run OpenCode with --format json and pipe through the parser.
+# The parser extracts text -> stdout and telemetry -> metrics.json.
 opencode run \
     --agent plan \
     --model "$model" \
     --auto \
-    --format default \
+    --format json \
     --dir "$workspace" \
-    "$prompt"
+    "$prompt" \
+  | python3 "$script_dir/parse_opencode_json.py" "$output_dir"
