@@ -1368,6 +1368,20 @@ def _run_single_case(runner, skill_name, case_id, case_ws, output_dir,
             timeout_s=timeout_s,
             extra_env=merged_env or None,
         )
+
+        # Write stdout/stderr to workspace output BEFORE after_each hooks.
+        # Hooks (e.g., run_quality_gates.py) need stdout.log to exist on
+        # disk so they can extract the candidate's analysis from it.
+        # Previously this write was after the finally block, causing hooks
+        # to find an empty output directory.
+        if result is not None:
+            _ws_output = case_ws / "output"
+            _ws_output.mkdir(parents=True, exist_ok=True)
+            if result.stdout:
+                (_ws_output / "stdout.log").write_text(result.stdout)
+            if result.stderr:
+                (_ws_output / "stderr.log").write_text(result.stderr)
+
     except Exception as exc:
         print(f"    → {case_id}: ERROR ({exc})", file=sys.stderr)
         result = None

@@ -134,7 +134,20 @@ judges:
                   gates = json.loads(content)
               except json.JSONDecodeError as exc:
                   return False, f"malformed gates.json: {exc}"
-              failed = [g for g in gates if g["number"] in [1, 2, 5] and not g["passed"]]
+              if not isinstance(gates, list) or not gates:
+                  return False, "gates.json is empty or not a list"
+              # Check for error gates (number 0 = evaluator error)
+              errors = [g for g in gates if g.get("number") == 0]
+              if errors:
+                  return False, f"Evaluator error: {errors[0].get('details', 'unknown')}"
+              # Validate that ALL required gates (1, 2, 5) exist
+              gate_numbers = {g["number"] for g in gates}
+              required = {1, 2, 5}
+              missing = required - gate_numbers
+              if missing:
+                  return False, f"Missing required gates: QC-{', QC-'.join(str(n) for n in sorted(missing))}"
+              # Check that all required gates passed
+              failed = [g for g in gates if g["number"] in required and not g["passed"]]
               if failed:
                   names = ", ".join(f"QC-{g['number']}: {g.get('details', '')}" for g in failed)
                   return False, f"Failed: {names}"
@@ -187,17 +200,23 @@ judges:
               try:
                   gates = json.loads(content)
               except json.JSONDecodeError as exc:
-                  return 1, f"malformed gates.json: {exc}"
+                  raise ValueError(f"malformed gates.json: {exc}")
+              if not isinstance(gates, list) or not gates:
+                  raise ValueError("gates.json is empty or not a list")
+              # Error gates (number 0) indicate evaluator failure, not quality
+              errors = [g for g in gates if g.get("number") == 0]
+              if errors:
+                  raise ValueError(f"Evaluator error: {errors[0].get('details', 'unknown')}")
               qc6 = next((g for g in gates if g["number"] == 6), None)
               if qc6 is None:
-                  return 1, "QC-6 gate not found in gates.json"
+                  raise ValueError("QC-6 gate not found -- quality gates did not execute successfully")
               if qc6["passed"]:
                   return 5, f"Strong consequence framing: {qc6.get('details', 'passed')}"
               details = (qc6.get("details") or "").lower()
               if "partial" in details or "some" in details:
                   return 3, f"Partial consequence framing: {qc6.get('details', '')}"
               return 2, f"Weak consequence framing: {qc6.get('details', '')}"
-      return 1, "gates.json not found in output"
+      raise ValueError("gates.json not found in output")
 
   # ═══════════════════════════════════════════════════════════════════════
   # D5: Rating Accuracy (LLM judge)
@@ -231,9 +250,9 @@ judges:
               try:
                   cr = json.loads(content)
               except json.JSONDecodeError as exc:
-                  return 1, f"malformed critique-results.json: {exc}"
+                  raise ValueError(f"malformed critique-results.json: {exc}")
               if cr.get("error"):
-                  return 3, f"Critique error (defaulting to mid-range): {cr['error']}"
+                  raise ValueError(f"Critique execution error: {cr['error']}")
               new_defects = cr.get("new_defects", 0)
               challenges = cr.get("challenges_raised", 0)
               if new_defects == 0:
@@ -246,7 +265,7 @@ judges:
                   return 2, f"{new_defects} significant new defects ({challenges} challenges)"
               else:
                   return 1, f"{new_defects} defects -- output is unreliable"
-      return 3, "critique-results.json not found (defaulting to mid-range)"
+      raise ValueError("critique-results.json not found in output")
 
   # ═══════════════════════════════════════════════════════════════════════
   # D7: Actionability of Recommendations (LLM judge)
