@@ -2,28 +2,34 @@
 #
 # Overrides task model routing via env vars so the Risk Platform's
 # AIService uses OpenAI models for critique and triage roles:
-#   - AI_MODEL_CRITIQUE=openai/gpt-6-sol (higher-tier for adversarial)
-#   - AI_MODEL_TRIAGE=openai/gpt-6-luna  (lower-tier for summaries)
+#   - AI_MODEL_CRITIQUE=openai/gpt-6.1-sol (higher-tier for adversarial)
+#   - AI_MODEL_TRIAGE=openai/gpt-6-luna    (lower-tier for summaries)
 #
-# Per GRCAUTO-43: lower-tier (Luna) for triage, audit comments, summaries;
-# higher-tier (Sol) for deep analysis + adversarial critique.
+# Per GRCAUTO-43 and current config/models.yaml:
+#   - higher-tier (gpt-6.1-sol) for deep analysis + adversarial critique
+#   - lower-tier (gpt-6-luna) for triage, audit comments, summaries
 #
 # Usage:
 #   /eval-run --config eval/risk-platform-poc/eval-opencode-openai.yaml \
-#             --model openai/gpt-6-sol
+#             --model openai/gpt-6.1-sol
 #
 # Prerequisites:
-#   - OPENAI_API_KEY set (for model invocation and task model routing)
-#   - ANTHROPIC_API_KEY set (for LLM judges -- anti self-preference bias)
+#   - OPENAI_API_KEY set (for model invocation, task routing, and judges)
 #   - OpenCode installed (`opencode --version`)
+#
+# Judge model: gpt-4.1 (standardized across all configs for fair comparison).
+# Investigation showed Opus as judge introduces systematic bias against
+# non-Opus candidates (+0.4 to +1.2 point swing). gpt-4.1 is a different
+# model family from gpt-6.1-sol (non-reasoning vs reasoning), so
+# self-preference bias is minimal.
 
 extends: eval.yaml
 
 name: risk-platform-benchmark-opencode-openai
 description: >
   GRCAUTO-114: OpenCode + OpenAI benchmark. Evaluates the OpenCode
-  runtime with OpenAI models (Sol for deep analysis, Luna for triage)
-  against the 5 gold-standard PRODSECRM risk assessments.
+  runtime with OpenAI models (gpt-6.1-sol for deep analysis, gpt-6-luna
+  for triage) against the 5 gold-standard PRODSECRM risk assessments.
 
 runner:
   type: cli
@@ -31,14 +37,14 @@ runner:
     bash {config_dir}/scripts/run_opencode.sh {workspace} {output_dir} {model}
 
 models:
-  skill: openai/gpt-6-astra
-  judge: claude-opus-4-6          # Anti self-preference bias
+  skill: openai/gpt-6.1-sol
+  judge: openai:/gpt-4.1          # Standardized judge for fair cross-model comparison
 
 hooks:
   before_all: !replace
     - command: >-
         bash "$(dirname "$AGENT_EVAL_CONFIG")/scripts/resolve_env.sh"
-        --critique-model openai/gpt-6-astra
-        --triage-model openai/gpt-6-sol
+        --critique-model openai/gpt-6.1-sol
+        --triage-model openai/gpt-6-luna
       timeout: 10
       description: "Resolve RP_PATH and set OpenAI task model routing"

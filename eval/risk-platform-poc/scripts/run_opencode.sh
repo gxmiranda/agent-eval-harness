@@ -6,10 +6,12 @@
 # prompt from input.yaml (populated by build_context.py) and passes it to
 # opencode run as a properly quoted single argument.
 #
-# Uses the built-in "plan" agent with a workspace-local opencode.json that
+# Uses the default "build" agent with a workspace-local opencode.json that
 # denies ALL permissions and disables MCP servers. This ensures a strictly
 # frozen-input comparison: the model can only respond with text based on
 # the prompt content, with no file reads, JIRA lookups, or other tool use.
+# We do NOT use --agent plan because lower-tier models (Luna) interpret
+# "plan mode" literally and refuse to generate content.
 #
 # Output: Uses --format json and pipes through parse_opencode_json.py to:
 #   - Extract text content -> stdout (captured as stdout.log by CLI runner)
@@ -73,8 +75,12 @@ LOCKDOWN
 
 # Run OpenCode with --format json and pipe through the parser.
 # The parser extracts text -> stdout and telemetry -> metrics.json.
+# No --agent flag: uses the default "build" agent. The workspace lockdown
+# opencode.json above denies ALL permissions, so the build agent can only
+# respond with text -- functionally identical to plan mode but without
+# the "plan" semantic that lower-tier models (Luna) interpret literally
+# as "don't generate content, only describe what you would do."
 opencode run \
-    --agent plan \
     --model "$model" \
     --auto \
     --format json \

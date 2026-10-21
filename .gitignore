@@ -12,7 +12,9 @@ venv/
 
 # Eval runs and state
 eval/runs/
+eval/calibration-runs/
 tmp/
+.hook-outputs.yaml
 
 # MLflow
 mlflow.db

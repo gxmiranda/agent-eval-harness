@@ -1,26 +1,27 @@
 # GRCAUTO-114 / GRCAUTO-43: Triage-tier OpenAI benchmark
 #
-# Tests lower-tier models (Sol) on triage tasks with relaxed thresholds.
-# Per GRCAUTO-43: lower-tier (Sol) for triage, audit comments, summaries.
+# Tests lower-tier models (Luna) on triage tasks with relaxed thresholds.
+# Per GRCAUTO-43 and current config/models.yaml:
+#   - lower-tier (gpt-6-luna) for triage, audit comments, summaries
 #
 # Uses the same OpenCode runner and lockdown config as the deep analysis
 # overlay, but with:
-#   - openai/gpt-6-sol as the runtime model (triage tier)
+#   - openai/gpt-6-luna as the runtime model (triage tier)
 #   - Relaxed thresholds per evaluation proposal Section 7.2
 #
 # Usage:
 #   /eval-run --config eval/risk-platform-poc/eval-opencode-openai-triage.yaml \
-#             --model openai/gpt-6-sol
+#             --model openai/gpt-6-luna
 
 extends: eval-opencode-openai.yaml
 
 name: risk-platform-benchmark-opencode-openai-triage
 description: >
-  GRCAUTO-114 triage tier: OpenCode + OpenAI Sol for routine tasks.
-  Validates that Sol is adequate for triage, audit comments, and summaries.
+  GRCAUTO-114 triage tier: OpenCode + OpenAI Luna for routine tasks.
+  Validates that Luna is adequate for triage, audit comments, and summaries.
 
 models:
-  skill: openai/gpt-6-sol
+  skill: openai/gpt-6-luna
 
 # Section 7.2 triage thresholds (relaxed from deep analysis)
 thresholds:

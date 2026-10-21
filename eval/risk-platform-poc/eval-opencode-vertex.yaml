@@ -30,4 +30,4 @@ runner:
 
 models:
   skill: google-vertex/claude-opus-4-6@default
-  judge: openai:/gpt-6-astra       # Anti self-preference: judge != candidate provider
+  judge: openai:/gpt-4.1            # Anti self-preference: judge != candidate provider

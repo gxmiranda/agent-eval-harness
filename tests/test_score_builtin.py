@@ -1417,6 +1417,25 @@ class TestOpenAIStructuredJudge:
         assert "max_completion_tokens" in self.captured
         assert "max_tokens" not in self.captured
 
+    def test_gpt6_model_uses_max_completion_tokens(self):
+        from score import _call_structured_judge_openai
+        client = self._client(tool_name="submit_evaluation",
+                              arguments={"passed": True, "rationale": "r"})
+        with patch("score._get_openai_client", return_value=client):
+            _call_structured_judge_openai("grade", "gpt-6-astra", "bool")
+        assert "max_completion_tokens" in self.captured
+        assert "max_tokens" not in self.captured
+
+    def test_reasoning_model_does_not_send_reasoning_effort(self):
+        """gpt-6-astra rejects function tools with any reasoning_effort on
+        the Chat Completions endpoint. The harness must NOT inject it."""
+        from score import _call_structured_judge_openai
+        client = self._client(tool_name="submit_evaluation",
+                              arguments={"passed": True, "rationale": "r"})
+        with patch("score._get_openai_client", return_value=client):
+            _call_structured_judge_openai("grade", "gpt-6-astra", "bool")
+        assert "reasoning_effort" not in self.captured
+
     def test_standard_model_uses_max_tokens(self):
         from score import _call_structured_judge_openai
         client = self._client(tool_name="submit_evaluation",

@@ -1,0 +1,27 @@
+# Claude Code + Anthropic/Vertex baseline benchmark
+#
+# Uses the base eval.yaml (claude-code runner with max_turns=1) but
+# overrides the judge model to OpenAI to avoid self-preference bias
+# when the candidate IS Claude Opus.
+#
+# Usage:
+#   CONFIG=eval/risk-platform-poc/eval-claude-code.yaml
+#   RUN_ID=$(date +%Y-%m-%d)-claude-code
+#   MODEL=claude-opus-4-6
+#
+# Prerequisites:
+#   - GOOGLE_CLOUD_PROJECT set (for Vertex AI candidate execution)
+#   - ANTHROPIC_VERTEX_PROJECT_ID set (for Vertex AI candidate execution)
+#   - OPENAI_API_KEY set (for LLM judges -- anti self-preference)
+#   - claude CLI installed (`claude --version`)
+
+extends: eval.yaml
+
+name: risk-platform-benchmark-claude-code
+description: >
+  Claude Code + Anthropic/Vertex baseline. Uses claude --print with
+  max_turns=1. Judge model is OpenAI gpt-6-astra to avoid self-preference
+  bias when scoring Claude Opus output.
+
+models:
+  judge: openai:/gpt-4.1

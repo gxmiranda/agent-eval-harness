@@ -1897,7 +1897,7 @@ def _openai_judge_kwargs(cfg, model_arg, provider_options=None):
 # Completions API and require `max_completion_tokens`; other models use
 # `max_tokens`. Matched on the resolved bare id (resolve_judge_backend routes
 # `o1`/`o3`/`o4` and `gpt-5…` to the OpenAI backend).
-_OPENAI_REASONING_PREFIXES = ("o1", "o3", "o4", "o5", "gpt-5")
+_OPENAI_REASONING_PREFIXES = ("o1", "o3", "o4", "o5", "gpt-5", "gpt-6")
 
 
 def _openai_token_limit_kwargs(model, max_tokens):

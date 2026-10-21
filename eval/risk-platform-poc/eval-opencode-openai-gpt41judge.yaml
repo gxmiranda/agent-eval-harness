@@ -1,0 +1,22 @@
+# Re-scoring overlay: same OpenAI run but with gpt-4.1 judge
+# instead of Claude Opus via Vertex. Isolates judge model effect
+# from candidate model quality.
+#
+# IMPORTANT: name must match the original config so score.py
+# finds the existing run directory under the same eval_name.
+#
+# Usage:
+#   # Back up Opus-judged scores first
+#   cp summary.yaml summary-opus-judge.yaml
+#
+#   # Re-score with gpt-4.1
+#   python3 skills/eval-run/scripts/score.py judges \
+#     --config eval/risk-platform-poc/eval-opencode-openai-gpt41judge.yaml \
+#     --run-id 2026-10-20-opencode-openai
+
+extends: eval-opencode-openai.yaml
+
+name: risk-platform-benchmark-opencode-openai
+
+models:
+  judge: openai:/gpt-4.1

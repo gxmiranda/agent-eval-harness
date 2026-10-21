@@ -1,5 +1,5 @@
 {% set gold = outputs.annotation_gold_analysis_content %}
-{% set candidate = outputs.files.get("analysis.md", outputs.get("conversation", "")) %}
+{% set candidate = outputs.files.get("output/analysis.md", outputs.get("conversation", "")) %}
 {% set swap = (annotations.get("gold_challenges_raised", 0) | int) % 2 == 1 %}
 {% if swap %}
 {% set output_a = candidate %}
